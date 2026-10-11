@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+._*
+
+# Source material for the page banners, not used by the site. Twenty-two 3MB
+# PNGs, 69MB in total, against 8MB for everything the site actually serves.
+# The banners in use are the generated img/banner-*-{800,1400,2048}.jpg files,
+# which ARE committed. Keep this folder locally; it does not belong in a repo
+# that GitHub Pages clones on every build.
+img/cool banners/
+
+# Editor
+.vscode/
+.idea/
+*.swp

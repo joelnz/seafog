@@ -1,0 +1,429 @@
+/* Seafog — Squarespace websites and SEO, New Zealand.
+   Visual language carried over from the ice direction: the crystal photograph
+   as the only image, a flat sampled from it, minimal typography, lots of air. */
+
+:root{
+  --flat:#cbbac6;        /* sampled from the photograph */
+  --flat-2:#d8cbd4;      /* a lighter step for alternating sections */
+  --paper:#f4f0f2;
+  --ink:#1d1b24;
+  --ink2:#4a4351;
+  --ink3:#6f6879;
+  --hair:rgba(29,27,36,.16);
+  --accent:#7c4f6d;      /* the deepest tone in the crystal, for links */
+  --pad:clamp(22px,5vw,80px);
+  /* liquid glass — tuned by hand on the old homepage nav, not currently used
+     anywhere on the site (home now uses the plain .top format like every
+     other page). Kept here on purpose so the exact settings survive — drop
+     data-glass on an element and backdrop-filter:var(--lens) blur(var(--glass-blur))
+     saturate(var(--glass-sat)) brightness(var(--glass-bright)) in its CSS
+     (see .nav.over .pill below for the full working example) to bring it back.
+     Every value below is also live on the slider panel at index.html?tune=1. */
+  --glass-blur:0.5px;
+  --glass-sat:2.4;
+  --glass-bright:0.74;
+  --glass-tint:48,45,53;   /* 255,255,255 = clear · 20,16,26 = smoked */
+  --glass-tint-a:0.12;
+  --glass-edge:0.7;           /* the lit bevel along the top */
+  --glass-edge-side:0.4;
+  --glass-shadow:1;
+  --nav-ink:rgb(255,255,255);
+  --nav-halo:0.46;
+  /* colour-theory hero — experimental, off by default. See the .color-hero
+     block further down: --ch-a/b/c are three hues related by an actual
+     scheme (complementary etc.), computed from --ch-hue in the tuner rather
+     than picked by eye. These are just the fallback before the tuner runs. */
+  --ch-a:#cbbac6;
+  --ch-b:#a6c9c4;
+  --ch-c:#e8b23f;
+  --ch-ink:#1d1b24;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+p{margin:0}
+img{display:block;max-width:100%}
+a{color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* a compact hero for inner pages — full banner, text in a flat card.
+   The homepage used to open on a full-viewport photo hero (a sticky crystal
+   shot behind a left-bleed statement card, with its own nav treatment) — that
+   whole block, and the .nav.over/.pill/.docked skin that rode on top of it,
+   has been retired in favour of every page sharing this one .top format. The
+   nav skin's rules are left further down, kept on purpose (see the --glass-*
+   comment in :root) rather than deleted with the layout that used them. */
+.top {
+  position: relative;
+  overflow: hidden;
+  /* Equal space top and bottom, roughly header height */
+  padding: 80px 0;
+}
+.top .banner {
+  /* oversized and pulled up so parallax.js can drift it on scroll without
+     ever exposing empty space above or below at the edges of .top */
+  position: absolute;
+  left: 0;
+  top: -20%;
+  width: 100%;
+  height: 140%;
+  object-fit: cover;
+  z-index: 0;
+  will-change: transform;
+}
+@media(prefers-reduced-motion:reduce){.top .banner{transform:none!important}}
+.top .in {
+  position: relative;
+  z-index: 2;
+  margin: 0; /* Stick to left edge */
+  border-radius:0; /* Sharp corners */
+  
+  /* Sizing: scale with screen but cap so text line length stays readable */
+  width: 85%;
+  max-width: calc(max(var(--pad), min(50vw - 590px, 160px)) + 760px);
+
+  /* Padding top/bottom and right */
+  padding: clamp(36px, 5vh, 60px) clamp(24px, 4vw, 48px);
+
+  /* Magic left padding: keeps text perfectly aligned with the 1180px page grid.
+     Capped at 160px — past roughly a 1500px viewport this term would otherwise
+     keep growing forever, ballooning the card into a mostly-empty slab on
+     anything wider (a 2000px screen pushed it past 400px of dead padding). */
+  padding-left: max(var(--pad), min(calc(50vw - 590px), 160px));
+}
+@media (max-width: 700px) {
+  .top .in { width: 100%; }
+}
+
+/* Banner themes (flat backgrounds applied to the card) */
+.top.theme-seo .in { background: #344048; color: #fff; }
+.top.theme-seo h1, .top.theme-seo .lede { color: #fff; text-shadow: none; }
+.top.theme-seo .crumb, .top.theme-seo .crumb a { color: #9bb1c0; }
+.top.theme-seo .crumb a:hover { color: #fff; }
+
+.top.theme-contact .in { background: #f4e6e8; color: var(--ink); }
+.top.theme-contact h1 { color: var(--ink); }
+.top.theme-contact .lede { color: var(--ink2); }
+.top.theme-contact .crumb { color: #8a5a6a; }
+
+.top.theme-pricing .in { background: #e3e8f0; color: var(--ink); }
+.top.theme-pricing h1 { color: var(--ink); }
+.top.theme-pricing .lede { color: var(--ink2); }
+.top.theme-pricing .crumb { color: #5a7494; }
+
+.top.theme-design .in { background: #d9eef2; color: var(--ink); }
+.top.theme-design h1 { color: var(--ink); }
+.top.theme-design .lede { color: var(--ink2); }
+.top.theme-design .crumb { color: #43818e; }
+
+.top.theme-home .in { background: #c6b6ce; color: var(--ink); }
+.top.theme-home h1 { color: var(--ink); }
+.top.theme-home .lede { color: var(--ink2); }
+.top.theme-home .crumb { color: var(--accent); }
+.top.theme-home .btn { background: var(--ink); color: var(--paper); }
+.top.theme-home .btn:hover { background: #000; }
+.top.theme-home .ghost { color: var(--ink2); border-bottom-color: var(--hair); }
+.top.theme-home .ghost:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ---- experimental: colour-theory hero, no photo — toggled from the tune
+   panel. The banner photo is hidden and .top becomes two flat colour blocks
+   plus a circle, all three genuinely related (not picked by eye): the tuner
+   turns one base hue into a real complementary / split-complementary /
+   analogous / triadic set and writes the results into --ch-a/b/c. */
+.color-hero .top .banner{display:none}
+.color-hero .top{background:var(--ch-a)}
+.color-hero .top::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:var(--ch-b);
+  clip-path:polygon(60% 0,100% 0,100% 100%,38% 100%)}
+.color-hero .top::after{content:"";position:absolute;z-index:1;pointer-events:none;
+  width:clamp(200px,var(--ch-shape-vw,30vw),440px);height:clamp(200px,var(--ch-shape-vw,30vw),440px);
+  border-radius:50%;background:var(--ch-c);right:clamp(-40px,3vw,60px);top:50%;transform:translateY(-50%)}
+.color-hero .top .in{background:transparent;box-shadow:none}
+.color-hero .top h1,.color-hero .top .lede{color:var(--ch-ink);text-shadow:none;opacity:1}
+.color-hero .top .crumb,.color-hero .top .crumb a{color:var(--ch-ink);opacity:.66}
+.color-hero .top .crumb a:hover{opacity:1}
+.color-hero .top .btn{background:var(--ch-ink);color:var(--ch-a)}
+.color-hero .top .btn:hover{opacity:.86}
+.color-hero .top .ghost{color:var(--ch-ink);border-bottom-color:currentColor;opacity:.8}
+.color-hero .top .ghost:hover{opacity:1}
+@media(max-width:700px){
+  .color-hero .top::before{clip-path:polygon(0 76%,100% 58%,100% 100%,0 100%)}
+  /* tucked into the top-right corner rather than floating over the crumb —
+     a corner peek reads as a deliberate accent, a dead-centre overlap reads
+     as a mistake */
+  .color-hero .top::after{width:clamp(110px,38vw,190px);height:clamp(110px,38vw,190px);
+    right:-8%;left:auto;top:-8%;transform:none}
+}
+
+.crumb{font-size:clamp(11px,.9vw,13.5px);font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:clamp(14px,2vw,24px)}
+.crumb a{text-decoration:none}
+.crumb a:hover{color:var(--ink)}
+
+/* ---------------- sections ---------------- */
+section{padding:clamp(56px,9vh,130px) var(--pad)}
+.in{max-width:1180px;margin:0 auto}
+.narrow{max-width:820px}
+
+
+/* a fine paper grain on the full-bleed colour bands (section style="background:
+   var(--flat)" or var(--flat-2)), so a flat colour slab reads as textured
+   material rather than a dead corporate block. Matched to each section via an
+   attribute selector on the literal inline style, since these are the only
+   two flat tones used that way */
+section[style*="var(--flat"]{position:relative}
+section[style*="var(--flat"] > .in{position:relative;z-index:1}
+section[style*="var(--flat"]::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.28;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+
+h1{margin:0;font-weight:500;letter-spacing:-.035em;line-height:1.08;
+  font-size:clamp(27px,3.8vw,60px);max-width:22ch}
+h1 b{font-weight:600}
+.top h1{max-width:20ch}
+h2{margin:0;font-weight:600;letter-spacing:-.03em;line-height:1.12;
+  font-size:clamp(23px,2.9vw,44px);max-width:26ch}
+h3{margin:0;font-weight:600;letter-spacing:-.022em;line-height:1.25;font-size:clamp(17px,1.5vw,22px)}
+.lede{margin-top:clamp(16px,2.4vw,28px);max-width:62ch;color:var(--ink2);
+  font-size:clamp(16px,1.25vw,19.5px);line-height:1.6}
+.body{margin-top:clamp(14px,1.8vw,22px);max-width:66ch;color:var(--ink2);font-size:16.5px}
+.body + .body{margin-top:14px}
+.body b{color:var(--ink);font-weight:600}
+
+/* ---------------- cards, lists, prices ---------------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:clamp(14px,1.8vw,24px);margin-top:clamp(28px,4vw,52px)}
+.card{background:#fff;border:1px solid var(--hair);border-top:3px solid var(--accent);
+  padding:clamp(20px,2.4vw,32px)}
+.card p{margin-top:10px;color:var(--ink2);font-size:15.5px}
+.card .price{margin-top:14px;font-weight:600;color:var(--accent);font-size:16px}
+.card a{color:var(--accent);font-weight:500}
+
+/* the four city cards each get their own colour rather than sharing the
+   single site accent, so the block reads as four distinct places rather
+   than four repeats of the same card. Same family of deep, muted tones as
+   the rest of the palette (plum/ink), not brighter, so it still reads
+   as one site */
+.card[data-city="wellington"]{border-top-color:#7c4f6d}
+.card[data-city="wellington"] h3{color:#7c4f6d}
+.card[data-city="wellington"] a{color:#7c4f6d}
+.card[data-city="christchurch"]{border-top-color:#96603f}
+.card[data-city="christchurch"] h3{color:#96603f}
+.card[data-city="christchurch"] a{color:#96603f}
+.card[data-city="auckland"]{border-top-color:#3d5568}
+.card[data-city="auckland"] h3{color:#3d5568}
+.card[data-city="auckland"] a{color:#3d5568}
+.card[data-city="queenstown"]{border-top-color:#3f6b5e}
+.card[data-city="queenstown"] h3{color:#3f6b5e}
+.card[data-city="queenstown"] a{color:#3f6b5e}
+
+.rows{margin-top:clamp(28px,4vw,52px);border-top:1px solid var(--hair)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) max-content;
+  gap:clamp(14px,2.4vw,40px);align-items:baseline;
+  padding:clamp(18px,2.2vw,28px) 0;border-bottom:1px solid var(--hair)}
+.row .n{font-weight:600;letter-spacing:-.02em;font-size:clamp(16px,1.35vw,20px)}
+.row p{color:var(--ink2);font-size:15.5px}
+.row .amt{font-weight:600;white-space:nowrap;font-size:clamp(16px,1.35vw,20px)}
+@media(max-width:720px){.row{grid-template-columns:minmax(0,1fr);gap:6px}}
+
+ul.ticks{margin:clamp(18px,2.4vw,28px) 0 0;padding:0;list-style:none;max-width:66ch}
+ul.ticks li{position:relative;padding-left:26px;color:var(--ink2);font-size:16px}
+ul.ticks li + li{margin-top:9px}
+ul.ticks li::before{content:"";position:absolute;left:2px;top:9px;width:9px;height:9px;
+  border-radius:0;background:var(--accent)}
+
+/* ---------------- actions ---------------- */
+.act{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:clamp(24px,3.4vw,40px)}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+  font-size:15.5px;font-weight:600;padding:15px 28px;border:0;border-radius:0;cursor:pointer}
+.btn:hover{background:#000}
+.ghost{font-size:15.5px;color:var(--ink2);text-decoration:none;
+  border-bottom:1px solid var(--hair);padding-bottom:2px}
+.ghost:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* ---------------- form ---------------- */
+.form{margin-top:clamp(22px,3vw,34px);max-width:640px}
+.form label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.form input,.form select,.form textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);
+  background:#fff;border:1px solid var(--hair);border-radius:0;padding:13px 15px}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--ink);
+  outline-offset:-2px}
+.form .f + .f{margin-top:14px}
+.form textarea{min-height:130px;resize:vertical}
+.hp{position:absolute;left:-9999px}
+
+/* ---------------- nav + footer ---------------- */
+.nav{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--hair);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:clamp(12px,1.5vw,18px) var(--pad);
+  transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s ease}
+/* -101% so the border-bottom clears the viewport with the bar */
+.nav[data-hidden]{transform:translateY(-101%)}
+.nav[data-stuck]{box-shadow:0 2px 18px rgba(29,27,36,.09)}
+@media(prefers-reduced-motion:reduce){.nav{transition:none}}
+
+.nav .brand{font-weight:600;letter-spacing:-.03em;font-size:17px;text-decoration:none;
+  transition:background .2s ease,box-shadow .2s ease,padding .2s ease}
+.nav ul{display:flex;gap:clamp(14px,2vw,30px);margin:0;padding:0;list-style:none;
+  flex-wrap:wrap;font-size:14.5px}
+.nav a{color:var(--ink2);text-decoration:none}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--ink)}
+.nav a[aria-current="page"]{font-weight:600}
+
+/* over the photograph: no bar, no scrim — the type carries itself.
+   Fixed, so the glass follows you down the page. */
+.nav.over{position:fixed;top:0;left:0;right:0;z-index:20;background:transparent;
+  border-bottom:0;padding-top:clamp(16px,2.2vh,26px);
+  transition:padding-top .25s ease}
+.nav.over a{color:var(--nav-ink);font-weight:500;
+  text-shadow:0 0 3px rgba(18,14,24,calc(var(--nav-halo) * 1.08)),
+              0 0 12px rgba(18,14,24,var(--nav-halo)),
+              0 0 34px rgba(18,14,24,calc(var(--nav-halo) * .85)),
+              0 1px 2px rgba(18,14,24,calc(var(--nav-halo) * .77))}
+.nav.over .brand{font-size:19px}
+.nav.over a:hover{color:#fff;opacity:.85}
+
+/* ---- liquid glass: the menu sits in a pill that refracts the photograph ----
+   Two chained displacement maps bend the backdrop at the pill's edges, run
+   three times at slightly different strengths so the R, G and B channels take
+   different paths — that colour at the rim is the chromatic aberration real
+   glass has. Both ramps sample inward: a backdrop-filter has nothing outside
+   the element's own box, so a lens pulling the other way tears at the edge. */
+.nav.over .pill{position:relative;border-radius:0;padding:5px;
+  -webkit-backdrop-filter:blur(14px) saturate(1.5);
+  backdrop-filter:blur(14px) saturate(1.5);
+  background:rgba(var(--glass-tint),var(--glass-tint-a));
+  box-shadow:
+    inset 0 1.4px 0 rgba(255,255,255,var(--glass-edge)),
+    inset 0 -1.2px 0 rgba(255,255,255,calc(var(--glass-edge) * .29)),
+    inset 1.2px 0 0 rgba(255,255,255,var(--glass-edge-side)),
+    inset -1.2px 0 0 rgba(255,255,255,var(--glass-edge-side)),
+    inset 0 0 20px rgba(255,255,255,calc(var(--glass-edge) * .16)),
+    0 16px 36px -20px rgba(10,6,16,var(--glass-shadow))}
+/* a bevel catching the light across the top-left */
+.nav.over .pill::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(128deg,rgba(255,255,255,calc(var(--glass-edge) * .42)) 0%,
+    rgba(255,255,255,calc(var(--glass-edge) * .1)) 30%,
+    rgba(255,255,255,0) 56%,rgba(255,255,255,calc(var(--glass-edge) * .13)) 100%)}
+.lens-on .nav.over .pill{
+  -webkit-backdrop-filter:var(--lens) blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(var(--glass-bright));
+  backdrop-filter:var(--lens) blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(var(--glass-bright))}
+.nav.over .pill ul{gap:2px;font-size:14.5px;flex-wrap:nowrap;white-space:nowrap}
+.nav.over .pill a{display:block;padding:9px 16px;border-radius:0}
+.nav.over .pill a:hover{opacity:1;background:rgba(255,255,255,.16)}
+
+/* the pill has to stay one row: a two-line pill turns the lens into a smear */
+@media(max-width:700px){
+  .nav.over{padding-left:16px;padding-right:16px}
+  .nav.over .brand{font-size:17px}
+  .nav.over .pill{padding:4px}
+  .nav.over .pill ul{font-size:11.5px;gap:0}
+  .nav.over .pill a{padding:8px 7px}
+}
+/* past the photograph there is nothing to refract — the pill turns to paper */
+.nav.over.docked{--nav-ink:var(--ink);--nav-halo:0;padding-top:10px;padding-bottom:10px}
+.nav.over.docked .pill,.lens-on .nav.over.docked .pill{
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);background:rgba(255,255,255,.72);
+  box-shadow:inset 0 0 0 1px rgba(29,27,36,.07),0 10px 30px -18px rgba(10,6,16,.45)}
+.nav.over.docked .pill::after{opacity:0}
+.nav.over.docked .pill a{color:var(--ink2)}
+.nav.over.docked .pill a:hover{background:rgba(29,27,36,.06);color:var(--ink)}
+/* over content there is no bar behind it, so the wordmark gets its own pill
+   rather than letting paragraphs scroll through it */
+.nav.over.docked .brand{color:var(--ink);background:rgba(255,255,255,.72);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);
+  padding:8px 18px;border-radius:0;
+  box-shadow:inset 0 0 0 1px rgba(29,27,36,.07),0 10px 30px -18px rgba(10,6,16,.45)}
+
+/* ---- floating quote button: the liquid glass pill, reused ----
+   Same recipe as .nav.over .pill (see the --glass-* comment in :root) —
+   fixed bottom-right, on every page, so it's a lens over whatever section
+   happens to be scrolled underneath rather than tied to one photo. */
+.fab{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:30;
+  display:flex;align-items:center;gap:8px;border-radius:0;padding:16px 24px 16px 22px;
+  font-weight:600;font-size:15px;color:var(--nav-ink);text-decoration:none;
+  -webkit-backdrop-filter:blur(14px) saturate(1.5);
+  backdrop-filter:blur(14px) saturate(1.5);
+  background:rgba(var(--glass-tint),var(--glass-tint-a));
+  box-shadow:
+    inset 0 1.4px 0 rgba(255,255,255,var(--glass-edge)),
+    inset 0 -1.2px 0 rgba(255,255,255,calc(var(--glass-edge) * .29)),
+    inset 1.2px 0 0 rgba(255,255,255,var(--glass-edge-side)),
+    inset -1.2px 0 0 rgba(255,255,255,var(--glass-edge-side)),
+    inset 0 0 20px rgba(255,255,255,calc(var(--glass-edge) * .16)),
+    0 16px 36px -20px rgba(10,6,16,var(--glass-shadow));
+  text-shadow:0 0 3px rgba(18,14,24,calc(var(--nav-halo) * 1.08)),
+              0 0 12px rgba(18,14,24,var(--nav-halo)),
+              0 0 34px rgba(18,14,24,calc(var(--nav-halo) * .85));
+  transition:transform .18s ease,opacity .18s ease}
+.fab::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  mix-blend-mode:screen;
+  background:linear-gradient(128deg,rgba(255,255,255,calc(var(--glass-edge) * .42)) 0%,
+    rgba(255,255,255,calc(var(--glass-edge) * .1)) 30%,
+    rgba(255,255,255,0) 56%,rgba(255,255,255,calc(var(--glass-edge) * .13)) 100%)}
+.fab:hover{transform:translateY(-2px)}
+/* the footer carries the same contact details, so the fab steps aside once
+   it's in view rather than sitting on top of them */
+.fab.is-hidden{opacity:0;transform:translateY(12px);pointer-events:none}
+.lens-on .fab{
+  -webkit-backdrop-filter:var(--lens) blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(var(--glass-bright));
+  backdrop-filter:var(--lens) blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(var(--glass-bright))}
+@media(max-width:540px){.fab{padding:14px 20px 14px 18px;font-size:14px}}
+
+/* ---- experimental: glass banner card, toggled from index.html?tune=1 ----
+   Same lens and the same --glass-* tokens as the nav pill and the fab, just
+   pointed at .top .in instead: swaps the flat theme colour for a translucent
+   tinted card so the banner's own photo and colour show through it rather
+   than being covered by a solid block. .top .in already carries data-glass
+   on every page, so the sized filter for it always exists — this block is
+   what actually switches it on. Off unless the .glass-banner class is
+   present on <html>, which only happens via the tune-panel switch. */
+.glass-banner .top .in{
+  background:rgba(var(--glass-tint),var(--glass-tint-a));
+  -webkit-backdrop-filter:blur(14px) saturate(1.5);
+  backdrop-filter:blur(14px) saturate(1.5);
+  box-shadow:
+    inset 0 1.4px 0 rgba(255,255,255,var(--glass-edge)),
+    inset 0 -1.2px 0 rgba(255,255,255,calc(var(--glass-edge) * .29)),
+    inset 1.2px 0 0 rgba(255,255,255,var(--glass-edge-side)),
+    inset -1.2px 0 0 rgba(255,255,255,var(--glass-edge-side)),
+    inset 0 0 30px rgba(255,255,255,calc(var(--glass-edge) * .16)),
+    0 24px 54px -26px rgba(10,6,16,var(--glass-shadow))}
+.glass-banner .top .in::after{content:"";position:absolute;inset:0;pointer-events:none;
+  mix-blend-mode:screen;
+  background:linear-gradient(128deg,rgba(255,255,255,calc(var(--glass-edge) * .42)) 0%,
+    rgba(255,255,255,calc(var(--glass-edge) * .1)) 30%,
+    rgba(255,255,255,0) 56%,rgba(255,255,255,calc(var(--glass-edge) * .13)) 100%)}
+.glass-banner.lens-on .top .in{
+  -webkit-backdrop-filter:var(--lens) blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(var(--glass-bright));
+  backdrop-filter:var(--lens) blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(var(--glass-bright))}
+.glass-banner .top h1,.glass-banner .top .lede{color:var(--nav-ink)}
+.glass-banner .top h1{text-shadow:0 0 3px rgba(18,14,24,calc(var(--nav-halo) * 1.3)),
+  0 0 16px rgba(18,14,24,calc(var(--nav-halo) * 1.2)),0 0 40px rgba(18,14,24,var(--nav-halo))}
+.glass-banner .top .lede{opacity:.92;text-shadow:0 0 3px rgba(18,14,24,calc(var(--nav-halo) * 1.1)),
+  0 0 20px rgba(18,14,24,var(--nav-halo))}
+.glass-banner .top .crumb,.glass-banner .top .crumb a{color:rgba(255,255,255,.72)}
+.glass-banner .top .crumb a:hover{color:#fff}
+.glass-banner .top .btn{background:#fff;color:var(--ink)}
+.glass-banner .top .btn:hover{background:rgba(255,255,255,.86)}
+.glass-banner .top .ghost{color:#fff;border-bottom-color:rgba(255,255,255,.4)}
+.glass-banner .top .ghost:hover{color:#fff;border-bottom-color:#fff}
+
+footer{background:var(--flat-2);padding:clamp(40px,6vh,80px) var(--pad)}
+footer .in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));
+  gap:clamp(20px,3vw,44px)}
+footer h4{margin:0 0 12px;font-size:12px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3)}
+footer ul{margin:0;padding:0;list-style:none;font-size:15.5px}
+footer li + li{margin-top:7px}
+footer a{color:var(--ink2);text-decoration:none}
+footer a:hover{color:var(--ink)}
+.legal{max-width:1180px;margin:clamp(30px,5vh,60px) auto 0;padding-top:20px;
+  border-top:1px solid var(--hair);font-size:13.5px;color:var(--ink3);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+

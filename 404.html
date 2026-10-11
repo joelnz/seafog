@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#f4f0f2">
+<title>Page Not Found | Seafog</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="index.html">seafog.nz</a>
+  <ul>
+    <li><a href="squarespace-website-design.html">Website design</a></li>
+    <li><a href="squarespace-website-cost.html">Pricing</a></li>
+    <li><a href="seo.html">SEO</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<div class="top theme-contact">
+  <img class="banner" alt=""
+       src="img/banner-contact-1400.jpg"
+       srcset="img/banner-contact-800.jpg 800w, img/banner-contact-1400.jpg 1400w, img/banner-contact-2048.jpg 2048w"
+       sizes="100vw" decoding="async">
+  <div class="in" data-glass>
+    <p class="crumb">Error 404</p>
+    <h1>That page doesn't exist.</h1>
+    <p class="lede">The link might be old, or the address was mistyped. Here's where the site actually lives.</p>
+  </div>
+</div>
+
+<section>
+  <div class="in narrow">
+    <h2>Try one of these</h2>
+    <ul class="ticks">
+      <li><a href="squarespace-website-design.html">Squarespace website design</a></li>
+      <li><a href="squarespace-website-cost.html">What a site costs</a></li>
+      <li><a href="seo.html">Search engine optimisation</a></li>
+      <li><a href="contact.html">Get in touch</a></li>
+    </ul>
+    <div class="act">
+      <a class="btn" href="index.html">Back to the homepage</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="glass.js"></script>
+<script src="parallax.js"></script>
+<script src="nav.js"></script>
+<script src="reveal.js"></script>
+
+<script>
+/* dev only: ?tune=1 loads the glass sliders and the banner image test drop */
+if (location.search.indexOf('tune=1') > -1) {
+  ['glass-tuner.js', 'banner-test.js'].forEach(function (src) {
+    var t = document.createElement('script'); t.src = src; document.body.appendChild(t);
+  });
+}
+</script>
+</body>
+</html>
