@@ -199,3 +199,31 @@ button.btn{font-family:var(--menu)}
 .counter[hidden]{display:none}
 .odo{display:inline-block;margin-left:4px;padding:1px;background:#000;border:2px inset #999;vertical-align:middle;
   font:bold 13px/1 "Courier New",monospace;color:#3f3;letter-spacing:5px;padding-left:4px;text-shadow:0 0 3px rgba(51,255,51,.7)}
+
+/* sidebar: an original iPhone in ChatGPT voice mode */
+.box-gpt p:last-child{margin:0;padding:0 10px 10px;font-size:12px}
+.iphone{position:relative;width:118px;margin:12px auto 10px;padding:22px 7px 30px;border-radius:18px;background:#0d0d0d;
+  box-shadow:0 0 0 3px #c9ccd1,0 0 0 4px #8a8e94,inset 0 1px 0 #444,2px 3px 6px rgba(0,0,0,.35)}
+.iphone-ear{position:absolute;top:10px;left:50%;width:26px;height:4px;margin-left:-13px;border-radius:2px;background:#333}
+.iphone-home{position:absolute;bottom:6px;left:50%;width:19px;height:19px;margin-left:-10px;border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,#2a2a2a,#0a0a0a);box-shadow:inset 0 0 0 1px #444}
+.iphone-home::after{content:"";position:absolute;inset:6px;border:1px solid #777;border-radius:2px}
+.iphone-screen{position:relative;height:150px;overflow:hidden;background:#000;border:1px solid #222;
+  display:flex;flex-direction:column;align-items:center}
+.iphone-bar{display:flex;justify-content:space-between;align-self:stretch;padding:1px 3px;
+  background:linear-gradient(#555,#222);font:bold 6px/8px Helvetica,Arial,sans-serif;color:#fff}
+.iphone-ask{margin:9px 7px 0;font:9px/1.25 Helvetica,Arial,sans-serif;color:#9aa0a6;text-align:center}
+.orb{position:relative;width:62px;height:62px;margin:auto 0 16px;border-radius:50%;overflow:hidden;
+  background:radial-gradient(circle at 50% 60%,#bfe6ff 0,#4fa8ff 30%,#1561e8 62%,#082a86 100%);
+  box-shadow:0 0 16px rgba(70,160,255,.6);animation:orb-breathe 3.2s ease-in-out infinite}
+.orb::before,.orb::after{content:"";position:absolute;inset:-25%;mix-blend-mode:screen}
+.orb::before{border-radius:42% 58% 55% 45%;filter:blur(2.5px);
+  background:conic-gradient(from 0deg,transparent 0 8%,#fff 14%,transparent 24% 46%,#cdeeff 54%,transparent 64% 80%,
+  rgba(255,255,255,.85) 88%,transparent 96%);animation:orb-spin 4.5s linear infinite}
+.orb::after{border-radius:55% 45% 40% 60%;filter:blur(4px);
+  background:radial-gradient(ellipse 60% 25% at 50% 35%,rgba(255,255,255,.9),transparent 70%),
+  radial-gradient(ellipse 45% 20% at 40% 70%,rgba(160,225,255,.9),transparent 70%);
+  animation:orb-spin 6.5s linear infinite reverse}
+@keyframes orb-spin{to{transform:rotate(360deg)}}
+@keyframes orb-breathe{0%,100%{transform:scale(.92)}50%{transform:scale(1.04)}}
+@media(prefers-reduced-motion:reduce){.orb,.orb::before,.orb::after{animation:none}}
