@@ -82,9 +82,9 @@ main{padding:16px 22px 28px;min-width:0}
 .box-links a:visited{color:var(--blue-d)}
 .box-links a:hover{background:#c8daee;text-decoration:underline;color:var(--blue-d)}
 .box-me img{width:100%;height:auto;background:#fff;border-bottom:1px solid var(--line)}
-.box-me p{margin:0;padding:8px 10px 10px;font-size:12px;line-height:1.5}
+.box-me p:not(.box-h){margin:0;padding:8px 10px 10px;font-size:12px;line-height:1.5}
 @media(max-width:800px){.box-me img{max-width:240px;margin:0 auto}}
-.box-quote p{margin:0;padding:10px 10px 0;font-size:12px;line-height:1.5}
+.box-quote p:not(.box-h){margin:0;padding:10px 10px 0;font-size:12px;line-height:1.5}
 .box-quote p:last-child{padding-bottom:12px}
 
 /* ---------------- type ---------------- */
