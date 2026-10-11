@@ -1,0 +1,92 @@
+/* Seafog home, 2003 edition. Loaded after style.css, on index.html only.
+   A banner box, a welcome, the search panel (home.js climbs "Your business"
+   to the top), three service boxes with pictures, and panels below. */
+
+/* ---------------- banner ---------------- */
+.banner{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:16px;align-items:center;margin:0 0 6px;
+  padding:20px;background:linear-gradient(135deg,#2c5f93,#4a82bd);border:1px solid #234f7d;color:#fff}
+.banner h1{margin:0 0 10px;font-size:28px;line-height:1.2;color:#fff}
+.banner p{margin:0 0 8px;font-size:14px;color:#e8f0f8}
+.banner .act{margin:14px 0 0}
+.banner-img{width:240px;height:auto;border:4px solid #fff}
+@media(max-width:640px){
+  .banner{grid-template-columns:minmax(0,1fr)}
+  .banner-img{width:100%}
+  .banner h1{font-size:24px}
+}
+
+/* ---------------- panels ---------------- */
+.panel{margin:18px 0;border:1px solid var(--line)}
+.panel > .box-h{font-size:15px}
+.panel-body{padding:12px 14px 4px}
+
+/* ---------------- the search ----------------
+   Results set like a 2003 search engine: blue underlined titles, green
+   addresses. Your row is the only one tinted. */
+.serp-search{display:flex;gap:6px;margin-bottom:6px}
+.serp-search input{flex:1;min-width:0;padding:4px 6px;border:1px solid #7f9db9;border-radius:0;background:#fff;
+  font:inherit;font-size:14px;color:#000;-webkit-appearance:none;appearance:none}
+.serp-search input::-webkit-search-cancel-button{display:none}
+.serp-search input:focus{outline:2px solid var(--orange);outline-offset:0}
+.serp-try{margin:0 0 10px;font-size:12px;color:var(--text3)}
+.serp-try button{border:0;background:none;padding:0;font:inherit;color:var(--link);text-decoration:underline;cursor:pointer}
+.serp-try button:hover{color:var(--orange-d)}
+.serp-try button[aria-pressed="true"]{color:var(--visited)}
+
+.serp-list{--row:50px;position:relative;list-style:none;margin:0 0 8px;padding:0;height:calc(var(--row) * 6);
+  border-top:1px solid #d6e2ee;overflow:hidden}
+.serp-list li{position:absolute;left:0;right:0;top:0;height:var(--row);display:grid;
+  grid-template-columns:2em minmax(0,1fr);align-items:center;padding:0 6px;background:#fff;
+  border-bottom:1px solid #eef2f6;transition:transform .35s ease}
+.serp-list .rk{font-size:12px;color:#999}
+.serp-list .t{min-width:0}
+.serp-list .t b{display:block;font-weight:normal;font-size:14px;color:var(--link);text-decoration:underline;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.serp-list .t span{display:block;font-size:12px;color:#008000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.serp-list li.you{z-index:2;background:#fff1e0;border-left:4px solid var(--orange)}
+.serp-list li.you .rk{color:var(--orange-d);font-weight:bold}
+.serp-list li.you .t b{font-weight:bold;color:#000;text-decoration:none}
+@media(prefers-reduced-motion:reduce){.serp-list li{transition:none}}
+.serp-note{font-size:12px;color:var(--text3)}
+
+/* ---------------- three service boxes ---------------- */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.tri{display:flex;flex-direction:column;border:1px solid var(--line);background:#fff}
+.tri .box-h{margin:0;font-size:14px}
+.tri img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.tri p{margin:0;padding:8px 10px 0;font-size:13px;color:var(--text2)}
+.tri p:last-child{margin-top:auto;padding-bottom:10px}
+.tri .tri-price{font-weight:bold;color:var(--orange-d)}
+@media(max-width:800px){.three{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------------- cities table ---------------- */
+.cities{width:100%;margin:6px 0 12px;border-collapse:collapse;border:1px solid var(--line);font-size:13px}
+.cities th,.cities td{padding:7px 9px;text-align:left;vertical-align:top;border:1px solid #c9d8e7}
+.cities thead th{background:linear-gradient(#f3f8fd,var(--blue-l));font-family:var(--menu);font-size:12px;color:var(--blue-d)}
+.cities tbody th{font-family:var(--head);font-size:14px;color:var(--blue-d);white-space:nowrap}
+.cities tbody tr:nth-child(even){background:var(--blue-ll)}
+.cities td:last-child{white-space:nowrap}
+@media(max-width:600px){
+  .cities thead{display:none}
+  .cities,.cities tbody,.cities tr,.cities th,.cities td{display:block;width:auto}
+  .cities td,.cities th{border:0}
+  .cities tr{border-top:1px solid #c9d8e7}
+}
+
+.talk{margin:20px 0 0;padding:12px 14px;border:1px dashed var(--orange);background:#fff8f0;font-weight:bold}
+.talk .btn{margin-left:8px}
+
+/* Get found on... Goooooooogle: the 1999 serif logo, bevelled and drop-shadowed */
+.goog-h{margin:0;padding:10px 14px 4px;border-bottom:1px solid var(--line);font-weight:normal;line-height:1}
+.goog-pre{display:block;margin-bottom:2px;font-family:var(--menu);font-size:13px;font-weight:bold;color:var(--text3)}
+.goog{display:inline-block;font-family:"Book Antiqua",Palatino,"Palatino Linotype",Georgia,serif;font-size:44px;
+  font-weight:normal;letter-spacing:-1px;
+  text-shadow:-1px -1px 0 rgba(255,255,255,.6),1px 1px 0 rgba(0,0,0,.35),3px 3px 3px rgba(0,0,0,.35)}
+.goog .b{color:#1a49c8}.goog .r{color:#d1222a}.goog .y{color:#e8a800}.goog .g{color:#1e9a3a}
+@media(max-width:480px){.goog{font-size:32px}}
+
+/* wet floor: the banner image reflected below itself, fading out */
+.wet{display:flex;flex-direction:column;align-self:start;margin-top:8px}
+.wet-reflect{margin-top:1px;aspect-ratio:640/230;overflow:hidden;pointer-events:none}
+.wet-reflect img{display:block;transform:scaleY(-1);opacity:.6;
+  -webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 60%);mask-image:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 60%)}

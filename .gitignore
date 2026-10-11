@@ -13,3 +13,8 @@ img/cool banners/
 .vscode/
 .idea/
 *.swp
+
+# AI tooling installed into this folder, not part of the site
+.agents/
+.claude/
+skills-lock.json

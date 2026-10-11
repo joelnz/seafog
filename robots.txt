@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+# Keep the sidebar photo of me out of Google Images and other search results
+Disallow: /img/me.jpg
+
 Sitemap: https://seafog.nz/sitemap.xml

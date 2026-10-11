@@ -33,57 +33,6 @@
 
   function mix(a, b, t) { return Math.round(a + (b - a) * t); }
 
-  // ---- colour-theory hero: one base hue, turned into a real scheme -------
-  var CH = {
-    on: false,
-    scheme: "split",   // complementary | split | analogous | triadic
-    hue: 320,          // matches the brand plum's own hue
-    sat: 30,
-    light: 42,
-    shape: 30          // circle size, vw
-  };
-
-  // glass.js already read this same key on page load and set the html class
-  // to match, before this script ever runs — restoring the rest of CH here
-  // just brings the sliders' starting positions into line with it.
-  try {
-    var savedCh = JSON.parse(localStorage.getItem("seafog-color-hero"));
-    if (savedCh) { for (var k in CH) if (k in savedCh) CH[k] = savedCh[k]; }
-  } catch (e) {}
-
-  function hsl(h, s, l) {
-    h = ((h % 360) + 360) % 360;
-    return "hsl(" + h.toFixed(0) + "," + s + "%," + l + "%)";
-  }
-
-  function applyColorHero() {
-    document.documentElement.classList.toggle("color-hero", CH.on);
-    var h = CH.hue, s = CH.sat, l = CH.light, b, c;
-    if (CH.scheme === "complementary") {
-      b = hsl(h + 180, s, l);
-      c = hsl(h + 180, Math.min(s + 15, 90), Math.min(l + 18, 88));
-    } else if (CH.scheme === "analogous") {
-      b = hsl(h + 30, s, l);
-      c = hsl(h - 30, Math.min(s + 10, 90), Math.min(l + 15, 88));
-    } else if (CH.scheme === "triadic") {
-      b = hsl(h + 120, s, l);
-      c = hsl(h + 240, s, l);
-    } else { // split-complementary, the default
-      b = hsl(h + 150, s, l);
-      c = hsl(h + 210, Math.min(s + 10, 90), Math.min(l + 15, 88));
-    }
-    root.style.setProperty("--ch-a", hsl(h, s, l));
-    root.style.setProperty("--ch-b", b);
-    root.style.setProperty("--ch-c", c);
-    root.style.setProperty("--ch-ink", l > 55 ? "#1d1b24" : "#fff");
-    document.documentElement.style.setProperty(
-      "--ch-shape-vw", CH.shape + "vw"
-    );
-    try {
-      localStorage.setItem("seafog-color-hero", JSON.stringify(CH));
-    } catch (e) {}
-  }
-
   function apply() {
     // the lens itself
     lens.cfg.strength = S.strength;
@@ -129,13 +78,7 @@
       "--nav-halo:" + S.halo + ";\n\n" +
       "/* glass.js — SeafogLens.cfg */\n" +
       "strength:" + S.strength + ", depth:" + S.depth + ", edge:" + S.bevel +
-      ", aberration:" + S.aberration + ", softness:" + S.edgeBlur + "\n\n" +
-      "/* colour hero — " + (CH.on ? "on" : "off") + " */\n" +
-      "scheme:" + CH.scheme + ", hue:" + CH.hue + ", sat:" + CH.sat +
-      ", light:" + CH.light + ", shape:" + CH.shape + "vw\n" +
-      "a:" + getComputedStyle(root).getPropertyValue("--ch-a") +
-      "  b:" + getComputedStyle(root).getPropertyValue("--ch-b") +
-      "  c:" + getComputedStyle(root).getPropertyValue("--ch-c");
+      ", aberration:" + S.aberration + ", softness:" + S.edgeBlur;
   }
 
   var FIELDS = [
@@ -195,11 +138,6 @@
     'border-radius:50%;background:#fff;transition:transform .15s ease}' +
     '#tuner .sw.on{background:#7ee0c4}' +
     '#tuner .sw.on::after{transform:translateX(15px)}' +
-    '#tuner select{width:100%;font:inherit;font-size:12.5px;color:#fff;' +
-    'background:rgba(255,255,255,.12);border:0;border-radius:6px;padding:7px 8px;margin-top:2px}' +
-    '#tuner select option{color:#1d1b24}' +
-    '#tuner .swatches{display:flex;gap:6px;margin:8px 0 2px}' +
-    '#tuner .swatches span{flex:1;height:22px;border-radius:5px}' +
     '</style>' +
     '<div class="hd"><strong>Liquid glass</strong>' +
     '<span><button class="g" id="tuneMin">–</button> ' +
@@ -207,20 +145,7 @@
     '<button id="tuneCopy">Copy CSS</button></span></div>' +
     '<div class="apply"><span>Glass banner card<br><span style="opacity:.6">.top .in, every page</span></span>' +
     '<button class="sw" id="tuneBannerToggle" type="button" role="switch" aria-label="Glass banner card"></button></div>' +
-    '<div class="apply"><span>Colour hero, no photo<br><span style="opacity:.6">hides .banner, every page</span></span>' +
-    '<button class="sw" id="tuneChToggle" type="button" role="switch" aria-label="Colour hero"></button></div>' +
-    '<div id="tuneBody"></div>' +
-    '<h4>Colour theory</h4>' +
-    '<div class="r"><label>Scheme</label>' +
-    '<select id="tuneChScheme">' +
-    '<option value="split">Split-complementary</option>' +
-    '<option value="complementary">Complementary</option>' +
-    '<option value="analogous">Analogous</option>' +
-    '<option value="triadic">Triadic</option>' +
-    '</select></div>' +
-    '<div id="tuneChSliders"></div>' +
-    '<div class="swatches"><span id="tuneChSwA"></span><span id="tuneChSwB"></span><span id="tuneChSwC"></span></div>' +
-    '<pre id="tuneOut"></pre>';
+    '<div id="tuneBody"></div><pre id="tuneOut"></pre>';
   document.body.appendChild(panel);
 
   // the toggle decides WHERE the lens shows up (the banner card instead of,
@@ -237,55 +162,6 @@
   bannerBtn.addEventListener("click", function () {
     setBanner(!bannerBtn.classList.contains("on"));
   });
-
-  // ---- colour hero controls ----
-  var chBtn = panel.querySelector("#tuneChToggle");
-  var chScheme = panel.querySelector("#tuneChScheme");
-  var chSliders = panel.querySelector("#tuneChSliders");
-  var chSwA = panel.querySelector("#tuneChSwA");
-  var chSwB = panel.querySelector("#tuneChSwB");
-  var chSwC = panel.querySelector("#tuneChSwC");
-
-  var CH_FIELDS = [
-    ["hue", "Base hue", 0, 360, 1],
-    ["sat", "Saturation", 5, 80, 1],
-    ["light", "Lightness", 20, 70, 1],
-    ["shape", "Circle size", 14, 46, 1]
-  ];
-  CH_FIELDS.forEach(function (f) {
-    var key = f[0], row = document.createElement("div");
-    row.className = "r";
-    row.innerHTML = '<label>' + f[1] + '<b></b></label>' +
-      '<input type="range" min="' + f[2] + '" max="' + f[3] + '" step="' + f[4] + '">';
-    var input = row.querySelector("input"), out = row.querySelector("b");
-    input.value = CH[key];
-    out.textContent = CH[key];
-    input.addEventListener("input", function () {
-      CH[key] = parseFloat(input.value);
-      out.textContent = input.value;
-      refreshColorHero();
-    });
-    chSliders.appendChild(row);
-  });
-  chScheme.value = CH.scheme;
-  chScheme.addEventListener("change", function () {
-    CH.scheme = chScheme.value;
-    refreshColorHero();
-  });
-  chBtn.addEventListener("click", function () {
-    CH.on = !CH.on;
-    refreshColorHero();
-  });
-
-  function refreshColorHero() {
-    applyColorHero();
-    chBtn.classList.toggle("on", CH.on);
-    chSwA.style.background = "var(--ch-a)";
-    chSwB.style.background = "var(--ch-b)";
-    chSwC.style.background = "var(--ch-c)";
-    document.getElementById("tuneOut").textContent = css();
-  }
-  refreshColorHero();
 
   var body = panel.querySelector("#tuneBody");
   FIELDS.forEach(function (group) {

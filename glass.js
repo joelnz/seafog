@@ -28,44 +28,6 @@ try {
   }
 } catch (e) {}
 
-/* Dev-only colour-theory hero (see the .color-hero rules in style.css and the
-   matching controls in glass-tuner.js). The tuner only loads under ?tune=1,
-   so the on/off state and the three related hues it computed are saved here
-   instead, and reapplied on every page — otherwise switching it on, then
-   clicking to a page without ?tune=1 in the URL, would silently drop back
-   to the flat default colours. This is the same little scheme calculation
-   the tuner uses; kept in sync by hand since it's five lines. */
-try {
-  var ch = JSON.parse(localStorage.getItem("seafog-color-hero"));
-  if (ch && ch.on) {
-    var chHsl = function (h, s, l) {
-      h = ((h % 360) + 360) % 360;
-      return "hsl(" + h.toFixed(0) + "," + s + "%," + l + "%)";
-    };
-    var chH = ch.hue, chS = ch.sat, chL = ch.light, chB, chC;
-    if (ch.scheme === "complementary") {
-      chB = chHsl(chH + 180, chS, chL);
-      chC = chHsl(chH + 180, Math.min(chS + 15, 90), Math.min(chL + 18, 88));
-    } else if (ch.scheme === "analogous") {
-      chB = chHsl(chH + 30, chS, chL);
-      chC = chHsl(chH - 30, Math.min(chS + 10, 90), Math.min(chL + 15, 88));
-    } else if (ch.scheme === "triadic") {
-      chB = chHsl(chH + 120, chS, chL);
-      chC = chHsl(chH + 240, chS, chL);
-    } else {
-      chB = chHsl(chH + 150, chS, chL);
-      chC = chHsl(chH + 210, Math.min(chS + 10, 90), Math.min(chL + 15, 88));
-    }
-    var chRoot = document.documentElement;
-    chRoot.classList.add("color-hero");
-    chRoot.style.setProperty("--ch-a", chHsl(chH, chS, chL));
-    chRoot.style.setProperty("--ch-b", chB);
-    chRoot.style.setProperty("--ch-c", chC);
-    chRoot.style.setProperty("--ch-ink", chL > 55 ? "#1d1b24" : "#fff");
-    chRoot.style.setProperty("--ch-shape-vw", ch.shape + "vw");
-  }
-} catch (e) {}
-
 window.SeafogLens = (function () {
   "use strict";
 
