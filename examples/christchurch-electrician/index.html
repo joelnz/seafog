@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Avon Loop Electrical, Christchurch (concept site by Seafog)</title>
+<meta name="description" content="A concept website for a fictional Christchurch electrician, designed by Seafog. Not a real business.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<style>
+:root{
+  --ink:#172231;
+  --paper:#ffffff;
+  --ground:#eef0ee;
+  --active:#7b4a2b;    /* brown: the live conductor */
+  --neutral:#1d5bbf;   /* blue: the neutral, and every action on the page */
+  --earth-g:#2f9e44;   /* green and yellow: earth, used only as the stripe */
+  --earth-y:#f2c230;
+  --muted:#59636e;
+  --line:#d5d9dc;
+  --type:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --stripe:repeating-linear-gradient(-45deg,var(--earth-g) 0 10px,var(--earth-y) 10px 20px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--type)}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--neutral)}
+:focus-visible{outline:3px solid var(--neutral);outline-offset:2px}
+.wrap{width:min(1160px,100% - 40px);margin:0 auto}
+.num{font-variant-numeric:tabular-nums}
+
+.concept{margin:0;background:var(--ink);color:#c9d2db;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:#fff}
+
+/* header */
+.top{border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:76px}
+.mark{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.02em;line-height:1.1}
+.mark i{width:34px;height:34px;flex:none;border-radius:6px;background:var(--stripe)}
+.mark small{display:block;font-weight:500;font-size:13px;letter-spacing:0;color:var(--muted)}
+.top nav{display:flex;align-items:center;gap:24px}
+.top nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.top nav a:hover{color:var(--neutral)}
+.top nav a.btn,.top nav a.btn:hover{color:#fff}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--neutral);background:var(--neutral);color:#fff;
+  font:700 16px/1 var(--type);padding:14px 22px;border-radius:8px;text-decoration:none;cursor:pointer}
+.btn:hover{background:#174c9f;border-color:#174c9f}
+.btn.line{background:none;color:var(--neutral)}
+.btn.line:hover{background:var(--neutral);color:#fff}
+.btn svg{width:18px;height:18px;flex:none}
+.top .btn{padding:11px 18px}
+
+/* hero */
+.hero{padding:clamp(40px,6vw,80px) 0 clamp(40px,6vw,72px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(30px,5vw,70px);align-items:center}
+.hero h1{margin:0;font-weight:800;font-size:clamp(38px,5.2vw,66px);line-height:1.02;letter-spacing:-.035em}
+.hero .lede{margin:20px 0 28px;max-width:32em;font-size:19px;color:#2d3946}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin:28px 0 0;padding:0;list-style:none;font-size:15px;font-weight:600}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts li::before{content:"";width:16px;height:16px;border-radius:50%;flex:none;
+  background:var(--earth-g) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E") center/16px no-repeat}
+.hero figure{margin:0;position:relative}
+.hero figure img{width:100%;aspect-ratio:7/6;object-fit:cover;border-radius:14px}
+.hero figure::after{content:"";position:absolute;left:18px;right:18px;bottom:-9px;height:9px;border-radius:0 0 6px 6px;background:var(--stripe)}
+
+/* urgent strip */
+.urgent{background:var(--active);color:#fff}
+.urgent .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
+.urgent p{margin:0;max-width:44em;font-size:17px}
+.urgent strong{font-size:19px}
+.urgent .btn{background:#fff;border-color:#fff;color:var(--active)}
+.urgent .btn:hover{background:#f3e9e2}
+
+section{padding:clamp(60px,8vw,104px) 0}
+h2{margin:0 0 12px;font-weight:800;font-size:clamp(30px,3.6vw,44px);line-height:1.05;letter-spacing:-.03em}
+.intro{max-width:38em;margin:0 0 36px;color:var(--muted);font-size:18px}
+
+/* the price guide and estimate */
+.prices{background:var(--ground)}
+.guide{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(24px,4vw,48px);align-items:start}
+.jobs{margin:0;padding:0;list-style:none;background:var(--paper);border-radius:14px;border:1px solid var(--line);overflow:hidden}
+.job{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px 20px;align-items:center;padding:16px 20px;border-top:1px solid var(--line)}
+.job:first-child{border-top:0}
+.job h3{margin:0;font-size:17px;font-weight:700}
+.job p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.job .cost{font-weight:700;text-align:right;white-space:nowrap}
+.job .cost small{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:34px;height:34px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:600 19px/1 var(--type);cursor:pointer;padding:0}
+.qty button:hover:not(:disabled){border-color:var(--ink)}
+.qty button:disabled{opacity:.35;cursor:default}
+.qty output{min-width:1.5em;text-align:center;font-weight:700}
+.job.on{background:#f4f8ff}
+.estimate{position:sticky;top:20px;background:var(--ink);color:#fff;border-radius:14px;padding:24px}
+.estimate h3{margin:0 0 4px;font-size:18px}
+.estimate .empty{margin:6px 0 0;color:#aeb9c4;font-size:15px}
+.estimate ul{margin:14px 0 0;padding:0;list-style:none;font-size:15px}
+.estimate li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.estimate li .num{white-space:nowrap;text-align:right}
+.estimate .total{margin:18px 0 4px;font-size:34px;font-weight:800;letter-spacing:-.02em}
+.estimate .note{margin:0 0 18px;font-size:13px;color:#aeb9c4}
+.estimate .btn{width:100%;justify-content:center;background:#fff;border-color:#fff;color:var(--ink)}
+.estimate .btn:hover{background:#e7ecf1}
+.estimate .btn[aria-disabled="true"]{opacity:.4;cursor:default}
+.estimate .stripe{height:8px;margin:-24px -24px 20px;border-radius:14px 14px 0 0;background:var(--stripe)}
+.small{margin:18px 0 0;font-size:14px;color:var(--muted)}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,36px)}
+.svc img{width:100%;aspect-ratio:9/7;object-fit:cover;border-radius:12px}
+.svc h3{margin:18px 0 6px;font-size:21px;letter-spacing:-.015em}
+.svc p{margin:0;color:var(--muted);font-size:16px}
+
+/* how it works: a real sequence, so it's numbered */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.5vw,28px);margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;padding-top:18px;border-top:3px solid var(--ink)}
+.steps li::before{content:counter(s);display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;color:var(--neutral);margin-bottom:6px}
+.steps b{display:block;font-size:18px;margin-bottom:4px}
+.steps span{color:var(--muted);font-size:15px}
+
+/* areas */
+.areas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.areas h3{margin:0 0 6px;font-size:17px}
+.areas p{margin:0;color:var(--muted);font-size:15px}
+
+.reviews{border:2px dashed var(--line);border-radius:14px;padding:clamp(28px,4vw,44px);text-align:center;color:var(--muted)}
+.reviews strong{display:block;color:var(--ink);font-size:20px;margin-bottom:6px}
+
+/* quote form */
+.quote{background:var(--ground)}
+.quote .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(30px,5vw,70px);align-items:start}
+.quote .side p{color:var(--muted)}
+.quote .call{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+form.q{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:clamp(20px,3vw,32px)}
+.f{margin-bottom:16px}
+.f label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+.f label small{font-weight:500;color:var(--muted)}
+.f input,.f textarea{width:100%;border:1px solid #b9c0c6;border-radius:8px;padding:12px 14px;font:inherit;color:var(--ink);background:#fff}
+.f textarea{min-height:150px;resize:vertical}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--neutral);box-shadow:0 0 0 3px rgba(29,91,191,.2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.drop{position:relative;display:flex;align-items:center;gap:14px;padding:16px;border:2px dashed #b9c0c6;border-radius:10px;cursor:pointer;color:var(--muted);font-size:15px}
+.drop:hover,.drop.over{border-color:var(--neutral);background:#f4f8ff}
+.drop:focus-within{border-color:var(--neutral);box-shadow:0 0 0 3px rgba(29,91,191,.2)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.drop svg{width:28px;height:28px;flex:none;color:var(--neutral)}
+.drop b{display:block;color:var(--ink);font-size:16px}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.sent{margin-top:16px;padding:14px 16px;border-radius:10px;background:#eef6ff;border:1px solid #c7dbf7;font-size:15px}
+.sent[hidden]{display:none}
+
+footer{background:var(--ink);color:#aeb9c4;padding:36px 0;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer a{color:#fff}
+
+/* toast for the concept phone number */
+.toast{position:fixed;left:50%;bottom:24px;z-index:30;transform:translateX(-50%);max-width:min(460px,calc(100% - 32px));
+  padding:14px 18px;border-radius:12px;background:var(--ink);color:#fff;font-size:15px;box-shadow:0 10px 30px rgba(23,34,49,.3)}
+.toast[hidden]{display:none}
+
+.dock{display:none}
+@media(max-width:900px){
+  .top nav a:not(.btn){display:none}
+  .hero .wrap,.guide,.quote .wrap{grid-template-columns:minmax(0,1fr)}
+  .hero figure{order:-1}
+  .svc{grid-template-columns:minmax(0,1fr)}
+  .steps,.areas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .estimate{position:static}
+  .dock{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:20;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
+  .dock .btn{justify-content:center;padding:14px 10px}
+  .dock .btn.est{flex-direction:column;gap:3px;padding:9px 8px;line-height:1.1}
+  .dock .btn.est small{font-size:12px;font-weight:600;opacity:.8}
+  footer{padding-bottom:96px}
+  .toast{bottom:84px}
+}
+@media(max-width:560px){
+  .top .btn span{display:none}
+  .job{grid-template-columns:minmax(0,1fr) auto}
+  .job .qty{grid-column:1/-1}
+  .steps,.areas,.two{grid-template-columns:minmax(0,1fr)}
+}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<p class="concept">Concept site designed by <a href="https://seafog.nz/">Seafog</a>. Avon Loop Electrical is not a real business.</p>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#"><i aria-hidden="true"></i><span>Avon Loop Electrical<small>Registered electricians, Christchurch</small></span></a>
+    <nav aria-label="Main">
+      <a href="#prices">Prices</a>
+      <a href="#services">Services</a>
+      <a href="#areas">Areas</a>
+      <a class="btn" href="#call" data-call><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span>03 000 0000</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Christchurch electricians who turn up when we said we would.</h1>
+      <p class="lede">Power points, lighting, switchboards, heat pumps and EV chargers for homes and
+        rentals across Christchurch, Selwyn and Waimakariri. A fixed quote before we start, and a
+        certificate of compliance when we finish.</p>
+      <div class="acts">
+        <a class="btn" href="#call" data-call><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Call 03 000 0000</a>
+        <a class="btn line" href="#quote">Get a fixed quote</a>
+      </div>
+      <ul class="facts">
+        <li>Licensed electrical workers</li>
+        <li>Prices published below</li>
+        <li>Callout fee waived if we do the job</li>
+      </ul>
+    </div>
+    <figure>
+      <img src="img/hero.jpg" alt="An electrician testing a switchboard with a multimeter" width="1400" height="1200">
+    </figure>
+  </div>
+</div>
+
+<div class="urgent">
+  <div class="wrap">
+    <p><strong>No power, a burning smell or sparks?</strong> Turn the power off at the main switch if
+      it's safe to, then call us. Urgent callouts run 24 hours, seven days.</p>
+    <a class="btn" href="#call" data-call>Call now</a>
+  </div>
+</div>
+
+<section class="prices" id="prices">
+  <div class="wrap">
+    <h2>What jobs usually cost</h2>
+    <p class="intro">Typical prices for common jobs in a standard Christchurch home, parts and labour
+      included. Add what you need for a rough total, then send it to us for a fixed quote.</p>
+
+    <div class="guide">
+      <ul class="jobs">
+        <li class="job" data-lo="180" data-hi="260" data-max="12">
+          <div><h3>New double power point</h3><p>On an internal wall, near an existing circuit</p></div>
+          <div class="cost num">$180 to $260<small>each</small></div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="85" data-hi="120" data-max="30">
+          <div><h3>Swap old downlights for LED</h3><p>Same position, IC-rated fitting</p></div>
+          <div class="cost num">$85 to $120<small>each</small></div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="140" data-hi="190" data-max="30">
+          <div><h3>New LED downlight</h3><p>Cutting in a new position, with switching</p></div>
+          <div class="cost num">$140 to $190<small>each</small></div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="220" data-hi="380" data-max="8">
+          <div><h3>Outdoor or security light</h3><p>Sensor light on an existing circuit</p></div>
+          <div class="cost num">$220 to $380<small>each</small></div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="450" data-hi="750" data-max="4">
+          <div><h3>Heat pump wiring</h3><p>Dedicated circuit from the board, isolator outside</p></div>
+          <div class="cost num">$450 to $750<small>each</small></div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="1400" data-hi="2200" data-max="2">
+          <div><h3>EV charger install</h3><p>7kW wall charger within 10m of the board. Charger not included</p></div>
+          <div class="cost num">$1,400 to $2,200</div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="1900" data-hi="2800" data-max="1">
+          <div><h3>Switchboard upgrade</h3><p>New board with RCD protection, typical three-bedroom house</p></div>
+          <div class="cost num">$1,900 to $2,800</div>
+          <div class="qty"></div>
+        </li>
+        <li class="job" data-lo="195" data-hi="195" data-max="10">
+          <div><h3>Rental electrical safety check</h3><p>Written report for landlords and property managers</p></div>
+          <div class="cost num">$195<small>per property</small></div>
+          <div class="qty"></div>
+        </li>
+      </ul>
+
+      <aside class="estimate" id="prices-est" aria-live="polite">
+        <div class="stripe" aria-hidden="true"></div>
+        <h3>Your rough estimate</h3>
+        <p class="empty">Add a job with the + buttons to see a total.</p>
+        <ul hidden></ul>
+        <p class="total num" hidden></p>
+        <p class="note" hidden>A rough guide. Old wiring, long cable runs or awkward access can change the final price.</p>
+        <a class="btn" href="#quote" id="send-est" aria-disabled="true">Send this for a fixed quote</a>
+      </aside>
+    </div>
+    <p class="small">Prices include GST. Callout within Christchurch city is $95, waived if you go ahead with the job.</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <h2>What we do most</h2>
+    <p class="intro">Mostly homes, rentals and small shops. If it's bigger than that, call and we'll tell you straight whether we're the right people.</p>
+    <div class="svc">
+      <article>
+        <img src="img/kitchen.jpg" alt="A kitchen with under-cabinet lighting and pendant lights over the island" width="900" height="700" loading="lazy">
+        <h3>Renovations and lighting</h3>
+        <p>Kitchens, bathrooms and extensions, worked around your builder's schedule so nobody's waiting on the sparky.</p>
+      </article>
+      <article>
+        <img src="img/ev.jpg" alt="An electric car charger mounted on a timber wall outside a house" width="900" height="700" loading="lazy">
+        <h3>EV chargers and heat pumps</h3>
+        <p>We check your supply can take the load before we quote, so there are no surprises on the day.</p>
+      </article>
+      <article>
+        <img src="img/board.jpg" alt="A row of circuit breakers in a switchboard with coloured wiring" width="900" height="700" loading="lazy">
+        <h3>Switchboards and safety checks</h3>
+        <p>Old boards replaced with proper RCD protection, and written safety checks for landlords.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>How a job works</h2>
+    <ol class="steps" style="margin-top:28px">
+      <li><b>Send a photo or call</b><span>A photo of the switchboard or the spot often means we can quote without a visit.</span></li>
+      <li><b>Fixed quote in a day</b><span>In writing, within one working day. The price we quote is the price you pay.</span></li>
+      <li><b>We do the job</b><span>On the day we booked. If we're running late, we text before you have to ask.</span></li>
+      <li><b>Certificate emailed</b><span>Your certificate of compliance and the invoice, together, the same day.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="areas" style="padding-top:0">
+  <div class="wrap">
+    <h2>Where we work</h2>
+    <div class="areas" style="margin-top:28px">
+      <div><h3>Christchurch city</h3><p>Every suburb, from Belfast to Halswell and New Brighton to Hornby.</p></div>
+      <div><h3>Selwyn</h3><p>Rolleston, Lincoln, Prebbleton and West Melton.</p></div>
+      <div><h3>Waimakariri</h3><p>Rangiora, Kaiapoi, Woodend and Pegasus.</p></div>
+      <div><h3>Banks Peninsula</h3><p>Lyttelton and Governors Bay. Further out by arrangement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reviews">
+      <strong>Your Google reviews show here</strong>
+      On a real site this pulls in your latest Google reviews automatically. This concept doesn't
+      show any, because the business isn't real.
+    </div>
+  </div>
+</section>
+
+<section class="quote" id="quote">
+  <div class="wrap">
+    <div class="side">
+      <h2>Get a fixed quote</h2>
+      <p>Tell us what you need and we'll reply within one working day with a price in writing.
+        A photo helps a lot.</p>
+      <p>Rather talk?<br><a class="call" href="#call" data-call>03 000 0000</a></p>
+    </div>
+    <form class="q" novalidate>
+      <div class="two">
+        <div class="f"><label for="q-name">Name</label><input id="q-name" autocomplete="name"></div>
+        <div class="f"><label for="q-phone">Phone</label><input id="q-phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="f"><label for="q-suburb">Suburb</label><input id="q-suburb" autocomplete="address-level2" placeholder="For example, Papanui"></div>
+      <div class="f"><label for="q-job">What do you need done?</label><textarea id="q-job"></textarea></div>
+      <div class="f"><span id="q-photo-l" style="display:block;font-weight:700;font-size:15px;margin-bottom:6px">Photos <small style="font-weight:500;color:var(--muted)">(optional)</small></span>
+        <label class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3v12H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          <span><b id="drop-t">Add photos of the job</b>Tap to take a photo or choose one, or drag them here</span>
+          <input id="q-photo" type="file" accept="image/*" multiple aria-labelledby="q-photo-l drop-t"></label>
+        <div class="thumbs" aria-live="polite"></div></div>
+      <button class="btn" type="submit">Send for a fixed quote</button>
+      <p class="sent" role="status" hidden>This is a concept site, so nothing was sent. On a real
+        electrician's site this goes straight to their inbox and phone, with your photos attached.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Avon Loop Electrical is a concept by <a href="https://seafog.nz/">Seafog</a>, not a real business.</span>
+    <span>Photos: Toolmash Expo, Tile Merchant Ireland, dcbel and mostafa mahmoudi on Unsplash.</span>
+  </div>
+</footer>
+
+<div class="dock">
+  <a class="btn" href="#call" data-call>Call</a>
+  <a class="btn line" href="#quote" id="dock-q" style="background:#fff">Get a quote</a>
+</div>
+
+<p class="toast" role="status" hidden>Concept site: on a real electrician's site, this button rings their phone.</p>
+
+<script>
+(function () {
+  "use strict";
+  /* concept phone number: explain instead of dialling */
+  var toast = document.querySelector(".toast"), tTimer;
+  document.querySelectorAll("[data-call]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault(); toast.hidden = false;
+      clearTimeout(tTimer); tTimer = setTimeout(function () { toast.hidden = true; }, 4000);
+    });
+  });
+
+  /* price guide: + and - on each job, running estimate */
+  var jobs = [].slice.call(document.querySelectorAll(".job"));
+  var est = document.querySelector(".estimate"), list = est.querySelector("ul"), total = est.querySelector(".total");
+  var empty = est.querySelector(".empty"), note = est.querySelector(".note"), send = document.getElementById("send-est");
+  function money(n) { return "$" + n.toLocaleString("en-NZ"); }
+  jobs.forEach(function (j) {
+    var name = j.querySelector("h3").textContent;
+    j.dataset.n = 0;
+    j.querySelector(".qty").innerHTML =
+      '<button type="button" data-d="-1" aria-label="Remove one: ' + name + '" disabled>&minus;</button>' +
+      '<output aria-label="' + name + ' quantity">0</output>' +
+      '<button type="button" data-d="1" aria-label="Add one: ' + name + '">+</button>';
+    j.querySelectorAll("button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var n = Math.max(0, Math.min(+j.dataset.max, +j.dataset.n + +b.dataset.d));
+        j.dataset.n = n; j.querySelector("output").textContent = n;
+        j.querySelector('[data-d="-1"]').disabled = n === 0;
+        j.querySelector('[data-d="1"]').disabled = n === +j.dataset.max;
+        j.classList.toggle("on", n > 0);
+        update();
+      });
+    });
+  });
+  function lines() {
+    return jobs.filter(function (j) { return +j.dataset.n > 0; }).map(function (j) {
+      var n = +j.dataset.n;
+      return { name: j.querySelector("h3").textContent, n: n, lo: n * j.dataset.lo, hi: n * j.dataset.hi };
+    });
+  }
+  function range(lo, hi) { return lo === hi ? money(lo) : money(lo) + " to " + money(hi); }
+  function update() {
+    var ls = lines(), lo = 0, hi = 0;
+    list.innerHTML = ls.map(function (l) {
+      lo += l.lo; hi += l.hi;
+      return "<li><span>" + (l.n > 1 ? l.n + " x " : "") + l.name + '</span><span class="num">' + range(l.lo, l.hi) + "</span></li>";
+    }).join("");
+    var any = ls.length > 0;
+    empty.hidden = any; list.hidden = !any; total.hidden = !any; note.hidden = !any;
+    total.textContent = range(lo, hi);
+    send.setAttribute("aria-disabled", !any);
+    /* phones: the dock's second button becomes the running estimate */
+    var dq = document.getElementById("dock-q");
+    dq.classList.toggle("est", any);
+    dq.href = any ? "#prices-est" : "#quote";
+    dq.innerHTML = any ? "<small>Your estimate</small>" + range(lo, hi) : "Get a quote";
+  }
+  send.addEventListener("click", function (e) {
+    var ls = lines();
+    if (!ls.length) { e.preventDefault(); return; }
+    var ta = document.getElementById("q-job");
+    ta.value = "From your price guide:\n" + ls.map(function (l) { return "- " + (l.n > 1 ? l.n + " x " : "") + l.name; }).join("\n") + "\n\n";
+    setTimeout(function () { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }, 400);
+  });
+
+  /* photo picker: previews instead of the browser's file button */
+  var drop = document.querySelector(".drop"), file = document.getElementById("q-photo"), thumbs = document.querySelector(".thumbs");
+  file.addEventListener("change", function () {
+    thumbs.innerHTML = "";
+    [].slice.call(file.files, 0, 8).forEach(function (f) {
+      var img = new Image(); img.alt = f.name; img.src = URL.createObjectURL(f); thumbs.appendChild(img);
+    });
+    document.getElementById("drop-t").textContent = file.files.length ? file.files.length + (file.files.length === 1 ? " photo added" : " photos added") : "Add photos of the job";
+  });
+  ["dragenter", "dragover"].forEach(function (ev) { drop.addEventListener(ev, function () { drop.classList.add("over"); }); });
+  ["dragleave", "drop"].forEach(function (ev) { drop.addEventListener(ev, function () { drop.classList.remove("over"); }); });
+
+  /* quote form */
+  document.querySelector("form.q").addEventListener("submit", function (e) {
+    e.preventDefault(); this.querySelector(".sent").hidden = false;
+  });
+})();
+</script>
+</body>
+</html>

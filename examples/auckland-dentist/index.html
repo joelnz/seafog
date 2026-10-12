@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Early Light Dental, Mt Eden, Auckland (concept site by Seafog)</title>
+<meta name="description" content="A concept website for a fictional Auckland dental clinic, designed by Seafog. Not a real business.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<style>
+:root{
+  --plum:#2f1f40;      /* text */
+  --violet:#5d2e73;    /* actions */
+  --rose:#f5e6e9;      /* soft sections */
+  --blush:#fbf3f4;
+  --page:#fdfcfd;
+  --muted:#6e6378;
+  --line:#e7dde3;
+  --type:Optima,"Candara","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--plum);font:400 17px/1.65 var(--type)}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--violet)}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+.wrap{width:min(1140px,100% - 40px);margin:0 auto}
+h1,h2,h3{font-weight:600;letter-spacing:-.01em}
+
+.concept{margin:0;background:var(--plum);color:#e3d7e6;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:#fff}
+
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:84px}
+.mark{display:flex;align-items:center;gap:12px;color:var(--plum);text-decoration:none;font-size:21px;font-weight:600}
+.mark i{width:30px;height:30px;border-radius:50%;flex:none;background:radial-gradient(circle at 50% 100%,#f3b9a6 0 40%,transparent 41%),var(--rose);box-shadow:inset 0 -3px 0 var(--violet)}
+.top nav{display:flex;align-items:center;gap:26px;font-size:16px}
+.top nav a{color:var(--plum);text-decoration:none}
+.top nav a:hover{color:var(--violet);text-decoration:underline;text-underline-offset:5px}
+.pill{display:inline-block;background:var(--violet);color:#fff;text-decoration:none;font:600 16px/1 var(--type);padding:14px 24px;border-radius:999px;border:0;cursor:pointer}
+.pill:hover{background:#4a2360}
+.top nav .pill,.top nav .pill:hover{color:#fff;text-decoration:none}
+.pill.soft{background:var(--rose);color:var(--violet)}
+.pill.soft:hover{background:#efd8dd}
+
+/* hero: a wide photograph, with the booking card rising over its lower edge */
+.hero{padding:clamp(12px,2vw,24px) 0 clamp(60px,8vw,100px)}
+.band{display:block;width:100%;aspect-ratio:21/9;object-fit:cover;object-position:50% 38%;border-radius:32px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:clamp(24px,5vw,72px);align-items:start;padding:0 clamp(0px,2vw,24px)}
+.hero-text{padding-top:clamp(28px,4vw,52px)}
+.hero h1{margin:0;font-size:clamp(34px,4.4vw,56px);line-height:1.06}
+.hero .lede{margin:20px 0 0;max-width:28em;font-size:18px;color:#4e4058}
+.hours{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;padding:0;list-style:none}
+.hours li{background:var(--rose);border-radius:999px;padding:8px 16px;font-size:15px}
+.hours b{font-weight:600}
+
+/* booking card, overlapping the photo */
+.book{position:relative;margin:clamp(-170px,-12vw,-90px) 0 0 auto;width:100%;max-width:400px;background:#fff;border-radius:22px;padding:22px;
+  box-shadow:0 20px 50px rgba(47,31,64,.16)}
+.book h2{margin:0 0 2px;font-size:20px}
+.book .sub{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.slot{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 12px;text-align:left;font:inherit;color:var(--plum);cursor:pointer;line-height:1.3}
+.slot b{display:block;font-weight:600;font-size:15px}
+.slot span{font-size:14px;color:var(--muted)}
+.slot:hover{border-color:var(--violet)}
+.slot[aria-pressed="true"]{border-color:var(--violet);background:var(--blush);box-shadow:inset 0 0 0 1px var(--violet)}
+.views{display:grid}
+.type-wrap{position:relative;margin:4px 0 14px}
+.type-l,.slots-l{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.slots-l{margin:0 0 6px}
+.type-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:11px 44px 11px 14px;border:1px solid var(--line);border-radius:14px;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%235d2e73' stroke-width='2'/%3E%3C/svg%3E") right 16px center/14px 9px no-repeat;
+  font:inherit;color:var(--plum);text-align:left;cursor:pointer;line-height:1.3}
+.type-btn:hover,.type-btn[aria-expanded="true"]{border-color:var(--violet)}
+.type-btn b{display:block;font-weight:600;font-size:16px}
+.type-btn span span{font-size:14px;color:var(--muted)}
+.type-list{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:5;margin:0;padding:6px;list-style:none;background:#fff;border:1px solid var(--line);
+  border-radius:16px;box-shadow:0 16px 40px rgba(47,31,64,.18);max-height:360px;overflow:auto}
+.type-list[hidden]{display:none}
+.type-list li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;line-height:1.3}
+.type-list li:hover,.type-list li.active{background:var(--blush)}
+.type-list li[aria-selected="true"]{box-shadow:inset 0 0 0 2px var(--violet)}
+.type-list b{display:block;font-weight:600;font-size:15px}
+.type-list small{display:block;font-size:13px;color:var(--muted)}
+.type-list .p{text-align:right;white-space:nowrap;font-weight:600;font-size:15px}
+
+.view{grid-area:1/1;visibility:hidden;display:flex;flex-direction:column}
+.view.on{visibility:visible}
+.foot{margin:auto 0 0;padding-top:14px;font-size:14px;color:var(--muted)}
+.chosen{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;padding:12px 14px;border-radius:14px;background:var(--blush)}
+.chosen span{display:block;font-size:13px;color:var(--muted)}
+.chosen b{display:block;min-height:1.65em;font-weight:600}
+.link{border:0;background:none;padding:0;font:600 15px var(--type);color:var(--violet);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.view[data-v="2"] .pill{margin-top:auto}
+.view[data-v="3"]{justify-content:center;align-items:flex-start}
+.tick{width:46px;height:46px;border-radius:50%;background:var(--rose);display:grid;place-items:center;margin-bottom:14px}
+.tick::after{content:"";width:16px;height:9px;border:solid var(--violet);border-width:0 0 3px 3px;transform:translateY(-2px) rotate(-45deg)}
+.fld{display:block;margin-bottom:10px}
+.fld span{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
+.fld input{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 14px;font:inherit;color:var(--plum);background:#fff}
+.fld input:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(93,46,115,.15)}
+.price-line{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 14px;font-size:15px}
+.price-line strong{font-size:20px}
+.comfort-line{margin:0 0 12px;font-size:14px;line-height:1.45;color:var(--muted);min-height:2.9em}
+.book .pill{width:100%}
+
+section{padding:clamp(64px,8vw,110px) 0}
+h2.big{margin:0 0 12px;font-size:clamp(30px,3.8vw,46px);line-height:1.1}
+.intro{max-width:36em;margin:0 0 40px;color:var(--muted);font-size:18px}
+
+/* fees */
+.fees{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
+.fee{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.fee h3{margin:0;font-size:18px}
+.fee p{margin:2px 0 0;font-size:15px;color:var(--muted)}
+.fee .amt{font-size:22px;font-weight:600;white-space:nowrap}
+.fee .amt small{font-size:14px;font-weight:400;color:var(--muted)}
+.fine{margin:26px 0 0;max-width:46em;font-size:15px;color:var(--muted)}
+
+/* comfort menu */
+.comfort{background:var(--rose)}
+.comfort .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,70px);align-items:start}
+.comfort .side img{border-radius:24px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 22px;padding:0;list-style:none}
+.pick{display:flex;gap:14px;align-items:flex-start;width:100%;height:100%;padding:16px 18px;border:1px solid transparent;border-radius:18px;background:#fff;
+  text-align:left;font:inherit;color:var(--plum);cursor:pointer;line-height:1.4}
+.pick:hover{border-color:#d9c3cc}
+.pick .box{width:24px;height:24px;flex:none;margin-top:1px;border-radius:8px;border:2px solid #c9b2bd;display:grid;place-items:center}
+.pick[aria-pressed="true"]{border-color:var(--violet);box-shadow:inset 0 0 0 1px var(--violet)}
+.pick[aria-pressed="true"] .box{background:var(--violet);border-color:var(--violet)}
+.pick[aria-pressed="true"] .box::after{content:"";width:10px;height:6px;border:solid #fff;border-width:0 0 2px 2px;transform:translateY(-1px) rotate(-45deg)}
+.pick b{display:block;font-weight:600;font-size:16px}
+.pick span{font-size:14px;color:var(--muted)}
+.tally{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-radius:18px;background:#fff}
+.tally p{margin:0;font-size:16px}
+
+/* first visit: a proportional hour */
+.hour{display:grid;grid-template-columns:10fr 15fr 25fr 10fr;gap:6px;margin:6px 0 10px}
+.hour div{height:14px;border-radius:999px;background:var(--violet)}
+.hour div:nth-child(2){background:#8a5aa0}
+.hour div:nth-child(3){background:#c79bc4}
+.hour div:nth-child(4){background:#e8c6cf}
+.marks{display:grid;grid-template-columns:10fr 15fr 25fr 10fr;gap:6px;font-size:13px;color:var(--muted)}
+.parts{display:grid;grid-template-columns:10fr 15fr 25fr 10fr;gap:6px;margin-top:18px}
+.parts h3{margin:0 0 4px;font-size:17px}
+.parts p{margin:0;font-size:15px;color:var(--muted);padding-right:10px}
+
+/* find us */
+.find .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,70px);align-items:center}
+.find img{border-radius:24px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.times{margin:18px 0 22px;padding:0;list-style:none}
+.times li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.find address{font-style:normal;font-size:18px}
+.find .how{color:var(--muted);font-size:16px}
+
+.reviews{border:2px dashed var(--line);border-radius:22px;padding:clamp(28px,4vw,44px);text-align:center;color:var(--muted)}
+.reviews strong{display:block;color:var(--plum);font-size:20px;margin-bottom:6px}
+
+.toast{position:fixed;left:50%;bottom:24px;z-index:30;transform:translateX(-50%);max-width:min(440px,calc(100% - 32px));padding:14px 18px;border-radius:14px;background:var(--plum);color:#fff;font-size:15px;box-shadow:0 10px 30px rgba(47,31,64,.3)}
+.toast[hidden]{display:none}
+footer{background:var(--plum);color:#d8cbdc;padding:36px 0;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer a{color:#fff}
+
+.float{display:none}
+@media(max-width:900px){
+  .top nav a:not(.pill){display:none}
+  .comfort .wrap,.find .wrap,.hero-grid{grid-template-columns:minmax(0,1fr)}
+  .band{aspect-ratio:4/3;border-radius:24px}
+  .hero-text{padding-top:24px}
+  .book{margin:8px 0 0;max-width:none;width:auto}
+  .fees{grid-template-columns:minmax(0,1fr)}
+  .comfort .side img{aspect-ratio:16/9}
+  .float{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:9;text-align:center;transition:transform .2s;
+    box-shadow:0 8px 24px rgba(47,31,64,.3)}
+  .float.away{transform:translateY(calc(100% + 24px))}
+  .toast{bottom:84px}
+  footer{padding-bottom:90px}
+}
+@media(max-width:600px){
+  .mark{font-size:18px;white-space:nowrap}
+  .top nav .pill{padding:11px 16px;font-size:15px;white-space:nowrap}
+  .picks{grid-template-columns:minmax(0,1fr)}
+  .parts,.marks{grid-template-columns:minmax(0,1fr)}
+  .marks{display:none}
+  .parts > div{padding:10px 0;border-bottom:1px solid var(--line)}
+}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<p class="concept">Concept site designed by <a href="https://seafog.nz/">Seafog</a>. Early Light Dental is not a real business.</p>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#"><i aria-hidden="true"></i>Early Light Dental</a>
+    <nav aria-label="Main">
+      <a href="#fees">Fees</a>
+      <a href="#comfort">Nervous?</a>
+      <a href="#first-visit">First visit</a>
+      <a href="#find">Find us</a>
+      <a class="pill" href="#book">Book online</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <img class="band" src="img/hero.jpg" alt="A dentist sitting beside a relaxed patient, talking before the appointment starts" width="1400" height="1100">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1>Book the dentist for 7am and still make work on time.</h1>
+        <p class="lede">Early Light Dental in Mt Eden opens at 7am on weekdays, lists every fee on
+        this page, and goes at your pace if the dentist isn't your favourite place.</p>
+        <ul class="hours">
+        <li><b>Weekdays</b> 7am to 7pm</li>
+        <li><b>Saturday</b> 8am to 1pm</li>
+        <li><b>Under 18s</b> free</li>
+      </ul>
+      </div>
+      <div class="book" id="book">
+        <div class="views">
+          <div class="view on" data-v="1">
+            <h2>Book an appointment</h2>
+            <div class="type-wrap">
+              <span class="type-l" id="type-l">What do you need?</span>
+              <button type="button" class="type-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="type-l type-v">
+                <span id="type-v"><b>New patient visit</b><span>60 minutes, $189</span></span>
+              </button>
+              <ul class="type-list" role="listbox" aria-labelledby="type-l" tabindex="-1" hidden></ul>
+            </div>
+            <p class="slots-l" id="slots-l">Next free times</p>
+            <div class="slots" role="group" aria-labelledby="slots-l"></div>
+            <p class="foot">Need a different time? Call <a href="#call" data-call>09 000 0000</a> and we'll find one.</p>
+          </div>
+          <div class="view" data-v="2" inert>
+            <div class="chosen"><div><span id="chosen-type">New patient visit</span><b id="slot-text"></b></div><button type="button" class="link" data-back>Change time</button></div>
+            <label class="fld"><span>Name</span><input autocomplete="name"></label>
+            <label class="fld"><span>Mobile</span><input type="tel" autocomplete="tel"></label>
+            <p class="comfort-line" id="comfort-line">No comfort notes yet. You can add some further down the page.</p>
+            <div class="price-line"><span id="visit-type">60 minutes</span><strong id="slot-price">$189</strong></div>
+            <button type="button" class="pill" id="confirm">Book this time</button>
+          </div>
+          <div class="view" data-v="3" inert>
+            <div class="tick" aria-hidden="true"></div>
+            <h2>That's the end of the demo</h2>
+            <p class="sub">This is a concept site, so no appointment was made. On a real clinic's
+              site this books straight into their practice software and texts a confirmation, with
+              your comfort notes added for the dentist.</p>
+            <button type="button" class="link" data-restart>Start again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="fees" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="big">Every fee, before you sit down</h2>
+    <p class="intro">The prices most people need, in full. If you need more than this, you'll get a written plan with costs before anything starts.</p>
+    <div class="fees">
+      <div class="fee"><div><h3>New patient visit</h3><p>Exam, x-rays and a clean, 60 minutes</p></div><span class="amt">$189</span></div>
+      <div class="fee"><div><h3>Check-up and clean</h3><p>For existing patients, 45 minutes</p></div><span class="amt">$149</span></div>
+      <div class="fee"><div><h3>Hygienist clean</h3><p>Deep clean and polish</p></div><span class="amt">$129</span></div>
+      <div class="fee"><div><h3>Urgent appointment</h3><p>Same day for pain or a broken tooth, plus any treatment</p></div><span class="amt">$95</span></div>
+      <div class="fee"><div><h3>White filling</h3><p>Depends on size and which tooth</p></div><span class="amt"><small>from</small> $190</span></div>
+      <div class="fee"><div><h3>Take-home whitening</h3><p>Custom trays and gel</p></div><span class="amt">$450</span></div>
+    </div>
+    <p class="fine">Basic dental care is free for under 18s through the public scheme. We can
+      provide written quotes for Work and Income, and payment plans for treatment over $500.</p>
+  </div>
+</section>
+
+<section class="comfort" id="comfort">
+  <div class="wrap">
+    <div class="side">
+      <h2 class="big">Nervous? Tell us what helps</h2>
+      <p class="intro" style="margin-bottom:28px">Pick anything that would make your visit easier.
+        It goes on your booking, and your dentist reads it before you arrive, so you don't have
+        to explain it in the chair.</p>
+      <img src="img/light.jpg" alt="A quiet row of chairs in a sunlit waiting area" width="1000" height="1250" loading="lazy">
+    </div>
+    <div>
+      <ul class="picks">
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Explain each step first"><i class="box" aria-hidden="true"></i><span><b>Explain each step first</b><span>Nothing happens without you knowing what's next.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Agree a stop signal"><i class="box" aria-hidden="true"></i><span><b>Agree a stop signal</b><span>Raise your hand and we stop. Every time.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Headphones and own music"><i class="box" aria-hidden="true"></i><span><b>Headphones and your music</b><span>Bring your phone and drown out the sounds.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Numbing gel before injections"><i class="box" aria-hidden="true"></i><span><b>Numbing gel first</b><span>Applied before any injection, so you barely feel it.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Longer appointment, no rush"><i class="box" aria-hidden="true"></i><span><b>A longer appointment</b><span>Extra time booked at no cost, so nothing feels rushed.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Talk first, no treatment on day one"><i class="box" aria-hidden="true"></i><span><b>Just talk on day one</b><span>Meet the dentist, see the room, and leave treatment for another day.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="Weighted blanket"><i class="box" aria-hidden="true"></i><span><b>A weighted blanket</b><span>A lot of people find the weight calming.</span></span></button></li>
+        <li><button type="button" class="pick" aria-pressed="false" data-note="First or last appointment of the day"><i class="box" aria-hidden="true"></i><span><b>A quiet time of day</b><span>First or last appointment, when the clinic is calm.</span></span></button></li>
+      </ul>
+      <div class="tally">
+        <p id="tally" aria-live="polite">Nothing picked yet. You can always tell us on the day too.</p>
+        <a class="pill" href="#book" id="book-with">Book with these</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="first-visit">
+  <div class="wrap">
+    <h2 class="big">Your first visit, minute by minute</h2>
+    <p class="intro">An hour, and most of the first ten minutes is just talking.</p>
+    <div class="hour" aria-hidden="true"><div></div><div></div><div></div><div></div></div>
+    <div class="marks" aria-hidden="true"><span>0 min</span><span>10</span><span>25</span><span>50 to 60</span></div>
+    <div class="parts">
+      <div><h3>Talk</h3><p>What's bothering you, what worries you, and anything from your comfort list.</p></div>
+      <div><h3>Check and x-rays</h3><p>A look at every tooth and your gums, with x-rays you can see on screen.</p></div>
+      <div><h3>Clean</h3><p>Scale and polish by the dentist, at whatever pace suits you.</p></div>
+      <div><h3>Plan and prices</h3><p>What, if anything, needs doing, and exactly what it costs.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reviews">
+      <strong>Your Google reviews show here</strong>
+      On a real site this pulls in the clinic's latest Google reviews automatically. This concept
+      doesn't show any, because the business isn't real.
+    </div>
+  </div>
+</section>
+
+<section class="find" id="find" style="padding-top:0">
+  <div class="wrap">
+    <img src="img/room.jpg" alt="A bright, modern treatment room with a dental chair and timber floor" width="1000" height="750" loading="lazy">
+    <div>
+      <h2 class="big">Find us</h2>
+      <address>Mt Eden Village, Auckland. Upstairs, with a lift.</address>
+      <p class="how">Two-hour parking on the street out front. The Mt Eden Road buses stop
+        a minute's walk away.</p>
+      <ul class="times">
+        <li><span>Monday to Friday</span><b>7am to 7pm</b></li>
+        <li><span>Saturday</span><b>8am to 1pm</b></li>
+        <li><span>Sunday and public holidays</span><b>Closed</b></li>
+      </ul>
+      <a class="pill" href="#book">Book online</a>
+      <a class="pill soft" href="https://www.google.com/maps/search/?api=1&amp;query=Mt+Eden+Village+Auckland" rel="noopener" style="margin-left:6px">Open in Maps</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Early Light Dental is a concept by <a href="https://seafog.nz/">Seafog</a>, not a real business.</span>
+    <span>Photos: Harold Hisona, Kouji Tsuru and Kari Bjorn Photography on Unsplash.</span>
+  </div>
+</footer>
+
+<a class="pill float" href="#book">Book an appointment</a>
+
+<p class="toast" role="status" hidden>Concept site: on a real clinic's site, this rings their phone.</p>
+
+<script>
+(function () {
+  "use strict";
+  var book = document.getElementById("book"), slotsEl = book.querySelector(".slots");
+  var views = [].slice.call(book.querySelectorAll(".view"));
+  var chosen = null;
+  function show(n) {
+    views.forEach(function (v) { var on = v.dataset.v === String(n); v.classList.toggle("on", on); v.inert = !on; });
+    var first = views[n - 1].querySelector("button,input");
+    if (first && document.activeElement && book.contains(document.activeElement)) first.focus();
+  }
+
+  var TYPES = [
+    { name: "New patient visit", desc: "Exam, x-rays and a clean", mins: 60, price: "$189" },
+    { name: "Check-up and clean", desc: "If you've been here before", mins: 45, price: "$149" },
+    { name: "Hygienist clean", desc: "Deep clean and polish", mins: 45, price: "$129" },
+    { name: "Urgent appointment", desc: "Pain, swelling or a broken tooth", mins: 30, price: "$95", note: "plus any treatment", urgent: true },
+    { name: "Filling", desc: "When we've already planned one", mins: 45, price: "from $190" },
+    { name: "Take-home whitening", desc: "Fitting for your custom trays", mins: 30, price: "$450" },
+    { name: "Just a chat", desc: "Meet the dentist and see the room", mins: 15, price: "Free" }
+  ];
+  var type = 0;
+
+  /* free times, worked out from today so the card never looks stale.
+     Urgent visits offer same-day times while the clinic is open. */
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
+  function slotsFor(t) {
+    var out = [], d = new Date(today), now = new Date();
+    if (TYPES[t].urgent) {
+      [["10:30am", 10.5], ["1:15pm", 13.25], ["4:45pm", 16.75], ["6:30pm", 18.5]].forEach(function (s) {
+        if (today.getDay() !== 0 && now.getHours() + now.getMinutes() / 60 < s[1] - 0.5) out.push({ d: new Date(today), t: s[0] });
+      });
+    }
+    var times = [["7:00am", "6:15pm"], ["7:30am"], ["12:45pm", "5:30pm"], ["9:00am"]], k = t;
+    while (out.length < 6) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() === 0) continue;
+      var day = d.getDay() === 6 ? ["9:00am", "11:30am"] : times[k++ % times.length];
+      for (var i = 0; i < day.length && out.length < 6; i++) out.push({ d: new Date(d), t: day[i] });
+    }
+    return out;
+  }
+  function dayName(d) {
+    if (+d === +today) return "Today";
+    return +d === +tomorrow ? "Tomorrow" : d.toLocaleDateString("en-NZ", { weekday: "short", day: "numeric", month: "short" });
+  }
+  var list = [];
+  function drawSlots() {
+    list = slotsFor(type);
+    slotsEl.innerHTML = list.map(function (s, i) {
+      return '<button type="button" class="slot" data-i="' + i + '"><b>' + dayName(s.d) + "</b><span>" + s.t + "</span></button>";
+    }).join("");
+  }
+
+  /* appointment type picker */
+  var tBtn = book.querySelector(".type-btn"), tList = book.querySelector(".type-list"), active = 0;
+  tList.innerHTML = TYPES.map(function (x, i) {
+    return '<li role="option" id="type-o' + i + '" data-i="' + i + '" aria-selected="' + (i === 0) + '"><span><b>' + x.name + "</b><small>" + x.desc + '</small></span><span class="p">' +
+      x.price + "<small>" + x.mins + " min</small></span></li>";
+  }).join("");
+  var tOpts = [].slice.call(tList.querySelectorAll("li"));
+  function hilite(i) { active = (i + tOpts.length) % tOpts.length; tOpts.forEach(function (o, k) { o.classList.toggle("active", k === active); }); tList.setAttribute("aria-activedescendant", "type-o" + active); }
+  function openTypes() { tList.hidden = false; tBtn.setAttribute("aria-expanded", "true"); hilite(type); tList.focus(); }
+  function closeTypes(refocus) { tList.hidden = true; tBtn.setAttribute("aria-expanded", "false"); if (refocus) tBtn.focus(); }
+  function setType(i) {
+    type = i; var x = TYPES[i];
+    document.getElementById("type-v").innerHTML = "<b>" + x.name + "</b><span>" + x.mins + " minutes, " + x.price + (x.note ? " " + x.note : "") + "</span>";
+    tOpts.forEach(function (o, k) { o.setAttribute("aria-selected", k === i); });
+    document.getElementById("slots-l").textContent = x.urgent ? "Soonest times, including today" : "Next free times";
+    drawSlots();
+  }
+  tBtn.addEventListener("click", function () { tList.hidden ? openTypes() : closeTypes(); });
+  tOpts.forEach(function (o, k) {
+    o.addEventListener("click", function () { setType(k); closeTypes(true); });
+    o.addEventListener("mousemove", function () { hilite(k); });
+  });
+  tList.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown") { e.preventDefault(); hilite(active + 1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); hilite(active - 1); }
+    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setType(active); closeTypes(true); }
+    else if (e.key === "Escape" || e.key === "Tab") closeTypes(e.key === "Escape");
+  });
+  document.addEventListener("click", function (e) { if (!tList.hidden && !book.querySelector(".type-wrap").contains(e.target)) closeTypes(); });
+
+  function priceText() {
+    var x = TYPES[type];
+    document.getElementById("chosen-type").textContent = x.name;
+    document.getElementById("visit-type").textContent = x.mins + " minutes" + (x.note ? ", " + x.note : "");
+    document.getElementById("slot-price").textContent = x.price;
+    if (chosen) document.getElementById("slot-text").textContent = dayName(chosen.d) + " at " + chosen.t;
+  }
+  setType(0);
+  function pick(i) { chosen = list[i]; priceText(); show(2); }
+  slotsEl.addEventListener("click", function (e) { var b = e.target.closest(".slot"); if (b) pick(+b.dataset.i); });
+  book.querySelector("[data-back]").addEventListener("click", function () { show(1); });
+  book.querySelector("[data-restart]").addEventListener("click", function () { show(1); });
+  document.getElementById("confirm").addEventListener("click", function () { show(3); });
+  var toast = document.querySelector(".toast"), tTimer;
+  document.querySelectorAll("[data-call]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault(); toast.hidden = false;
+      clearTimeout(tTimer); tTimer = setTimeout(function () { toast.hidden = true; }, 4000);
+    });
+  });
+
+  /* comfort menu: the picks follow the booking */
+  var picks = [].slice.call(document.querySelectorAll(".pick"));
+  var tally = document.getElementById("tally"), cLine = document.getElementById("comfort-line");
+  function notes() { return picks.filter(function (p) { return p.getAttribute("aria-pressed") === "true"; }).map(function (p) { return p.dataset.note; }); }
+  picks.forEach(function (p) {
+    p.addEventListener("click", function () {
+      p.setAttribute("aria-pressed", p.getAttribute("aria-pressed") !== "true");
+      var n = notes();
+      tally.textContent = n.length ? n.length + (n.length === 1 ? " thing" : " things") + " picked. These go on your booking notes." : "Nothing picked yet. You can always tell us on the day too.";
+      var shown = n.slice(0, 2).join(", ").toLowerCase() + (n.length > 2 ? " and " + (n.length - 2) + " more" : "");
+      cLine.textContent = n.length ? "Notes for your dentist: " + shown + "." : "No comfort notes yet. You can add some further down the page.";
+    });
+  });
+  document.getElementById("book-with").addEventListener("click", function () {
+    if (!chosen) pick(0); else show(2);
+  });
+
+  /* phones: the floating button gets out of the way near the booking card */
+  var flt = document.querySelector(".float");
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { flt.classList.toggle("away", es[0].isIntersecting); }).observe(book);
+  }
+})();
+</script>
+</body>
+</html>

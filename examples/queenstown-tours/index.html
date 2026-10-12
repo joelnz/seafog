@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Glasswater Kayaks, Queenstown (concept site by Seafog)</title>
+<meta name="description" content="A concept website for a fictional Queenstown kayak tour operator, designed by Seafog. Not a real business.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<style>
+:root{
+  --deep:#0d2b33;      /* the lake past the drop-off */
+  --glacier:#8cc1c6;   /* glacial flour in the shallows */
+  --snow:#eef4f3;      /* page background */
+  --schist:#5d6b6e;    /* secondary text */
+  --kayak:#f0531c;     /* booking actions only */
+  --line:#cdd9d8;
+  --type:"Avenir Next","Avenir","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--snow);color:var(--deep);font:400 17px/1.6 var(--type)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--kayak);outline-offset:2px}
+.wrap{width:min(1180px,100% - 40px);margin:0 auto}
+
+/* concept notice */
+.concept{margin:0;background:var(--deep);color:#cfe3e4;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:#fff}
+
+/* header sits over the hero photo */
+.top{position:absolute;left:0;right:0;z-index:3;padding:22px 0}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.mark{font-weight:700;font-size:22px;letter-spacing:-.01em;color:#fff;text-decoration:none}
+.mark span{font-weight:400}
+.top nav{display:flex;align-items:center;gap:26px}
+.top nav a{color:#fff;text-decoration:none;font-size:15px;font-weight:500}
+.top nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.top nav .book{background:var(--kayak);padding:9px 18px;border-radius:999px}
+.top nav .book:hover{text-decoration:none;background:#d8440f}
+
+/* hero: the headline and its reflection on the water */
+.hero{position:relative;min-height:min(780px,calc(100vh - 110px));min-height:min(780px,calc(100svh - 110px));display:flex;flex-direction:column;justify-content:flex-end;color:#fff;
+  background:#08161a url(img/hero.jpg) center 62%/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,26,.45) 0%,rgba(8,22,26,0) 30%,rgba(8,22,26,0) 45%,rgba(8,22,26,.7) 100%)}
+.hero-in{position:relative;padding-bottom:36px}
+.hero h1{margin:0;max-width:11em;font-weight:700;font-size:clamp(44px,7.4vw,104px);line-height:.95;letter-spacing:-.035em}
+.reflect{display:block;max-width:11em;margin-top:6px;font-weight:700;font-size:clamp(44px,7.4vw,104px);line-height:.95;letter-spacing:-.035em;
+  transform:scaleY(-1);opacity:.32;filter:blur(1px);user-select:none;pointer-events:none;height:.9em;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 85%);mask-image:linear-gradient(to top,#000 0%,transparent 85%)}
+.reflect span{display:block;transform:translateY(calc(-100% + .9em))}
+.hero p.lede{max-width:34em;margin:18px 0 0;font-size:clamp(17px,1.6vw,20px);color:#e4f0f0}
+
+/* booking bar */
+.booker{position:relative;z-index:4;margin-top:-1px;background:#fff;border-bottom:1px solid var(--line)}
+.booker form{display:grid;grid-template-columns:1.4fr 1fr .8fr auto;gap:0;align-items:stretch}
+.booker .field{position:relative;display:flex;flex-direction:column;justify-content:center;padding:14px 20px;border-right:1px solid var(--line);
+  font-size:13px;color:var(--schist);cursor:pointer}
+.booker .pick-btn,.booker .date-btn{-webkit-appearance:none;appearance:none;margin-top:2px;border:0;border-radius:0;padding:0 26px 0 0;
+  background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%230d2b33' stroke-width='2'/%3E%3C/svg%3E") right center/14px 9px no-repeat;
+  font:600 17px/1.3 var(--type);color:var(--deep);width:100%;text-align:left;cursor:pointer}
+.booker .pick-btn:focus-visible,.booker .date-btn:focus-visible{outline:none}
+.booker .field:focus-within{box-shadow:inset 0 -3px 0 var(--kayak)}
+.booker .go{border:0;background:var(--kayak);color:#fff;font:600 17px var(--type);padding:0 34px;cursor:pointer}
+.booker .go:hover{background:#d8440f}
+
+/* the date picker: large tap targets, Monday first, past days off */
+.cal,.pop{position:absolute;top:calc(100% + 8px);left:0;z-index:20;width:344px;padding:16px;background:#fff;color:var(--deep);
+  border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(13,43,51,.22);cursor:default}
+.cal[hidden],.pop[hidden]{display:none}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head strong{font-size:18px}
+.cal-head button{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--deep);font:600 18px/1 var(--type);cursor:pointer}
+.cal-head button:hover:not(:disabled){border-color:var(--deep)}
+.cal-head button:disabled{opacity:.3;cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.cal-grid .dow{font-size:12px;color:var(--schist);padding:4px 0 6px}
+.cal-grid button{height:42px;border:0;border-radius:50%;background:none;color:var(--deep);font:500 16px var(--type);cursor:pointer}
+.cal-grid button:hover:not(:disabled){background:var(--snow)}
+.cal-grid button.today{box-shadow:inset 0 0 0 1px var(--deep)}
+.cal-grid button[aria-selected="true"]{background:var(--kayak);color:#fff;font-weight:700}
+.cal-grid button:disabled{color:#b9c6c6;cursor:default;text-decoration:line-through}
+.cal-note{margin:10px 0 0;font-size:13px;color:var(--schist)}
+
+/* tour chooser and people stepper */
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pick-btn{display:flex;align-items:baseline;gap:10px}
+.pick-btn em{font-style:normal;font-weight:500;color:var(--schist)}
+.tour-list{width:440px;padding:8px;margin:0;list-style:none}
+.tour-list li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:10px;border-radius:12px;cursor:pointer;color:var(--deep)}
+.tour-list li:hover,.tour-list li.active{background:var(--snow)}
+.tour-list li[aria-selected="true"]{box-shadow:inset 0 0 0 2px var(--kayak)}
+.tour-list img{width:64px;height:48px;object-fit:cover;border-radius:8px}
+.tour-list b{display:block;font-size:16px}
+.tour-list span{display:block;font-size:13px;color:var(--schist)}
+.tour-list .p{font-size:17px;font-weight:700;text-align:right}
+.tour-list .p small{display:block;font-size:12px;font-weight:500;color:var(--schist)}
+.stepper{display:flex;align-items:center;gap:12px;margin-top:2px}
+.stepper output{min-width:1.4em;text-align:center;font:600 17px/1.3 var(--type);color:var(--deep)}
+.stepper button{width:32px;height:32px;flex:none;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--deep);
+  font:500 20px/1 var(--type);cursor:pointer;display:grid;place-items:center;padding:0}
+.stepper button:hover:not(:disabled){border-color:var(--deep)}
+.stepper button:disabled{opacity:.35;cursor:default}
+.stepper button:focus-visible{outline:3px solid var(--kayak);outline-offset:1px}
+/* availability results */
+.avail{border-top:1px solid var(--line);background:#fff}
+.avail[hidden]{display:none}
+.avail-in{padding:24px 0 28px}
+.avail h3{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}
+.avail .sub{margin:0 0 18px;color:var(--schist);font-size:15px}
+.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.slot{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;
+  background:#fff;color:var(--deep);font:inherit;text-align:left;cursor:pointer}
+.slot:hover:not(:disabled){border-color:var(--deep)}
+.slot[aria-pressed="true"]{border-color:var(--kayak);box-shadow:inset 0 0 0 1px var(--kayak);background:#fff8f5}
+.slot:disabled{cursor:default;opacity:.55}
+.slot b{font-size:17px}
+.slot .time{font-size:15px}
+.slot .left{margin-top:8px;font-size:13px;font-weight:600;color:#1f7a55}
+.slot .left.low{color:#b8430f}
+.slot .left.full{color:var(--schist)}
+.summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;padding:18px 20px;border-radius:14px;background:var(--snow)}
+.summary[hidden]{display:none}
+.summary p{margin:0;font-size:16px}
+.summary strong{font-size:22px;letter-spacing:-.01em}
+.summary .btn{border:0;font:600 16px var(--type);cursor:pointer}
+.concept-note{margin:14px 0 0;padding:14px 18px;border-radius:12px;background:#fff6f2;border:1px solid #ffd9cb;font-size:15px}
+.concept-note[hidden]{display:none}
+.go[aria-busy="true"]{opacity:.8;cursor:progress}
+@media(max-width:860px){.slots{grid-template-columns:minmax(0,1fr)}}
+
+/* sections */
+section{padding:clamp(64px,9vw,120px) 0}
+h2{margin:0 0 14px;font-weight:700;font-size:clamp(30px,3.6vw,46px);line-height:1.05;letter-spacing:-.025em}
+.intro{max-width:36em;margin:0 0 48px;color:var(--schist);font-size:18px}
+
+/* tours */
+.tours{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+.tour img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.tour h3{margin:20px 0 6px;font-size:24px;font-weight:700;letter-spacing:-.015em}
+.tour p{margin:0 0 16px;color:var(--schist);font-size:16px}
+.tour dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0 0 18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15px}
+.tour dt{color:var(--schist)}
+.tour dd{margin:0;font-weight:600}
+.tour .price{font-size:30px;font-weight:700;letter-spacing:-.02em}
+.tour .price small{font-size:15px;font-weight:500;color:var(--schist);letter-spacing:0}
+.tour a.pick{display:inline-block;margin-top:12px;font-weight:600;color:var(--kayak);text-underline-offset:4px}
+
+/* why mornings: the wind across a typical summer day */
+.calm{background:var(--deep) url(img/lake.jpg) center/cover no-repeat;color:#fff;position:relative}
+.calm::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,43,51,.92) 0%,rgba(13,43,51,.7) 55%,rgba(13,43,51,.25) 100%)}
+.calm .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:end}
+.calm p{max-width:30em;color:#d6e8e8;font-size:18px;margin:0}
+.wind{margin:0}
+.wind figcaption{font-size:14px;color:#bcd6d7;margin-bottom:14px}
+.bars{display:grid;grid-template-columns:repeat(13,1fr);align-items:end;gap:5px;height:150px;border-bottom:1px solid rgba(255,255,255,.5)}
+.bars i{display:block;background:var(--glacier);border-radius:2px 2px 0 0}
+.bars i.on{background:#fff}
+.hours{display:grid;grid-template-columns:repeat(13,1fr);gap:5px;margin-top:6px;font-size:11px;color:#bcd6d7;text-align:center}
+.legend{display:flex;gap:18px;margin-top:12px;font-size:13px;color:#d6e8e8}
+.legend b{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px;border-radius:2px;background:#fff}
+.legend b.g{background:var(--glacier)}
+
+/* bring / included */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,6vw,90px)}
+.two h3{margin:0 0 12px;font-size:22px}
+.two ul{margin:0;padding:0;list-style:none}
+.two li{padding:11px 0;border-bottom:1px solid var(--line)}
+
+/* reviews placeholder */
+.reviews{border:2px dashed var(--line);padding:clamp(28px,4vw,48px);text-align:center;color:var(--schist)}
+.reviews strong{display:block;color:var(--deep);font-size:20px;margin-bottom:6px}
+
+/* find us */
+.find{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:start}
+.find address{font-style:normal;font-size:18px;margin-bottom:18px}
+.find .times{margin:0;padding:0;list-style:none;font-size:16px}
+.find .times li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.btn{display:inline-block;background:var(--kayak);color:#fff;text-decoration:none;font-weight:600;padding:13px 26px;border-radius:999px}
+.btn:hover{background:#d8440f}
+.btn.ghost{background:none;color:var(--deep);border:2px solid var(--deep);padding:11px 24px}
+.btn.ghost:hover{background:var(--deep);color:#fff}
+
+footer{background:var(--deep);color:#bcd6d7;padding:40px 0;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer a{color:#fff}
+
+/* phones: booking stays one tap away */
+.sticky{display:none}
+@media(max-width:860px){
+  .top nav a:not(.book){display:none}
+  .booker form{grid-template-columns:1fr 1fr}
+  .booker .field{border-bottom:1px solid var(--line)}
+  .booker .field:nth-child(3){border-right:0}
+  .booker .field:first-child{grid-column:1/-1;border-right:0}
+  .booker .go{grid-column:1/-1;padding:16px}
+  .cal,.pop{position:fixed;top:auto;left:12px;right:12px;bottom:12px;width:auto}
+  .pick-btn em{display:none}
+  .tours,.two,.find,.calm .wrap{grid-template-columns:minmax(0,1fr)}
+  .tours{gap:56px}
+  .sticky{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:9;text-align:center;
+    background:var(--kayak);color:#fff;font-weight:600;padding:15px;border-radius:999px;text-decoration:none;
+    box-shadow:0 6px 20px rgba(13,43,51,.35);transition:transform .2s}
+  .sticky.away{transform:translateY(calc(100% + 24px))}
+  footer{padding-bottom:90px}
+}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<p class="concept">Concept site designed by <a href="https://seafog.nz/">Seafog</a>. Glasswater Kayaks is not a real business.</p>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#">Glasswater <span>Kayaks</span></a>
+    <nav aria-label="Main">
+      <a href="#tours">Tours</a>
+      <a href="#mornings">Why mornings</a>
+      <a href="#bring">What to bring</a>
+      <a href="#find">Find us</a>
+      <a class="book" href="#book">Book a tour</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap hero-in">
+    <h1>Paddle the lake before the wind wakes up.</h1>
+    <span class="reflect" aria-hidden="true"><span>Paddle the lake before the wind wakes up.</span></span>
+    <p class="lede">Guided kayak tours on Lake Wakatipu, leaving from Queenstown Bay. Small groups,
+      no experience needed, and the first tour is on the water at 7:30 while it's still flat.</p>
+  </div>
+</div>
+
+<div class="booker" id="book">
+  <form class="wrap" novalidate>
+    <div class="field" id="tour-field">
+      <span id="tour-l">Tour</span>
+      <button type="button" class="pick-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tour-l tour-v"><span id="tour-v">Morning glass</span> <em id="tour-p">$139</em></button>
+      <select name="tour" class="vh" tabindex="-1" aria-hidden="true">
+        <option>Morning glass, 2.5 hours, $139</option>
+        <option>Half-day explorer, 4 hours, $219</option>
+        <option>Sunset paddle, 2 hours, $159</option>
+      </select>
+      <ul class="pop tour-list" role="listbox" aria-labelledby="tour-l" tabindex="-1" hidden>
+        <li role="option" id="tour-o0" data-i="0" aria-selected="true"><img src="img/morning.jpg" alt="" width="64" height="48"><div><b>Morning glass</b><span>7:30am, 2.5 hours, ages 8 and up</span></div><div class="p">$139<small>per person</small></div></li>
+        <li role="option" id="tour-o1" data-i="1" aria-selected="false"><img src="img/explorer.jpg" alt="" width="64" height="48"><div><b>Half-day explorer</b><span>9:00am, 4 hours, lunch included</span></div><div class="p">$219<small>per person</small></div></li>
+        <li role="option" id="tour-o2" data-i="2" aria-selected="false"><img src="img/sunset.jpg" alt="" width="64" height="48"><div><b>Sunset paddle</b><span>Evenings, November to March</span></div><div class="p">$159<small>per person</small></div></li>
+      </ul>
+    </div>
+    <div class="field" id="date-field">
+      <span id="date-l">Date</span>
+      <button type="button" class="date-btn" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="date-l date-v"><span id="date-v"></span></button>
+      <input type="hidden" name="date">
+      <div class="cal" role="dialog" aria-label="Choose a date" hidden>
+        <div class="cal-head">
+          <button type="button" data-step="-1" aria-label="Previous month">&lsaquo;</button>
+          <strong aria-live="polite"></strong>
+          <button type="button" data-step="1" aria-label="Next month">&rsaquo;</button>
+        </div>
+        <div class="cal-grid"></div>
+        <p class="cal-note" hidden>Sunset paddles run November to March.</p>
+      </div>
+    </div>
+    <div class="field">
+      <span id="people-l">People</span>
+      <div class="stepper" role="group" aria-labelledby="people-l">
+        <button type="button" data-d="-1" aria-label="One fewer person">&minus;</button>
+        <output id="people-v" aria-live="polite">2</output>
+        <button type="button" data-d="1" aria-label="One more person">+</button>
+      </div>
+      <input type="hidden" name="people" value="2">
+    </div>
+    <button class="go" type="submit">Check availability</button>
+  </form>
+  <div class="avail" hidden>
+    <div class="wrap avail-in" role="region" aria-live="polite" aria-label="Availability">
+      <h3 id="avail-h"></h3>
+      <p class="sub">Pick a departure. Seats are held for 10 minutes while you pay.</p>
+      <div class="slots"></div>
+      <div class="summary" hidden>
+        <p id="sum-text"></p>
+        <div><strong id="sum-total"></strong>&nbsp;&nbsp;<button type="button" class="btn" id="pay">Continue to payment</button></div>
+      </div>
+      <p class="concept-note" hidden>This is a concept site, so nothing was booked and no payment was taken.
+        On a real operator's site this step hands over to their booking system, such as Rezdy,
+        FareHarbor or Bookeo, with the tour, date, time and group size already filled in.</p>
+    </div>
+  </div>
+</div>
+
+<section id="tours">
+  <div class="wrap">
+    <h2>Three tours, one lake</h2>
+    <p class="intro">Every tour includes a guide, a stable two-person kayak, a spray jacket and
+      dry bags. If the lake is too rough to go out, we move you to another time or refund you in full.</p>
+
+    <div class="tours">
+      <article class="tour">
+        <img src="img/morning.jpg" alt="A paddler in a white kayak on still, clear water facing a mountain range" width="1000" height="750" loading="lazy">
+        <h3>Morning glass</h3>
+        <p>The calmest water of the day. Out past the Kelvin Peninsula and back as the town wakes up.</p>
+        <dl><dt>Leaves</dt><dd>7:30am daily</dd><dt>Takes</dt><dd>2.5 hours</dd><dt>Ages</dt><dd>8 and up</dd></dl>
+        <span class="price">$139 <small>per person</small></span><br>
+        <a class="pick" href="#book" data-tour="0">Book the morning</a>
+      </article>
+      <article class="tour">
+        <img src="img/explorer.jpg" alt="A paddler in a yellow kayak on blue water below forested hills and snowy peaks" width="1000" height="750" loading="lazy">
+        <h3>Half-day explorer</h3>
+        <p>Further round the lake, with a stop on a quiet beach for lunch. Some paddling fitness helps.</p>
+        <dl><dt>Leaves</dt><dd>9:00am daily</dd><dt>Takes</dt><dd>4 hours, lunch included</dd><dt>Ages</dt><dd>12 and up</dd></dl>
+        <span class="price">$219 <small>per person</small></span><br>
+        <a class="pick" href="#book" data-tour="1">Book the half day</a>
+      </article>
+      <article class="tour">
+        <img src="img/sunset.jpg" alt="A paddler in a yellow kayak on mirror-flat water at dusk" width="1000" height="750" loading="lazy">
+        <h3>Sunset paddle</h3>
+        <p>The wind usually drops again in the evening. A slow loop of the bay as the light goes.</p>
+        <dl><dt>Leaves</dt><dd>2 hours before sunset</dd><dt>Takes</dt><dd>2 hours</dd><dt>Runs</dt><dd>November to March</dd></dl>
+        <span class="price">$159 <small>per person</small></span><br>
+        <a class="pick" href="#book" data-tour="2">Book the sunset</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="calm" id="mornings">
+  <div class="wrap">
+    <div>
+      <h2>Why we start early</h2>
+      <p>On most summer days the lake is calm until late morning, then a northerly picks up and
+        the water gets choppy. Our morning tour is back on the beach before that happens, which is
+        why first-timers enjoy it most.</p>
+    </div>
+    <figure class="wind">
+      <figcaption>A typical summer day on Queenstown Bay. White bars are when our tours run.</figcaption>
+      <div class="bars" aria-hidden="true">
+        <i class="on" style="height:12%"></i><i class="on" style="height:10%"></i><i class="on" style="height:14%"></i>
+        <i style="height:22%"></i><i style="height:38%"></i><i style="height:58%"></i><i style="height:74%"></i>
+        <i style="height:86%"></i><i style="height:90%"></i><i style="height:80%"></i><i style="height:60%"></i>
+        <i class="on" style="height:34%"></i><i class="on" style="height:20%"></i>
+      </div>
+      <div class="hours" aria-hidden="true"><span>7am</span><span></span><span>9</span><span></span><span>11</span><span></span><span>1pm</span><span></span><span>3</span><span></span><span>5</span><span></span><span>7</span></div>
+      <div class="legend"><span><b></b>Tour times</span><span><b class="g"></b>Wind strength</span></div>
+      <p class="sr" style="position:absolute;left:-9999px">Wind is lightest from 7 to 9am, strongest from about 1 to 4pm, and drops again by 6pm.</p>
+    </figure>
+  </div>
+</section>
+
+<section id="bring">
+  <div class="wrap two">
+    <div>
+      <h3>We provide</h3>
+      <ul>
+        <li>A guide who knows the lake</li>
+        <li>Stable two-person kayaks, or singles if you'd rather</li>
+        <li>Spray jackets, life jackets and dry bags</li>
+        <li>Hot drinks after the morning tour</li>
+      </ul>
+    </div>
+    <div>
+      <h3>You bring</h3>
+      <ul>
+        <li>Quick-dry clothes you don't mind getting splashed</li>
+        <li>A warm layer, even in summer</li>
+        <li>Sunscreen and a hat</li>
+        <li>Your phone in the dry bag for photos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reviews">
+      <strong>Your Google reviews show here</strong>
+      On a real site, this pulls in your latest Google or TripAdvisor reviews automatically.
+      This concept doesn't show any, because the business isn't real.
+    </div>
+  </div>
+</section>
+
+<section id="find" style="padding-top:0">
+  <div class="wrap find">
+    <div>
+      <h2>Find us</h2>
+      <address>On the beach at Queenstown Bay, beside the jetty at the bottom of the Mall.
+        Look for the orange kayaks.</address>
+      <p><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Queenstown+Bay+Beach" rel="noopener">Open in Google Maps</a></p>
+    </div>
+    <div>
+      <h3 style="margin:0 0 6px;font-size:22px">Check-in times</h3>
+      <ul class="times">
+        <li><span>Morning glass</span><b>7:15am</b></li>
+        <li><span>Half-day explorer</span><b>8:45am</b></li>
+        <li><span>Sunset paddle</span><b>15 minutes before</b></li>
+      </ul>
+      <p style="margin-top:22px"><a class="btn" href="#book">Book a tour</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Glasswater Kayaks is a concept by <a href="https://seafog.nz/">Seafog</a>, not a real business.</span>
+    <span>Photos: Benjamin Davies, Kalen Emsley, Jeff Isaak, Katelyn G and Jake Hills on Unsplash.</span>
+  </div>
+</footer>
+
+<a class="sticky" href="#book">Book a tour</a>
+
+<script>
+(function () {
+  var form = document.querySelector(".booker form");
+  var field = document.getElementById("date-field");
+  var btn = field.querySelector(".date-btn"), out = document.getElementById("date-v");
+  var hidden = form.elements.date, cal = field.querySelector(".cal");
+  var grid = cal.querySelector(".cal-grid"), title = cal.querySelector("strong");
+  var prev = cal.querySelector('[data-step="-1"]'), sunsetNote = cal.querySelector(".cal-note");
+  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var DOW = ["Mo","Tu","We","Th","Fr","Sa","Su"];
+
+  function day(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function ymd(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+  function sunset() { return form.tour.selectedIndex === 2; }
+  function closed(d) { var m = d.getMonth(); return d < today || (sunset() && m > 2 && m < 10); }
+
+  var today = day(new Date());
+  var picked = new Date(today); picked.setDate(picked.getDate() + 1);
+  var view = new Date(picked.getFullYear(), picked.getMonth(), 1);
+
+  function nextOpen(d) { var x = new Date(d); for (var i = 0; i < 400 && closed(x); i++) x.setDate(x.getDate() + 1); return x; }
+  function set(d) {
+    picked = day(d);
+    hidden.value = ymd(picked);
+    out.textContent = picked.toLocaleDateString("en-NZ", { weekday: "short", day: "numeric", month: "short" });
+  }
+
+  function draw(focusDay) {
+    title.textContent = MONTHS[view.getMonth()] + " " + view.getFullYear();
+    prev.disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+    sunsetNote.hidden = !sunset();
+    var html = DOW.map(function (d) { return '<span class="dow" aria-hidden="true">' + d + "</span>"; }).join("");
+    var lead = (view.getDay() + 6) % 7;
+    for (var i = 0; i < lead; i++) html += "<span></span>";
+    var days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (var n = 1; n <= days; n++) {
+      var d = new Date(view.getFullYear(), view.getMonth(), n), sel = +d === +picked;
+      html += '<button type="button" data-d="' + ymd(d) + '"' + (closed(d) ? " disabled" : "") +
+        (+d === +today ? ' class="today"' : "") + ' aria-selected="' + sel + '"' + (sel ? "" : ' tabindex="-1"') +
+        ' aria-label="' + d.toLocaleDateString("en-NZ", { weekday: "long", day: "numeric", month: "long" }) + '">' + n + "</button>";
+    }
+    grid.innerHTML = html;
+    var f = grid.querySelector('[data-d="' + ymd(focusDay || picked) + '"]') || grid.querySelector("button:not(:disabled)");
+    if (f) { f.tabIndex = 0; if (focusDay !== undefined) f.focus(); }
+  }
+
+  function open() { view = new Date(picked.getFullYear(), picked.getMonth(), 1); cal.hidden = false; btn.setAttribute("aria-expanded", "true"); draw(picked); }
+  function shut(refocus) { cal.hidden = true; btn.setAttribute("aria-expanded", "false"); if (refocus) btn.focus(); }
+
+  btn.addEventListener("click", function () { cal.hidden ? open() : shut(); });
+  field.addEventListener("click", function (e) { if (e.target === field || e.target.id === "date-l") btn.click(); });
+  cal.querySelectorAll("[data-step]").forEach(function (b) {
+    b.addEventListener("click", function () { view.setMonth(view.getMonth() + +b.dataset.step); draw(); });
+  });
+  grid.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-d]");
+    if (!b || b.disabled) return;
+    var p = b.dataset.d.split("-"); set(new Date(+p[0], p[1] - 1, +p[2])); shut(true); hideResults();
+  });
+  cal.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { shut(true); return; }
+    var b = e.target.closest("button[data-d]"); if (!b) return;
+    var step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    var p = b.dataset.d.split("-"), d = new Date(+p[0], p[1] - 1, +p[2] + step);
+    if (d < today) return;
+    view = new Date(d.getFullYear(), d.getMonth(), 1); draw(d);
+  });
+  document.addEventListener("click", function (e) { if (!cal.hidden && !field.contains(e.target)) shut(); });
+
+  form.tour.addEventListener("change", function () { if (closed(picked)) set(nextOpen(picked)); if (!cal.hidden) draw(); });
+  /* availability: the chosen day and the two after it, one departure each.
+     Seat counts are made up but stable for a given date, so it looks real on refresh. */
+  var avail = document.querySelector(".avail"), slotsEl = avail.querySelector(".slots");
+  var summary = avail.querySelector(".summary"), cnote = avail.querySelector(".concept-note");
+  var goBtn = form.querySelector(".go"), PRICE = [139, 219, 159];
+  function departs(i, d) {
+    if (i === 0) return "7:30am";
+    if (i === 1) return "9:00am";
+    var m = d.getMonth(); return { 10: "6:30pm", 11: "7:15pm", 0: "7:20pm", 1: "6:45pm", 2: "5:50pm" }[m] || "6:30pm";
+  }
+  function seats(d, i) { var n = (d.getFullYear() * 372 + d.getMonth() * 31 + d.getDate()) * 7 + i * 13; return [12, 9, 5, 3, 0, 10, 2, 7][n % 8]; }
+  function fmt(d) { return d.toLocaleDateString("en-NZ", { weekday: "short", day: "numeric", month: "short" }); }
+  function hideResults() { avail.hidden = true; }
+  function results() {
+    var i = form.tour.selectedIndex, n = +form.elements.people.value;
+    document.getElementById("avail-h").textContent = NAMES[i] + ", " + n + (n === 1 ? " person" : " people");
+    var html = "", d = new Date(picked);
+    for (var k = 0, shown = 0; shown < 3 && k < 30; k++, d.setDate(d.getDate() + 1)) {
+      if (closed(d)) continue;
+      var s = seats(d, i), ok = s >= n, cls = s === 0 ? "full" : s < 5 ? "low" : "";
+      var label = s === 0 ? "Full" : !ok ? "Only " + s + " seats left" : s < 5 ? "Only " + s + " left" : s + " seats left";
+      html += '<button type="button" class="slot" aria-pressed="false" data-d="' + ymd(d) + '"' + (ok ? "" : " disabled") + ">" +
+        "<b>" + fmt(d) + '</b><span class="time">' + departs(i, d) + '</span><span class="left ' + cls + '">' + label + "</span></button>";
+      shown++;
+    }
+    slotsEl.innerHTML = html;
+    summary.hidden = true; cnote.hidden = true; avail.hidden = false;
+  }
+  slotsEl.addEventListener("click", function (e) {
+    var b = e.target.closest(".slot"); if (!b || b.disabled) return;
+    slotsEl.querySelectorAll(".slot").forEach(function (s) { s.setAttribute("aria-pressed", s === b); });
+    var i = form.tour.selectedIndex, n = +form.elements.people.value, p = b.dataset.d.split("-");
+    var d = new Date(+p[0], p[1] - 1, +p[2]);
+    document.getElementById("sum-text").textContent = NAMES[i] + ", " + fmt(d) + " at " + departs(i, d) + ", " + n + (n === 1 ? " person" : " people");
+    document.getElementById("sum-total").textContent = "$" + (PRICE[i] * n).toLocaleString("en-NZ");
+    summary.hidden = false; cnote.hidden = true;
+  });
+  document.getElementById("pay").addEventListener("click", function () { cnote.hidden = false; });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    goBtn.setAttribute("aria-busy", "true"); goBtn.textContent = "Checking...";
+    var wait = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 650;
+    setTimeout(function () {
+      goBtn.removeAttribute("aria-busy"); goBtn.textContent = "Check availability";
+      results();
+      if (avail.getBoundingClientRect().bottom > innerHeight) avail.scrollIntoView({ block: "nearest" });
+    }, wait);
+  });
+  document.querySelectorAll("[data-tour]").forEach(function (a) {
+    a.addEventListener("click", function () { form.tour.selectedIndex = +a.dataset.tour; form.tour.dispatchEvent(new Event("change")); });
+  });
+  set(nextOpen(picked));
+
+  /* tour chooser: a listbox over the hidden select, which stays the source of truth */
+  var tField = document.getElementById("tour-field"), tBtn = tField.querySelector(".pick-btn");
+  var list = tField.querySelector(".tour-list"), opts = [].slice.call(list.querySelectorAll("li"));
+  var NAMES = ["Morning glass", "Half-day explorer", "Sunset paddle"], PRICES = ["$139", "$219", "$159"], active = 0;
+  function showTour() {
+    var i = form.tour.selectedIndex;
+    document.getElementById("tour-v").textContent = NAMES[i];
+    document.getElementById("tour-p").textContent = PRICES[i];
+    opts.forEach(function (o, k) { o.setAttribute("aria-selected", k === i); });
+  }
+  function hilite(i) { active = (i + opts.length) % opts.length; opts.forEach(function (o, k) { o.classList.toggle("active", k === active); }); list.setAttribute("aria-activedescendant", "tour-o" + active); }
+  function openList() { list.hidden = false; tBtn.setAttribute("aria-expanded", "true"); hilite(form.tour.selectedIndex); list.focus(); }
+  function closeList(refocus) { list.hidden = true; tBtn.setAttribute("aria-expanded", "false"); if (refocus) tBtn.focus(); }
+  function choose(i) { form.tour.selectedIndex = i; form.tour.dispatchEvent(new Event("change")); closeList(true); }
+  tBtn.addEventListener("click", function () { list.hidden ? openList() : closeList(); });
+  tField.addEventListener("click", function (e) { if (e.target === tField || e.target.id === "tour-l") tBtn.click(); });
+  opts.forEach(function (o, k) { o.addEventListener("click", function () { choose(k); }); o.addEventListener("mousemove", function () { hilite(k); }); });
+  list.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown") { e.preventDefault(); hilite(active + 1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); hilite(active - 1); }
+    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(active); }
+    else if (e.key === "Escape" || e.key === "Tab") { closeList(e.key === "Escape"); }
+  });
+  document.addEventListener("click", function (e) { if (!list.hidden && !tField.contains(e.target)) closeList(); });
+  form.tour.addEventListener("change", function () { showTour(); hideResults(); });
+  showTour();
+
+  /* people stepper, 1 to 8 */
+  var pOut = document.getElementById("people-v"), pIn = form.elements.people;
+  var steps = document.querySelectorAll(".stepper button");
+  function setPeople(n) {
+    n = Math.max(1, Math.min(8, n)); pIn.value = n; pOut.textContent = n;
+    steps[0].disabled = n === 1; steps[1].disabled = n === 8;
+  }
+  steps.forEach(function (b) { b.addEventListener("click", function () { setPeople(+pIn.value + +b.dataset.d); hideResults(); }); });
+  setPeople(2);
+
+  /* the pinned phone button hides while the booking bar or calendar is on screen */
+  var sticky = document.querySelector(".sticky"), barVisible = false;
+  function syncSticky() { sticky.classList.toggle("away", barVisible || !cal.hidden || !list.hidden); }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { barVisible = es[0].isIntersecting; syncSticky(); })
+      .observe(document.getElementById("book"));
+  }
+  var mo = new MutationObserver(syncSticky);
+  mo.observe(cal, { attributes: true, attributeFilter: ["hidden"] });
+  mo.observe(list, { attributes: true, attributeFilter: ["hidden"] });
+})();
+</script>
+</body>
+</html>
