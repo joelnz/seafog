@@ -41,7 +41,7 @@ a{color:inherit}
 .top nav .book:hover{text-decoration:none;background:#d8440f}
 
 /* hero: the paddler's view, with the words on a solid card */
-.hero{position:relative;min-height:min(780px,calc(100vh - 110px));min-height:min(780px,calc(100svh - 110px));display:flex;flex-direction:column;justify-content:flex-end;color:#fff;
+.hero{position:relative;min-height:min(780px,calc(100vh - 110px));min-height:min(780px,calc(100svh - 110px));display:flex;flex-direction:column;justify-content:center;padding:90px 0 40px;color:#fff;
   background:#08161a url(img/hero.jpg?v=3) center 62%/cover no-repeat}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,26,.45) 0%,rgba(8,22,26,0) 26%)}
 .hero-in{position:relative}
@@ -221,7 +221,7 @@ footer a{color:#fff}
 .sticky{display:none}
 @media(max-width:860px){
   .top nav a:not(.book){display:none}
-  .hero{min-height:0;padding-top:58svh;background:var(--deep) url(img/hero.jpg?v=3) center top/auto 58svh no-repeat}
+  .hero{min-height:0;padding-top:58svh;padding-bottom:0;background:var(--deep) url(img/hero.jpg?v=3) center top/auto 58svh no-repeat}
   .hero-in{width:100%}
   .hero-card{width:100%;padding:22px 20px 24px}
   .hero h1{font-size:34px}
