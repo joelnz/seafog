@@ -40,17 +40,15 @@ a{color:inherit}
 .top nav .book{background:var(--kayak);padding:9px 18px;border-radius:999px}
 .top nav .book:hover{text-decoration:none;background:#d8440f}
 
-/* hero: the headline and its reflection on the water */
+/* hero: the paddler's view, with the words on a solid card */
 .hero{position:relative;min-height:min(780px,calc(100vh - 110px));min-height:min(780px,calc(100svh - 110px));display:flex;flex-direction:column;justify-content:flex-end;color:#fff;
-  background:#08161a url(img/hero.jpg) center 62%/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,26,.45) 0%,rgba(8,22,26,0) 30%,rgba(8,22,26,0) 45%,rgba(8,22,26,.7) 100%)}
-.hero-in{position:relative;padding-bottom:36px}
-.hero h1{margin:0;max-width:11em;font-weight:700;font-size:clamp(44px,7.4vw,104px);line-height:.95;letter-spacing:-.035em}
-.reflect{display:block;max-width:11em;margin-top:6px;font-weight:700;font-size:clamp(44px,7.4vw,104px);line-height:.95;letter-spacing:-.035em;
-  transform:scaleY(-1);opacity:.32;filter:blur(1px);user-select:none;pointer-events:none;height:.9em;overflow:hidden;
-  -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 85%);mask-image:linear-gradient(to top,#000 0%,transparent 85%)}
-.reflect span{display:block;transform:translateY(calc(-100% + .9em))}
-.hero p.lede{max-width:34em;margin:18px 0 0;font-size:clamp(17px,1.6vw,20px);color:#e4f0f0}
+  background:#08161a url(img/hero.jpg?v=2) center 58%/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,26,.45) 0%,rgba(8,22,26,0) 26%)}
+.hero-in{position:relative}
+/* the words sit on a solid block of lake colour, clear of the water and the kayak */
+.hero-card{width:min(500px,100%);padding:28px 30px 30px;background:var(--deep);color:#fff}
+.hero h1{margin:0;font-weight:700;font-size:clamp(36px,4.2vw,56px);line-height:1;letter-spacing:-.03em}
+.hero p.lede{margin:14px 0 0;font-size:17px;line-height:1.5;color:#cfe3e4}
 
 /* booking bar */
 .booker{position:relative;z-index:4;margin-top:-1px;background:#fff;border-bottom:1px solid var(--line)}
@@ -223,6 +221,10 @@ footer a{color:#fff}
 .sticky{display:none}
 @media(max-width:860px){
   .top nav a:not(.book){display:none}
+  .hero{min-height:0;padding-top:58svh;background:var(--deep) url(img/hero.jpg?v=2) center top/auto 58svh no-repeat}
+  .hero-in{width:100%}
+  .hero-card{width:100%;padding:22px 20px 24px}
+  .hero h1{font-size:34px}
   .booker form{grid-template-columns:1fr 1fr}
   .booker .field{border-bottom:1px solid var(--line)}
   .booker .field:nth-child(3){border-right:0}
@@ -264,10 +266,10 @@ footer a{color:#fff}
 <main>
 <div class="hero">
   <div class="wrap hero-in">
-    <h1>Paddle the lake before the wind wakes up.</h1>
-    <span class="reflect" aria-hidden="true"><span>Paddle the lake before the wind wakes up.</span></span>
-    <p class="lede">Guided kayak tours on Lake Wakatipu, leaving from Queenstown Bay. Small groups,
-      no experience needed, and the first tour is on the water at 7:30 while it's still flat.</p>
+    <div class="hero-card">
+      <h1>Paddle the lake before the wind wakes up.</h1>
+      <p class="lede">Small-group kayak tours from Queenstown Bay. No experience needed.</p>
+    </div>
   </div>
 </div>
 
@@ -438,7 +440,7 @@ footer a{color:#fff}
 <footer>
   <div class="wrap">
     <span>Glasswater Kayaks is a concept by <a href="https://seafog.nz/">Seafog</a>, not a real business.</span>
-    <span>Photos: Benjamin Davies, Kalen Emsley, Jeff Isaak, Katelyn G and Jake Hills on Unsplash.</span>
+    <span>Photos: André Lergier, Kalen Emsley, Jeff Isaak, Katelyn G and Jake Hills on Unsplash.</span>
   </div>
 </footer>
 
