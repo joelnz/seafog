@@ -30,36 +30,37 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
 .concept{margin:0;background:var(--plum);color:#e3d7e6;font-size:13px;text-align:center;padding:7px 16px}
 .concept a{color:#fff}
 
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:84px}
-.mark{display:flex;align-items:center;gap:12px;color:var(--plum);text-decoration:none;font-size:21px;font-weight:600}
-.mark i{width:30px;height:30px;border-radius:50%;flex:none;background:radial-gradient(circle at 50% 100%,#f3b9a6 0 40%,transparent 41%),var(--rose);box-shadow:inset 0 -3px 0 var(--violet)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
+.mark{display:flex;align-items:center;gap:11px;color:var(--plum);text-decoration:none;font-size:22px;font-weight:600;line-height:1}
+.mark span{display:block}
+.mark small{display:block;margin-top:3px;font-size:11px;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--violet)}
 .top nav{display:flex;align-items:center;gap:26px;font-size:16px}
 .top nav a{color:var(--plum);text-decoration:none}
 .top nav a:hover{color:var(--violet);text-decoration:underline;text-underline-offset:5px}
-.pill{display:inline-block;background:var(--violet);color:#fff;text-decoration:none;font:600 16px/1 var(--type);padding:14px 24px;border-radius:999px;border:0;cursor:pointer}
+.pill{display:inline-block;background:var(--violet);color:#fff;text-decoration:none;font:600 16px/1 var(--type);padding:14px 24px;border-radius:6px;border:0;cursor:pointer}
 .pill:hover{background:#4a2360}
 .top nav .pill,.top nav .pill:hover{color:#fff;text-decoration:none}
 .pill.soft{background:var(--rose);color:var(--violet)}
 .pill.soft:hover{background:#efd8dd}
 
 /* hero: a wide photograph, with the booking card rising over its lower edge */
-.hero{padding:clamp(12px,2vw,24px) 0 clamp(60px,8vw,100px)}
-.band{display:block;width:100%;aspect-ratio:21/9;object-fit:cover;object-position:50% 38%;border-radius:32px}
+.hero{padding:6px 0 clamp(40px,5vw,64px)}
+.band{display:block;width:100%;aspect-ratio:3/1;object-fit:cover;object-position:50% 12%;border-radius:8px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:clamp(24px,5vw,72px);align-items:start;padding:0 clamp(0px,2vw,24px)}
-.hero-text{padding-top:clamp(28px,4vw,52px)}
-.hero h1{margin:0;font-size:clamp(34px,4.4vw,56px);line-height:1.06}
-.hero .lede{margin:20px 0 0;max-width:28em;font-size:18px;color:#4e4058}
-.hours{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;padding:0;list-style:none}
-.hours li{background:var(--rose);border-radius:999px;padding:8px 16px;font-size:15px}
+.hero-text{padding-top:clamp(22px,2.6vw,36px)}
+.hero h1{margin:0;font-size:clamp(32px,3.8vw,48px);line-height:1.08}
+.hero .lede{margin:14px 0 0;max-width:26em;font-size:17px;color:#4e4058}
+.hours{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.hours li{background:var(--rose);border-radius:4px;padding:8px 16px;font-size:15px}
 .hours b{font-weight:600}
 
 /* booking card, overlapping the photo */
-.book{position:relative;margin:clamp(-170px,-12vw,-90px) 0 0 auto;width:100%;max-width:400px;background:#fff;border-radius:22px;padding:22px;
+.book{position:relative;margin:clamp(-150px,-11vw,-96px) 0 0 auto;width:100%;max-width:400px;background:#fff;border-radius:10px;padding:20px;
   box-shadow:0 20px 50px rgba(47,31,64,.16)}
 .book h2{margin:0 0 2px;font-size:20px}
 .book .sub{margin:0 0 14px;font-size:14px;color:var(--muted)}
 .slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.slot{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 12px;text-align:left;font:inherit;color:var(--plum);cursor:pointer;line-height:1.3}
+.slot{border:1px solid var(--line);background:#fff;border-radius:6px;padding:10px 12px;text-align:left;font:inherit;color:var(--plum);cursor:pointer;line-height:1.3}
 .slot b{display:block;font-weight:600;font-size:15px}
 .slot span{font-size:14px;color:var(--muted)}
 .slot:hover{border-color:var(--violet)}
@@ -68,16 +69,16 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
 .type-wrap{position:relative;margin:4px 0 14px}
 .type-l,.slots-l{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 .slots-l{margin:0 0 6px}
-.type-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:11px 44px 11px 14px;border:1px solid var(--line);border-radius:14px;
+.type-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:11px 44px 11px 14px;border:1px solid var(--line);border-radius:6px;
   background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%235d2e73' stroke-width='2'/%3E%3C/svg%3E") right 16px center/14px 9px no-repeat;
   font:inherit;color:var(--plum);text-align:left;cursor:pointer;line-height:1.3}
 .type-btn:hover,.type-btn[aria-expanded="true"]{border-color:var(--violet)}
 .type-btn b{display:block;font-weight:600;font-size:16px}
 .type-btn span span{font-size:14px;color:var(--muted)}
 .type-list{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:5;margin:0;padding:6px;list-style:none;background:#fff;border:1px solid var(--line);
-  border-radius:16px;box-shadow:0 16px 40px rgba(47,31,64,.18);max-height:360px;overflow:auto}
+  border-radius:8px;box-shadow:0 16px 40px rgba(47,31,64,.18);max-height:360px;overflow:auto}
 .type-list[hidden]{display:none}
-.type-list li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;line-height:1.3}
+.type-list li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:5px;cursor:pointer;line-height:1.3}
 .type-list li:hover,.type-list li.active{background:var(--blush)}
 .type-list li[aria-selected="true"]{box-shadow:inset 0 0 0 2px var(--violet)}
 .type-list b{display:block;font-weight:600;font-size:15px}
@@ -87,26 +88,26 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
 .view{grid-area:1/1;visibility:hidden;display:flex;flex-direction:column}
 .view.on{visibility:visible}
 .foot{margin:auto 0 0;padding-top:14px;font-size:14px;color:var(--muted)}
-.chosen{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;padding:12px 14px;border-radius:14px;background:var(--blush)}
+.chosen{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;padding:12px 14px;border-radius:6px;background:var(--blush)}
 .chosen span{display:block;font-size:13px;color:var(--muted)}
 .chosen b{display:block;min-height:1.65em;font-weight:600}
 .link{border:0;background:none;padding:0;font:600 15px var(--type);color:var(--violet);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
 .view[data-v="2"] .pill{margin-top:auto}
 .view[data-v="3"]{justify-content:center;align-items:flex-start}
-.tick{width:46px;height:46px;border-radius:50%;background:var(--rose);display:grid;place-items:center;margin-bottom:14px}
+.tick{width:44px;height:44px;border-radius:50%;background:var(--rose);display:grid;place-items:center;margin-bottom:14px}
 .tick::after{content:"";width:16px;height:9px;border:solid var(--violet);border-width:0 0 3px 3px;transform:translateY(-2px) rotate(-45deg)}
 .fld{display:block;margin-bottom:10px}
 .fld span{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
-.fld input{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 14px;font:inherit;color:var(--plum);background:#fff}
+.fld input{width:100%;border:1px solid var(--line);border-radius:6px;padding:11px 14px;font:inherit;color:var(--plum);background:#fff}
 .fld input:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(93,46,115,.15)}
 .price-line{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 14px;font-size:15px}
 .price-line strong{font-size:20px}
 .comfort-line{margin:0 0 12px;font-size:14px;line-height:1.45;color:var(--muted);min-height:2.9em}
 .book .pill{width:100%}
 
-section{padding:clamp(64px,8vw,110px) 0}
+section{padding:clamp(44px,5.5vw,76px) 0}
 h2.big{margin:0 0 12px;font-size:clamp(30px,3.8vw,46px);line-height:1.1}
-.intro{max-width:36em;margin:0 0 40px;color:var(--muted);font-size:18px}
+.intro{max-width:36em;margin:0 0 28px;color:var(--muted);font-size:18px}
 
 /* fees */
 .fees{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
@@ -120,23 +121,23 @@ h2.big{margin:0 0 12px;font-size:clamp(30px,3.8vw,46px);line-height:1.1}
 /* comfort menu */
 .comfort{background:var(--rose)}
 .comfort .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,70px);align-items:start}
-.comfort .side img{border-radius:24px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.comfort .side img{border-radius:8px;aspect-ratio:4/5;object-fit:cover;width:100%}
 .picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 22px;padding:0;list-style:none}
-.pick{display:flex;gap:14px;align-items:flex-start;width:100%;height:100%;padding:16px 18px;border:1px solid transparent;border-radius:18px;background:#fff;
+.pick{display:flex;gap:14px;align-items:flex-start;width:100%;height:100%;padding:16px 18px;border:1px solid transparent;border-radius:8px;background:#fff;
   text-align:left;font:inherit;color:var(--plum);cursor:pointer;line-height:1.4}
 .pick:hover{border-color:#d9c3cc}
-.pick .box{width:24px;height:24px;flex:none;margin-top:1px;border-radius:8px;border:2px solid #c9b2bd;display:grid;place-items:center}
+.pick .box{width:24px;height:24px;flex:none;margin-top:1px;border-radius:4px;border:2px solid #c9b2bd;display:grid;place-items:center}
 .pick[aria-pressed="true"]{border-color:var(--violet);box-shadow:inset 0 0 0 1px var(--violet)}
 .pick[aria-pressed="true"] .box{background:var(--violet);border-color:var(--violet)}
 .pick[aria-pressed="true"] .box::after{content:"";width:10px;height:6px;border:solid #fff;border-width:0 0 2px 2px;transform:translateY(-1px) rotate(-45deg)}
 .pick b{display:block;font-weight:600;font-size:16px}
 .pick span{font-size:14px;color:var(--muted)}
-.tally{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-radius:18px;background:#fff}
+.tally{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-radius:8px;background:#fff}
 .tally p{margin:0;font-size:16px}
 
 /* first visit: a proportional hour */
 .hour{display:grid;grid-template-columns:10fr 15fr 25fr 10fr;gap:6px;margin:6px 0 10px}
-.hour div{height:14px;border-radius:999px;background:var(--violet)}
+.hour div{height:12px;border-radius:2px;background:var(--violet)}
 .hour div:nth-child(2){background:#8a5aa0}
 .hour div:nth-child(3){background:#c79bc4}
 .hour div:nth-child(4){background:#e8c6cf}
@@ -147,16 +148,16 @@ h2.big{margin:0 0 12px;font-size:clamp(30px,3.8vw,46px);line-height:1.1}
 
 /* find us */
 .find .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,70px);align-items:center}
-.find img{border-radius:24px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.find img{border-radius:8px;aspect-ratio:4/3;object-fit:cover;width:100%}
 .times{margin:18px 0 22px;padding:0;list-style:none}
 .times li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
 .find address{font-style:normal;font-size:18px}
 .find .how{color:var(--muted);font-size:16px}
 
-.reviews{border:2px dashed var(--line);border-radius:22px;padding:clamp(28px,4vw,44px);text-align:center;color:var(--muted)}
+.reviews{border:2px dashed var(--line);border-radius:8px;padding:clamp(28px,4vw,44px);text-align:center;color:var(--muted)}
 .reviews strong{display:block;color:var(--plum);font-size:20px;margin-bottom:6px}
 
-.toast{position:fixed;left:50%;bottom:24px;z-index:30;transform:translateX(-50%);max-width:min(440px,calc(100% - 32px));padding:14px 18px;border-radius:14px;background:var(--plum);color:#fff;font-size:15px;box-shadow:0 10px 30px rgba(47,31,64,.3)}
+.toast{position:fixed;left:50%;bottom:24px;z-index:30;transform:translateX(-50%);max-width:min(440px,calc(100% - 32px));padding:14px 18px;border-radius:6px;background:var(--plum);color:#fff;font-size:15px;box-shadow:0 10px 30px rgba(47,31,64,.3)}
 .toast[hidden]{display:none}
 footer{background:var(--plum);color:#d8cbdc;padding:36px 0;font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
@@ -166,7 +167,7 @@ footer a{color:#fff}
 @media(max-width:900px){
   .top nav a:not(.pill){display:none}
   .comfort .wrap,.find .wrap,.hero-grid{grid-template-columns:minmax(0,1fr)}
-  .band{aspect-ratio:4/3;border-radius:24px}
+  .band{aspect-ratio:16/9;border-radius:8px}
   .hero-text{padding-top:24px}
   .book{margin:8px 0 0;max-width:none;width:auto}
   .fees{grid-template-columns:minmax(0,1fr)}
@@ -194,7 +195,7 @@ footer a{color:#fff}
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#"><i aria-hidden="true"></i>Early Light Dental</a>
+    <a class="mark" href="#" aria-label="Early Light Dental, home"><svg viewBox="0 0 40 28" width="34" height="24" aria-hidden="true"><g fill="none" stroke="#5d2e73" stroke-width="2.2" stroke-linecap="round"><path d="M8 22a12 12 0 0 1 24 0"/><path d="M2 25.5h36"/><path d="M20 2.5v4M7.5 7l2.6 2.6M32.5 7l-2.6 2.6M1.5 16.5h3.5M35 16.5h3.5"/></g></svg><span>Early Light<small>Dental</small></span></a>
     <nav aria-label="Main">
       <a href="#fees">Fees</a>
       <a href="#comfort">Nervous?</a>
@@ -211,9 +212,8 @@ footer a{color:#fff}
     <img class="band" src="img/hero.jpg" alt="A dentist sitting beside a relaxed patient, talking before the appointment starts" width="1400" height="1100">
     <div class="hero-grid">
       <div class="hero-text">
-        <h1>Book the dentist for 7am and still make work on time.</h1>
-        <p class="lede">Early Light Dental in Mt Eden opens at 7am on weekdays, lists every fee on
-        this page, and goes at your pace if the dentist isn't your favourite place.</p>
+        <h1>Dental care that goes at your pace.</h1>
+        <p class="lede">Early appointments in Mt Eden, every fee listed, and no rushing.</p>
         <ul class="hours">
         <li><b>Weekdays</b> 7am to 7pm</li>
         <li><b>Saturday</b> 8am to 1pm</li>
