@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Holloway Reed Accountants, Wellington (concept site by Seafog)</title>
+<meta name="description" content="A concept website for a fictional Wellington accounting firm, designed by Seafog. Not a real business.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<style>
+@font-face{font-family:"Fraunces";src:url(fonts/fraunces.woff2) format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"Figtree";src:url(fonts/figtree.woff2) format("woff2");font-weight:300 700;font-display:swap}
+/* Calm books: oat paper, sage, and a soft clay for the one thing that's due next. */
+:root{
+  --oat:#f3eee4;
+  --cream:#faf7f1;
+  --sage:#8ea48b;
+  --sage-d:#5f7a5f;
+  --mist:#dfe5d9;
+  --clay:#d4876a;
+  --ink:#2c3530;
+  --muted:#6f7770;
+  --line:rgba(44,53,48,.14);
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--oat);color:var(--ink);font:400 17px/1.6 var(--sans)}
+a{color:inherit}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sage-d);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1120px,100% - 48px);margin:0 auto}
+.serif{font-family:var(--serif);font-variation-settings:"SOFT" 100,"WONK" 0;font-optical-sizing:auto}
+
+.concept{margin:0;padding:8px 16px;background:var(--mist);color:var(--sage-d);font-size:13px;text-align:center}
+
+/* header */
+.head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo i{width:30px;height:30px;border-radius:50%;flex:none;background:conic-gradient(var(--clay) 0 18%,var(--sage) 18% 100%);
+  -webkit-mask:radial-gradient(circle,transparent 8px,#000 8.5px);mask:radial-gradient(circle,transparent 8px,#000 8.5px)}
+.logo b{display:block;font-family:var(--serif);font-variation-settings:"SOFT" 100;font-weight:500;font-size:22px;line-height:1}
+.logo small{display:block;margin-top:3px;font-size:12.5px;color:var(--muted)}
+.head nav{display:flex;align-items:center;gap:26px;font-size:15px}
+.head nav a{text-decoration:none}
+.head nav a:hover{color:var(--sage-d)}
+.pill{display:inline-block;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--cream);text-decoration:none;font-weight:500;border:0;cursor:pointer}
+.head nav .pill{color:var(--cream)}
+.pill:hover{background:var(--sage-d)}
+
+/* hero: the tax year as a ring */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(30px,6vw,80px);align-items:center;padding:clamp(10px,3vw,40px) 0 clamp(50px,7vw,90px)}
+.hero h1{margin:0;font-family:var(--serif);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:400;font-size:clamp(40px,5.4vw,70px);line-height:1.02;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--sage-d)}
+.hero .lede{max-width:27em;margin:22px 0 0;font-size:18px;color:#4a534d}
+.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:30px}
+.hero .acts a.soft{color:var(--ink);font-weight:500;text-underline-offset:5px}
+.ring-box{position:relative;width:min(440px,100%);margin:0 auto}
+.ring{display:block;width:100%;height:auto;overflow:visible}
+.ring .m{font:500 11.5px var(--sans);fill:var(--muted);letter-spacing:.06em}
+.ring .dl{transition:r .3s}
+.mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.mid b{font-family:var(--serif);font-variation-settings:"SOFT" 100;font-weight:400;font-size:clamp(64px,8vw,96px);line-height:.9;color:var(--ink)}
+.mid span{margin-top:6px;font-size:14px;color:var(--muted)}
+.mid strong{margin-top:2px;font-weight:600;font-size:15px}
+.legend{display:flex;justify-content:center;gap:18px;margin-top:10px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
+@media(prefers-reduced-motion:no-preference){.pulse{animation:pulse 2.6s ease-out infinite;transform-origin:center;transform-box:fill-box}@keyframes pulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}}
+
+/* sections */
+section{padding:clamp(60px,8vw,104px) 0}
+.kicker{margin:0 0 10px;font-size:14px;color:var(--sage-d);font-weight:500}
+h2{margin:0;font-family:var(--serif);font-variation-settings:"SOFT" 100;font-weight:400;font-size:clamp(32px,3.8vw,48px);line-height:1.08;letter-spacing:-.015em}
+
+/* what we look after */
+.care{background:var(--cream);border-radius:28px;padding:clamp(28px,5vw,60px)}
+.care-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,6vw,80px);align-items:start}
+.care ul{margin:0;padding:0;list-style:none}
+.care li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:start;padding:18px 0;border-top:1px solid var(--line)}
+.care li:first-child{border-top:0;padding-top:4px}
+.care .ic{width:44px;height:44px;border-radius:50%;background:var(--mist);display:grid;place-items:center}
+.care .ic svg{width:22px;height:22px;stroke:var(--sage-d);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.care h3{margin:2px 0 2px;font-weight:600;font-size:17px}
+.care p{margin:0;font-size:15px;color:var(--muted)}
+.care .amt{font-family:var(--serif);font-variation-settings:"SOFT" 100;font-size:19px;white-space:nowrap;text-align:right}
+.care .amt small{display:block;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+
+/* the estimator, as a sentence */
+.est{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);gap:clamp(30px,5vw,70px);align-items:center;margin-top:34px}
+.sentence{margin:0;font-family:var(--serif);font-variation-settings:"SOFT" 100;font-weight:300;font-size:clamp(24px,2.8vw,36px);line-height:1.6}
+.sentence select{-webkit-appearance:none;appearance:none;border:0;border-bottom:2px dashed var(--sage);background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235f7a5f' stroke-width='1.8'/%3E%3C/svg%3E") right 4px center/12px no-repeat;
+  padding:0 22px 0 2px;margin:0 2px;font:inherit;font-weight:450;color:var(--sage-d);cursor:pointer;border-radius:0}
+.sentence select:hover{border-bottom-style:solid}
+.tog{position:relative;display:inline-block;margin:0 2px}
+.tog input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.tog span{display:inline-block;padding:0 13px;font-size:.86em;border-radius:999px;border:1.5px solid var(--sage);font-weight:400;color:var(--muted);line-height:1.35;transition:background .2s,color .2s}
+.tog input:checked + span{background:var(--sage);border-color:var(--sage);color:#fff;font-weight:500}
+.tog input:focus-visible + span{outline:2px solid var(--sage-d);outline-offset:2px}
+.answer{background:var(--cream);border-radius:24px;padding:clamp(24px,3vw,36px)}
+.answer .k{margin:0;font-size:14px;color:var(--muted)}
+.answer .big{margin:4px 0 0;font-family:var(--serif);font-variation-settings:"SOFT" 100;font-weight:400;font-size:clamp(54px,6vw,76px);line-height:1;color:var(--ink)}
+.answer .big small{font-family:var(--sans);font-size:17px;color:var(--muted);margin-left:6px}
+.answer ul{margin:18px 0 0;padding:0;list-style:none;font-size:15px}
+.answer li{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line)}
+.answer .yr{margin:12px 0 18px;font-size:14px;color:var(--muted)}
+.note{display:none;margin:14px 0 0;padding:12px 14px;border-radius:14px;background:var(--mist);font-size:14px;color:var(--sage-d)}
+.note.on{display:block}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,36px);margin:36px 0 0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--mist);color:var(--sage-d);font-family:var(--serif);font-size:20px;margin-bottom:16px}
+.steps b{display:block;font-weight:600;font-size:18px;margin-bottom:4px}
+.steps span{color:var(--muted);font-size:15.5px}
+
+footer{padding:30px 0 46px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px}
+footer a{color:var(--ink)}
+
+@media(max-width:900px){
+  .hero,.care-grid,.est{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:minmax(0,1fr)}
+  .head nav a:not(.pill){display:none}
+  .ring-box{max-width:360px}
+}
+@media(max-width:520px){.wrap{width:calc(100% - 32px)}.care{border-radius:20px}.care li{grid-template-columns:40px minmax(0,1fr)}.care .amt{grid-column:2;text-align:left}}
+</style>
+</head>
+<body>
+
+<p class="concept">Concept site designed by <a href="https://seafog.nz/">Seafog</a>. Holloway Reed is not a real business, and the fees and dates are examples.</p>
+
+<div class="wrap">
+<header class="head">
+  <a class="logo" href="#"><i aria-hidden="true"></i><span><b>Holloway Reed</b><small>Accountants, Wellington</small></span></a>
+  <nav aria-label="Main"><a href="#care">What we do</a><a href="#estimate">Fees</a><a class="pill" href="#estimate">Book a chat</a></nav>
+</header>
+
+<main>
+<section class="hero" style="padding-top:0" aria-labelledby="hero-h">
+  <div>
+    <h1 id="hero-h">Calm books, and no surprises</h1>
+    <p class="lede">We look after the accounts, tax and GST for small Wellington businesses, and tell you what's coming well before it's due.</p>
+    <div class="acts"><a class="pill" href="#estimate">See what it would cost</a><a class="soft" href="#care">What we look after</a></div>
+  </div>
+  <figure class="ring-box" style="margin:0 auto">
+    <svg class="ring" id="ring" viewBox="0 0 360 360" role="img" aria-labelledby="ring-t"><title id="ring-t">The tax year from April to March, with today and the upcoming deadlines marked</title></svg>
+    <div class="mid" aria-live="polite"><b id="days">0</b><span id="days-l">days until</span><strong id="due">your next deadline</strong></div>
+    <figcaption class="legend"><span><i style="background:var(--clay)"></i>Next due</span><span><i style="background:var(--sage)"></i>Coming up</span><span><i style="background:var(--ink)"></i>Today</span></figcaption>
+  </figure>
+</section>
+
+<section class="care" id="care" aria-labelledby="care-h">
+  <div class="care-grid">
+    <div>
+      <p class="kicker">What we look after</p>
+      <h2 id="care-h">The paperwork, so the business can be the business.</h2>
+    </div>
+    <ul>
+      <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6M9 7h3"/></svg></span><div><h3>Year-end accounts and tax</h3><p>Your financial statements and tax return, then a call to explain them.</p></div><span class="amt">from $650<small>a year</small></span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span><div><h3>GST and payroll</h3><p>Filed on time, every time, with a reminder before anything's due.</p></div><span class="amt">from $40<small>a month</small></span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 18V6M4 18h16M8 14l3-3 3 2 5-6"/></svg></span><div><h3>Bookkeeping in Xero</h3><p>Coded and reconciled each month, in a Xero file that stays yours.</p></div><span class="amt">from $150<small>a month</small></span></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 19c2-6 12-6 14 0"/><circle cx="12" cy="8" r="3.5"/></svg></span><div><h3>A person to ask</h3><p>Hiring, buying a van, setting up a company. Ask before you do it.</p></div><span class="amt">$180<small>an hour</small></span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="estimate" aria-labelledby="est-h">
+  <p class="kicker">Fees</p>
+  <h2 id="est-h">Tell us a little, and we'll tell you a number.</h2>
+  <div class="est">
+    <form id="form" class="sentence" onsubmit="return false">
+      I run a
+      <select name="type" aria-label="Type of business"><option value="sole">sole trader business</option><option value="company">company</option><option value="trust">trust</option></select>
+      that turns over about
+      <select name="turn" aria-label="Yearly turnover"><option value="0">$50k</option><option value="1" selected>$100k</option><option value="2">$300k</option><option value="3">$750k</option></select>
+      a year, with
+      <select name="staff" aria-label="Staff on payroll"><option value="0">no staff</option><option value="1">one to five staff</option><option value="2">six or more staff</option></select>.
+      I'd like help with
+      <label class="tog"><input type="checkbox" name="gst" checked><span>GST</span></label>
+      and
+      <label class="tog"><input type="checkbox" name="books"><span>bookkeeping</span></label>.
+    </form>
+    <div class="answer" aria-live="polite">
+      <p class="k">That's about</p>
+      <p class="big"><span id="m">$0</span><small>a month</small></p>
+      <ul id="brk"></ul>
+      <p class="yr" id="yr"></p>
+      <button type="button" class="pill" id="cta">Book a free 20-minute chat</button>
+      <p class="note" id="note" role="status">This is a concept site, so no chat was booked. On a real firm's site this opens their calendar, with your sentence attached so the first call starts with your numbers.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0" aria-labelledby="how-h">
+  <p class="kicker">How it works</p>
+  <h2 id="how-h">Three steps, and then you mostly forget about us.</h2>
+  <ol class="steps">
+    <li><b>A 20-minute chat</b><span>Free, by phone or video. We work out what you need and what you can skip.</span></li>
+    <li><b>A fixed monthly fee</b><span>In writing before we start. Questions are included, so you can ask early.</span></li>
+    <li><b>Reminders before things are due</b><span>A short email a fortnight ahead of every deadline, with anything we need from you.</span></li>
+  </ol>
+</section>
+</main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Holloway Reed is a concept by <a href="https://seafog.nz/">Seafog</a>. Not a real business. Fees and dates are examples for a 31 March balance date.</span>
+    <span>Set in Fraunces and Figtree, open fonts.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var NS = "http://www.w3.org/2000/svg";
+
+  /* today, in Wellington */
+  var p = new Intl.DateTimeFormat("en-NZ", { timeZone: "Pacific/Auckland", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
+  var g = function (t) { return +p.find(function (x) { return x.type === t; }).value; };
+  var today = Date.UTC(g("year"), g("month") - 1, g("day"));
+  var ty = g("year"), tm = g("month") - 1;
+  var yStart = Date.UTC(tm >= 3 ? ty : ty - 1, 3, 1), yEnd = Date.UTC(tm >= 3 ? ty + 1 : ty, 3, 1);
+
+  /* typical deadlines for a 31 March balance date */
+  var list = [];
+  function add(y, m, d, name) { list.push({ t: Date.UTC(y, m, d), name: name }); }
+  for (var y = ty - 1; y <= ty + 1; y++) {
+    for (var m = 0; m < 12; m++) add(y, m, m === 0 ? 15 : m === 4 ? 7 : 28, "GST return");
+    add(y, 7, 28, "provisional tax"); add(y, 0, 15, "provisional tax"); add(y, 4, 7, "provisional tax");
+    add(y, 1, 7, "terminal tax"); add(y, 6, 7, "your tax return");
+  }
+  list.sort(function (a, b) { return a.t - b.t; });
+  var upcoming = list.filter(function (x) { return x.t >= today; });
+  var next = upcoming[0], days = Math.round((next.t - today) / 864e5);
+  $("days").textContent = days;
+  $("days-l").textContent = days === 1 ? "day until" : days === 0 ? "due today:" : "days until";
+  $("due").textContent = next.name.charAt(0).toUpperCase() + next.name.slice(1) + ", " + new Date(next.t).toLocaleDateString("en-NZ", { timeZone: "UTC", day: "numeric", month: "long" });
+
+  /* draw the ring */
+  var svg = $("ring"), C = 180, R = 140, span = yEnd - yStart;
+  function ang(t) { return (t - yStart) / span * 2 * Math.PI - Math.PI / 2; }
+  function el(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; }
+  el("circle", { cx: C, cy: C, r: R, fill: "none", stroke: "#dfe5d9", "stroke-width": 14 });
+  var prog = (today - yStart) / span;
+  el("circle", { cx: C, cy: C, r: R, fill: "none", stroke: "#8ea48b", "stroke-width": 14, "stroke-linecap": "round", pathLength: 100,
+    "stroke-dasharray": (prog * 100).toFixed(2) + " 100", transform: "rotate(-90 " + C + " " + C + ")" });
+  var ML = ["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"];
+  for (var i = 0; i < 12; i++) {
+    var a0 = i / 12 * 2 * Math.PI - Math.PI / 2, am = (i + .5) / 12 * 2 * Math.PI - Math.PI / 2;
+    el("line", { x1: C + Math.cos(a0) * (R - 12), y1: C + Math.sin(a0) * (R - 12), x2: C + Math.cos(a0) * (R + 12), y2: C + Math.sin(a0) * (R + 12), stroke: "#f3eee4", "stroke-width": 2 });
+    var tx = el("text", { x: C + Math.cos(am) * (R + 30), y: C + Math.sin(am) * (R + 30) + 4, "text-anchor": "middle", class: "m" });
+    tx.textContent = ML[i];
+  }
+  list.filter(function (x) { return x.t >= yStart && x.t < yEnd; }).forEach(function (x) {
+    var a = ang(x.t), isNext = x === next, past = x.t < today;
+    var cx = C + Math.cos(a) * R, cy = C + Math.sin(a) * R;
+    if (isNext) el("circle", { cx: cx, cy: cy, r: 9, fill: "#d4876a", class: "pulse" });
+    el("circle", { cx: cx, cy: cy, r: isNext ? 8 : 4.5, fill: isNext ? "#d4876a" : past ? "#c9d1c3" : "#5f7a5f", stroke: "#faf7f1", "stroke-width": 2, class: "dl" });
+  });
+  var at = ang(today);
+  el("line", { x1: C + Math.cos(at) * (R - 22), y1: C + Math.sin(at) * (R - 22), x2: C + Math.cos(at) * (R + 18), y2: C + Math.sin(at) * (R + 18), stroke: "#2c3530", "stroke-width": 2.5, "stroke-linecap": "round" });
+
+  /* the estimator sentence */
+  var BASE = { sole: 650, company: 1200, trust: 1500 }, MULT = [1, 1.25, 1.7, 2.4], PAY = [0, 60, 140];
+  var f = $("form");
+  function money(n) { return "$" + Math.round(n).toLocaleString("en-NZ"); }
+  function calc() {
+    var acc = BASE[f.elements.type.value] * MULT[+f.elements.turn.value] / 12;
+    var pay = PAY[+f.elements.staff.value], gst = f.elements.gst.checked ? 40 : 0, bk = f.elements.books.checked ? 150 : 0;
+    var rows = [["Accounts and tax", acc]];
+    if (pay) rows.push(["Payroll", pay]);
+    if (gst) rows.push(["GST", gst]);
+    if (bk) rows.push(["Bookkeeping", bk]);
+    var total = acc + pay + gst + bk;
+    $("m").textContent = money(total);
+    $("brk").innerHTML = rows.map(function (r) { return "<li><span>" + r[0] + "</span><span>" + money(r[1]) + "</span></li>"; }).join("");
+    $("yr").textContent = "About " + money(total * 12) + " a year, billed monthly. Questions included.";
+  }
+  /* each blank in the sentence is only as wide as the answer in it */
+  var meas = document.createElement("span");
+  meas.style.cssText = "position:absolute;visibility:hidden;white-space:pre;left:-9999px";
+  document.body.appendChild(meas);
+  function fit() {
+    [].forEach.call(f.querySelectorAll("select"), function (s) {
+      var cs = getComputedStyle(s);
+      ["fontFamily","fontSize","fontWeight","fontStyle","letterSpacing","fontVariationSettings"].forEach(function (k) { meas.style[k] = cs[k]; });
+      meas.textContent = s.options[s.selectedIndex].text;
+      s.style.width = Math.ceil(meas.getBoundingClientRect().width + 28) + "px";
+    });
+  }
+  fit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener("resize", fit);
+  f.addEventListener("change", function () { fit(); calc(); $("note").classList.remove("on"); });
+  $("cta").addEventListener("click", function () { $("note").classList.add("on"); });
+  calc();
+})();
+</script>
+</body>
+</html>

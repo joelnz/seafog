@@ -64,6 +64,10 @@ a{color:inherit}
 .booker .field:focus-within{box-shadow:inset 0 -3px 0 var(--kayak)}
 .booker .go{border:0;background:var(--kayak);color:#fff;font:600 17px var(--type);padding:0 34px;cursor:pointer}
 .booker .go:hover{background:#d8440f}
+.booker.nudge{animation:nudge 1.3s ease-out}
+.booker.nudge .field{animation:flash 1.3s ease-out}
+@keyframes nudge{0%{box-shadow:0 0 0 0 rgba(240,83,28,.55)}100%{box-shadow:0 0 0 22px rgba(240,83,28,0)}}
+@keyframes flash{0%,30%{background:#ffe7dc}100%{background:#fff}}
 
 /* the date picker: large tap targets, Monday first, past days off */
 .cal,.pop{position:absolute;top:calc(100% + 8px);left:0;z-index:20;width:344px;padding:16px;background:#fff;color:var(--deep);
@@ -135,57 +139,86 @@ section{padding:clamp(64px,9vw,120px) 0}
 h2{margin:0 0 14px;font-weight:700;font-size:clamp(30px,3.6vw,46px);line-height:1.05;letter-spacing:-.025em}
 .intro{max-width:36em;margin:0 0 48px;color:var(--schist);font-size:18px}
 
-/* tours */
-.tours{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
-.tour img{aspect-ratio:4/3;object-fit:cover;width:100%}
-.tour h3{margin:20px 0 6px;font-size:24px;font-weight:700;letter-spacing:-.015em}
-.tour p{margin:0 0 16px;color:var(--schist);font-size:16px}
-.tour dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0 0 18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:15px}
-.tour dt{color:var(--schist)}
-.tour dd{margin:0;font-weight:600}
+/* tours: one map of the bay, three routes on it */
+.tours-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:10px 40px;margin-bottom:28px}
+.tours-head h2{margin:0}
+.tours-head p{margin:0;max-width:30em;color:var(--schist);font-size:16px}
+.atlas{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:0;background:#fff;border:1px solid var(--line)}
+.map{position:relative;min-height:420px;background:#e3ecea;border-right:1px solid var(--line);overflow:hidden}
+.map svg{position:absolute;inset:0;display:block;width:100%;height:100%}
+.map .water{fill:#bcd9dc}
+.map .contour{fill:none;stroke:#cfdcd9;stroke-width:1}
+.map .place{font:600 15px var(--type);fill:#4d5f62;letter-spacing:.01em}
+.map .wet{font:500 15px var(--type);fill:#4b7c82;font-style:italic}
+.map .lake{font:700 40px var(--type);fill:rgba(13,43,51,.13);letter-spacing:-.02em}
+.map .route{fill:none;stroke:var(--deep);stroke-width:2;stroke-linecap:round;stroke-dasharray:2 6;opacity:.3;transition:opacity .3s}
+.map .route.on{stroke:var(--kayak);stroke-width:3.5;stroke-dasharray:none;opacity:1}
+.map .stop{fill:#fff;stroke:var(--kayak);stroke-width:2.5;opacity:0;transition:opacity .3s}
+.map .stop.on{opacity:1}
+.map .jetty{fill:var(--deep)}
+.map .scale{font:500 13px var(--type);fill:#5d6b6e}
+.panel{display:flex;flex-direction:column}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.tabs button{padding:14px 14px 12px;border:0;border-right:1px solid var(--line);background:none;text-align:left;cursor:pointer;font:inherit;color:var(--schist);line-height:1.25;box-shadow:inset 0 -3px 0 transparent}
+.tabs button:last-child{border-right:0}
+.tabs b{display:block;color:var(--deep);font-size:15.5px}
+.tabs span{font-size:13px}
+.tabs button:hover b{color:var(--kayak)}
+.tabs button[aria-selected="true"]{background:var(--snow);box-shadow:inset 0 -3px 0 var(--kayak)}
+.tour{padding:0 0 22px}
+.tour img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.tour-body{padding:18px 22px 0}
+.tour h3{margin:0 0 4px;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.tour p{margin:0 0 14px;color:var(--schist);font-size:16px}
+.tour dl{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:2px 16px;margin:0 0 18px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px}
+.tour dt{color:var(--schist);grid-row:1}
+.tour dd{margin:0;font-weight:600;grid-row:2}
+.tour .foot{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .tour .price{font-size:30px;font-weight:700;letter-spacing:-.02em}
-.tour .price small{font-size:15px;font-weight:500;color:var(--schist);letter-spacing:0}
-.tour a.pick{display:inline-block;margin-top:12px;font-weight:600;color:var(--kayak);text-underline-offset:4px}
+.tour .price small{font-size:14px;font-weight:500;color:var(--schist);letter-spacing:0}
+.fine{margin:16px 0 0;font-size:14.5px;color:var(--schist)}
 
-/* why mornings: the wind across a typical summer day */
-.calm{background:var(--deep) url(img/lake.jpg) center/cover no-repeat;color:#fff;position:relative}
-.calm::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,43,51,.92) 0%,rgba(13,43,51,.7) 55%,rgba(13,43,51,.25) 100%)}
-.calm .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:end}
-.calm p{max-width:30em;color:#d6e8e8;font-size:18px;margin:0}
-.wind{margin:0}
-.wind figcaption{font-size:14px;color:#bcd6d7;margin-bottom:14px}
-.bars{display:grid;grid-template-columns:repeat(13,1fr);align-items:end;gap:5px;height:150px;border-bottom:1px solid rgba(255,255,255,.5)}
-.bars i{display:block;background:var(--glacier);border-radius:2px 2px 0 0}
-.bars i.on{background:#fff}
-.hours{display:grid;grid-template-columns:repeat(13,1fr);gap:5px;margin-top:6px;font-size:11px;color:#bcd6d7;text-align:center}
-.legend{display:flex;gap:18px;margin-top:12px;font-size:13px;color:#d6e8e8}
-.legend b{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px;border-radius:2px;background:#fff}
-.legend b.g{background:var(--glacier)}
+/* the wind, live */
+.calm{background:var(--deep);color:#fff}
+.calm-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px clamp(30px,6vw,90px);align-items:end;margin-bottom:30px}
+.calm-head h2{margin:0}
+.calm-head p{margin:0;color:#c9dfe0;font-size:17px}
+.calm-head strong{color:#fff}
+.wind svg{display:block;width:100%;height:auto;overflow:visible}
+.wind .area{fill:rgba(140,193,198,.28)}
+.wind .line{fill:none;stroke:var(--glacier);stroke-width:2.5;stroke-linejoin:round}
+.wind .band{fill:rgba(255,255,255,.07)}
+.wind .band-l{font:600 12px var(--type);fill:#fff}
+.wind .axis{font:500 11px var(--type);fill:#9fbfc1}
+.wind .grid{stroke:rgba(255,255,255,.12);stroke-width:1}
+.wind .now{stroke:var(--kayak);stroke-width:2}
+.wind .now-l{font:700 12px var(--type);fill:var(--kayak)}
+.wind-src{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;margin-top:12px;font-size:13px;color:#9fbfc1}
 
-/* bring / included */
-.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,6vw,90px)}
-.two h3{margin:0 0 12px;font-size:22px}
-.two ul{margin:0;padding:0;list-style:none}
-.two li{padding:11px 0;border-bottom:1px solid var(--line)}
-
-/* reviews placeholder */
-.reviews{border:2px dashed var(--line);padding:clamp(28px,4vw,48px);text-align:center;color:var(--schist)}
-.reviews strong{display:block;color:var(--deep);font-size:20px;margin-bottom:6px}
+/* packing list */
+.pack{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,60px)}
+.pack h2{margin:0}
+.pack h3{margin:0 0 8px;font-size:17px}
+.pack ul{margin:0;padding:0;list-style:none}
+.pack li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
+.pack li::before{content:"";flex:none;width:14px;height:14px;margin-top:5px;border:1.5px solid var(--deep);border-radius:3px}
+.pack .ours li::before{background:var(--glacier);border-color:var(--glacier)}
 
 /* find us */
-.find{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:start}
+.find{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:start}
 .find address{font-style:normal;font-size:18px;margin-bottom:18px}
 .find .times{margin:0;padding:0;list-style:none;font-size:16px}
 .find .times li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
-.btn{display:inline-block;background:var(--kayak);color:#fff;text-decoration:none;font-weight:600;padding:13px 26px;border-radius:999px}
+.reviews{margin-top:26px;padding:16px 18px;border:2px dashed var(--line);font-size:15px;color:var(--schist)}
+.reviews b{display:block;color:var(--deep)}
+.btn{display:inline-block;border:0;background:var(--kayak);color:#fff;text-decoration:none;font:600 16px var(--type);padding:13px 24px;border-radius:999px;cursor:pointer}
 .btn:hover{background:#d8440f}
-.btn.ghost{background:none;color:var(--deep);border:2px solid var(--deep);padding:11px 24px}
+.btn.ghost{background:none;color:var(--deep);box-shadow:inset 0 0 0 2px var(--deep)}
 .btn.ghost:hover{background:var(--deep);color:#fff}
 
 footer{background:var(--deep);color:#bcd6d7;padding:40px 0;font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
 footer a{color:#fff}
-
 /* phones: booking stays one tap away */
 .sticky{display:none}
 @media(max-width:860px){
@@ -197,8 +230,11 @@ footer a{color:#fff}
   .booker .go{grid-column:1/-1;padding:16px}
   .cal,.pop{position:fixed;top:auto;left:12px;right:12px;bottom:12px;width:auto}
   .pick-btn em{display:none}
-  .tours,.two,.find,.calm .wrap{grid-template-columns:minmax(0,1fr)}
-  .tours{gap:56px}
+  .atlas,.find,.calm-head,.pack{grid-template-columns:minmax(0,1fr)}
+  .map{border-right:0;border-bottom:1px solid var(--line);min-height:0;aspect-ratio:4/3}
+  .tour dl{grid-template-columns:repeat(2,auto);justify-content:start;column-gap:28px}
+  .tour dt,.tour dd{grid-row:auto}
+  .tabs b{font-size:14px}
   .sticky{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:9;text-align:center;
     background:var(--kayak);color:#fff;font-weight:600;padding:15px;border-radius:999px;text-decoration:none;
     box-shadow:0 6px 20px rgba(13,43,51,.35);transition:transform .2s}
@@ -292,67 +328,72 @@ footer a{color:#fff}
   </div>
 </div>
 
-<section id="tours">
+<section id="tours" aria-labelledby="tours-h">
   <div class="wrap">
-    <h2>Three tours, one lake</h2>
-    <p class="intro">Every tour includes a guide, a stable two-person kayak, a spray jacket and
-      dry bags. If the lake is too rough to go out, we move you to another time or refund you in full.</p>
-
-    <div class="tours">
-      <article class="tour">
-        <img src="img/morning.jpg" alt="A paddler in a white kayak on still, clear water facing a mountain range" width="1000" height="750" loading="lazy">
-        <h3>Morning glass</h3>
-        <p>The calmest water of the day. Out past the Kelvin Peninsula and back as the town wakes up.</p>
-        <dl><dt>Leaves</dt><dd>7:30am daily</dd><dt>Takes</dt><dd>2.5 hours</dd><dt>Ages</dt><dd>8 and up</dd></dl>
-        <span class="price">$139 <small>per person</small></span><br>
-        <a class="pick" href="#book" data-tour="0">Book the morning</a>
-      </article>
-      <article class="tour">
-        <img src="img/explorer.jpg" alt="A paddler in a yellow kayak on blue water below forested hills and snowy peaks" width="1000" height="750" loading="lazy">
-        <h3>Half-day explorer</h3>
-        <p>Further round the lake, with a stop on a quiet beach for lunch. Some paddling fitness helps.</p>
-        <dl><dt>Leaves</dt><dd>9:00am daily</dd><dt>Takes</dt><dd>4 hours, lunch included</dd><dt>Ages</dt><dd>12 and up</dd></dl>
-        <span class="price">$219 <small>per person</small></span><br>
-        <a class="pick" href="#book" data-tour="1">Book the half day</a>
-      </article>
-      <article class="tour">
-        <img src="img/sunset.jpg" alt="A paddler in a yellow kayak on mirror-flat water at dusk" width="1000" height="750" loading="lazy">
-        <h3>Sunset paddle</h3>
-        <p>The wind usually drops again in the evening. A slow loop of the bay as the light goes.</p>
-        <dl><dt>Leaves</dt><dd>2 hours before sunset</dd><dt>Takes</dt><dd>2 hours</dd><dt>Runs</dt><dd>November to March</dd></dl>
-        <span class="price">$159 <small>per person</small></span><br>
-        <a class="pick" href="#book" data-tour="2">Book the sunset</a>
-      </article>
+    <div class="tours-head">
+      <h2 id="tours-h">Three routes from the jetty</h2>
+      <p>Every tour leaves from the beach at Queenstown Bay with a guide, a stable two-person kayak, a spray jacket and dry bags.</p>
     </div>
+    <div class="atlas">
+      <div class="map">
+        <svg viewBox="70 40 640 600" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="map-t">
+          <title id="map-t">Map of Queenstown Bay showing the selected tour's route</title>
+          <path class="contour" d="M0 120C150 105 260 90 340 60S470 20 560 40 720 90 800 80M0 70C120 60 240 40 320 15M560 330C640 300 720 290 800 300M600 300C660 280 740 270 800 270"/>
+          <path class="water" d="M0 262C120 240 220 222 300 206C340 198 368 176 388 146C400 122 432 110 452 126C470 142 480 166 502 182C542 198 604 192 684 182L800 176V238C704 244 624 248 566 252C524 256 512 278 534 302C566 332 654 362 800 382V640H0Z"/>
+          <text class="lake" x="110" y="490">Lake Wakatipu</text>
+          <text class="place" x="404" y="96">Queenstown</text>
+          <text class="wet" x="300" y="150">Queenstown Bay</text>
+          <text class="wet" x="560" y="218">Frankton Arm</text>
+          <text class="place" x="566" y="300">Kelvin Peninsula</text>
+          <text class="place" x="100" y="206">Sunshine Bay</text>
+          <path class="route" data-r="0" d="M446 134C452 190 498 240 532 278C548 300 522 314 500 296C468 262 438 200 446 134"/>
+          <path class="route" data-r="1" d="M446 134C430 190 360 226 262 234C212 238 188 236 172 232C204 254 332 258 418 204C440 182 448 160 446 134"/>
+          <path class="route" data-r="2" d="M446 134C420 150 398 176 410 192C430 208 482 202 488 180C492 160 466 140 446 134"/>
+          <circle class="stop" data-r="1" cx="172" cy="232" r="6"/>
+          <text class="place stop-l" data-r="1" x="150" y="258" opacity="0">Lunch</text>
+          <rect class="jetty" x="440" y="124" width="12" height="12" rx="2"/>
+          <text class="place" x="462" y="134">Jetty</text>
+          <path d="M590 590h100" stroke="#5d6b6e" stroke-width="2"/><text class="scale" x="590" y="612">1 km</text>
+        </svg>
+      </div>
+      <div class="panel">
+        <div class="tabs" role="tablist" aria-label="Tours" id="tabs">
+          <button type="button" role="tab" id="t0" aria-controls="tour" data-i="0"><b>Morning glass</b><span>7:30am, $139</span></button>
+          <button type="button" role="tab" id="t1" aria-controls="tour" data-i="1"><b>Half-day explorer</b><span>9am, $219</span></button>
+          <button type="button" role="tab" id="t2" aria-controls="tour" data-i="2"><b>Sunset paddle</b><span>Evenings, $159</span></button>
+        </div>
+        <div class="tour" id="tour" role="tabpanel">
+          <img id="tour-img" src="img/morning.jpg" alt="" width="1000" height="750">
+          <div class="tour-body">
+            <h3 id="tour-h"></h3>
+            <p id="tour-d"></p>
+            <dl id="tour-dl"></dl>
+            <div class="foot"><span class="price" id="tour-price"></span><a class="btn" href="#book" id="tour-book" data-tour="0">Book this tour</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="fine">If the lake is too rough to go out, we move you to another time or refund you in full.</p>
   </div>
 </section>
 
-<section class="calm" id="mornings">
+<section class="calm" id="mornings" aria-labelledby="wind-h">
   <div class="wrap">
-    <div>
-      <h2>Why we start early</h2>
-      <p>On most summer days the lake is calm until late morning, then a northerly picks up and
-        the water gets choppy. Our morning tour is back on the beach before that happens, which is
-        why first-timers enjoy it most.</p>
+    <div class="calm-head">
+      <h2 id="wind-h">Why we start early</h2>
+      <p id="wind-say">On most summer days the lake is calm until late morning, then a northerly picks up and the water gets choppy. Our morning tour is back on the beach before that happens.</p>
     </div>
-    <figure class="wind">
-      <figcaption>A typical summer day on Queenstown Bay. White bars are when our tours run.</figcaption>
-      <div class="bars" aria-hidden="true">
-        <i class="on" style="height:12%"></i><i class="on" style="height:10%"></i><i class="on" style="height:14%"></i>
-        <i style="height:22%"></i><i style="height:38%"></i><i style="height:58%"></i><i style="height:74%"></i>
-        <i style="height:86%"></i><i style="height:90%"></i><i style="height:80%"></i><i style="height:60%"></i>
-        <i class="on" style="height:34%"></i><i class="on" style="height:20%"></i>
-      </div>
-      <div class="hours" aria-hidden="true"><span>7am</span><span></span><span>9</span><span></span><span>11</span><span></span><span>1pm</span><span></span><span>3</span><span></span><span>5</span><span></span><span>7</span></div>
-      <div class="legend"><span><b></b>Tour times</span><span><b class="g"></b>Wind strength</span></div>
-      <p class="sr" style="position:absolute;left:-9999px">Wind is lightest from 7 to 9am, strongest from about 1 to 4pm, and drops again by 6pm.</p>
+    <figure class="wind" style="margin:0">
+      <svg id="wind-svg" viewBox="0 0 1000 300" role="img" aria-labelledby="wind-t"><title id="wind-t">Wind on Queenstown Bay through the day, with tour times shaded</title></svg>
+      <figcaption class="wind-src"><span id="wind-src">A typical summer day on Queenstown Bay.</span><span>Shaded: when tours are on the water</span></figcaption>
     </figure>
   </div>
 </section>
 
-<section id="bring">
-  <div class="wrap two">
-    <div>
+<section id="bring" aria-labelledby="bring-h">
+  <div class="wrap pack">
+    <h2 id="bring-h">What to bring</h2>
+    <div class="ours">
       <h3>We provide</h3>
       <ul>
         <li>A guide who knows the lake</li>
@@ -367,29 +408,19 @@ footer a{color:#fff}
         <li>Quick-dry clothes you don't mind getting splashed</li>
         <li>A warm layer, even in summer</li>
         <li>Sunscreen and a hat</li>
-        <li>Your phone in the dry bag for photos</li>
+        <li>Your phone, for photos from the dry bag</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="reviews">
-      <strong>Your Google reviews show here</strong>
-      On a real site, this pulls in your latest Google or TripAdvisor reviews automatically.
-      This concept doesn't show any, because the business isn't real.
-    </div>
-  </div>
-</section>
-
-<section id="find" style="padding-top:0">
+<section id="find" style="padding-top:0" aria-labelledby="find-h">
   <div class="wrap find">
     <div>
-      <h2>Find us</h2>
-      <address>On the beach at Queenstown Bay, beside the jetty at the bottom of the Mall.
-        Look for the orange kayaks.</address>
-      <p><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Queenstown+Bay+Beach" rel="noopener">Open in Google Maps</a></p>
+      <h2 id="find-h">Find us</h2>
+      <address>On the beach at Queenstown Bay, beside the jetty at the bottom of the Mall. Look for the orange kayaks.</address>
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Queenstown+Bay+Beach" rel="noopener">Open in Google Maps</a>
+      <div class="reviews"><b>Your Google reviews show here</b>A real site pulls in the latest Google or TripAdvisor reviews automatically. This concept has none, because the business isn't real.</div>
     </div>
     <div>
       <h3 style="margin:0 0 6px;font-size:22px">Check-in times</h3>
@@ -538,6 +569,20 @@ footer a{color:#fff}
   });
   set(nextOpen(picked));
 
+  /* every "Book" link lands on the bar, flashes it and opens the date picker */
+  var bar = document.getElementById("book");
+  document.querySelectorAll('a[href="#book"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      bar.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+      setTimeout(function () {
+        bar.classList.remove("nudge"); void bar.offsetWidth; bar.classList.add("nudge");
+        open();
+      }, calm ? 0 : 600);
+    });
+  });
+
   /* tour chooser: a listbox over the hidden select, which stays the source of truth */
   var tField = document.getElementById("tour-field"), tBtn = tField.querySelector(".pick-btn");
   var list = tField.querySelector(".tour-list"), opts = [].slice.call(list.querySelectorAll("li"));
@@ -585,6 +630,95 @@ footer a{color:#fff}
   var mo = new MutationObserver(syncSticky);
   mo.observe(cal, { attributes: true, attributeFilter: ["hidden"] });
   mo.observe(list, { attributes: true, attributeFilter: ["hidden"] });
+})();
+</script>
+<script>
+/* the route map and the live wind */
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var TOURS = [
+    { n: "Morning glass", img: "morning", alt: "A paddler in a white kayak on still, clear water facing a mountain range", price: 139,
+      d: "The calmest water of the day. Out to the tip of the Kelvin Peninsula and back as the town wakes up.",
+      f: [["Leaves", "7:30am daily"], ["Takes", "2.5 hours"], ["Distance", "6 km"], ["Ages", "8 and up"]], from: 7.5, to: 10 },
+    { n: "Half-day explorer", img: "explorer", alt: "A paddler in a yellow kayak on blue water below forested hills and snowy peaks", price: 219,
+      d: "West along the shore to Sunshine Bay, lunch on the beach, then back with the lake behind you. Some paddling fitness helps.",
+      f: [["Leaves", "9:00am daily"], ["Takes", "4 hours"], ["Distance", "14 km"], ["Ages", "12 and up"]], from: 9, to: 13 },
+    { n: "Sunset paddle", img: "sunset", alt: "A paddler in a yellow kayak on mirror-flat water at dusk", price: 159,
+      d: "The wind usually drops again in the evening. A slow loop of the bay as the light goes.",
+      f: [["Leaves", "2 hours before sunset"], ["Takes", "2 hours"], ["Distance", "4 km"], ["Runs", "Nov to Mar"]], from: 18.5, to: 20.5 }
+  ];
+  var tabs = [].slice.call(document.querySelectorAll("#tabs button")), cur = 0;
+  var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function pick(i, animate) {
+    cur = i; var t = TOURS[i];
+    tabs.forEach(function (b, k) { b.setAttribute("aria-selected", k === i); b.tabIndex = k === i ? 0 : -1; });
+    $("tour").setAttribute("aria-labelledby", "t" + i);
+    $("tour-img").src = "img/" + t.img + ".jpg"; $("tour-img").alt = t.alt;
+    $("tour-h").textContent = t.n; $("tour-d").textContent = t.d;
+    $("tour-dl").innerHTML = t.f.map(function (x) { return "<dt>" + x[0] + "</dt><dd>" + x[1] + "</dd>"; }).join("");
+    $("tour-price").innerHTML = "$" + t.price + " <small>per person</small>";
+    $("tour-book").dataset.tour = i;
+    document.querySelectorAll(".map [data-r]").forEach(function (el) { el.classList.toggle("on", +el.dataset.r === i); if (el.classList.contains("stop-l")) el.setAttribute("opacity", +el.dataset.r === i ? 1 : 0); });
+    var r = document.querySelector('.route[data-r="' + i + '"]');
+    r.parentNode.appendChild(r);
+    if (animate && !still) {
+      var len = r.getTotalLength();
+      r.style.transition = "none"; r.style.strokeDasharray = len; r.style.strokeDashoffset = len;
+      r.getBoundingClientRect();
+      r.style.transition = "stroke-dashoffset 1.4s ease-in-out"; r.style.strokeDashoffset = 0;
+    }
+    document.querySelectorAll(".route").forEach(function (x) { if (x !== r) { x.style.strokeDasharray = ""; x.style.strokeDashoffset = ""; x.style.transition = ""; } });
+  }
+  tabs.forEach(function (b, k) { b.addEventListener("click", function () { pick(k, true); }); });
+  $("tabs").addEventListener("keydown", function (e) {
+    var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
+    e.preventDefault(); pick((cur + d + 3) % 3, true); tabs[cur].focus();
+  });
+  pick(0, false);
+  /* draw the morning route once, the first time the map comes into view */
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); pick(cur, true); } }, { threshold: 0.5 });
+    io.observe(document.querySelector(".map"));
+  }
+
+  /* wind: today's forecast for the bay, or a typical summer day if it can't load */
+  var TYPICAL = [5, 4, 4, 5, 7, 10, 14, 18, 22, 25, 26, 24, 20, 15, 11, 9];
+  var H0 = 6, H1 = 21, W = 1000, H = 300, L = 40, R = 990, T = 20, B = 260;
+  function x(h) { return L + (h - H0) / (H1 - H0) * (R - L); }
+  function draw(vals, nowH) {
+    var max = Math.max(30, Math.ceil(Math.max.apply(null, vals) / 10) * 10);
+    function y(v) { return B - v / max * (B - T); }
+    var s = "";
+    for (var g = 0; g <= max; g += 10) s += '<line class="grid" x1="' + L + '" x2="' + R + '" y1="' + y(g) + '" y2="' + y(g) + '"/><text class="axis" x="' + (L - 8) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + g + "</text>";
+    TOURS.forEach(function (t, k) {
+      s += '<rect class="band" x="' + x(t.from) + '" y="' + T + '" width="' + (x(t.to) - x(t.from)) + '" height="' + (B - T) + '"/>';
+      s += '<text class="band-l" x="' + (x(t.from) + 8) + '" y="' + (T + 18 + (k === 1 ? 20 : 0)) + '">' + t.n + "</text>";
+    });
+    var pts = vals.map(function (v, k) { return [x(H0 + k), y(v)]; });
+    var line = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("");
+    s += '<path class="area" d="' + line + "L" + x(H1) + " " + B + "L" + x(H0) + " " + B + 'Z"/><path class="line" d="' + line + '"/>';
+    for (var h = H0; h <= H1; h += 3) s += '<text class="axis" x="' + x(h) + '" y="' + (B + 22) + '" text-anchor="middle">' + ((h % 12) || 12) + (h < 12 ? "am" : "pm") + "</text>";
+    s += '<text class="axis" x="' + L + '" y="' + (T - 6) + '">km/h</text>';
+    if (nowH != null && nowH >= H0 && nowH <= H1) s += '<line class="now" x1="' + x(nowH) + '" x2="' + x(nowH) + '" y1="' + T + '" y2="' + B + '"/><text class="now-l" x="' + (x(nowH) + 6) + '" y="' + (B - 8) + '">Now</text>';
+    $("wind-svg").insertAdjacentHTML("beforeend", s);
+  }
+  function hr(h) { return ((h % 12) || 12) + (h < 12 ? "am" : "pm"); }
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=-45.035&longitude=168.662&hourly=wind_speed_10m&wind_speed_unit=kmh&forecast_days=1&timezone=Pacific%2FAuckland")
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      var v = j.hourly.wind_speed_10m.slice(H0, H1 + 1).map(Math.round);
+      if (v.length !== H1 - H0 + 1) throw 0;
+      var p = new Intl.DateTimeFormat("en-NZ", { timeZone: "Pacific/Auckland", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date());
+      var g = function (t) { return +(p.filter(function (x) { return x.type === t; })[0] || {}).value; };
+      draw(v, (g("hour") % 24) + g("minute") / 60);
+      var lo = v.indexOf(Math.min.apply(null, v)), hi = v.indexOf(Math.max.apply(null, v));
+      $("wind-say").innerHTML = v[hi] < 12
+        ? "A calm one today, with the wind on the bay staying under <strong>" + (v[hi] + 1) + " km/h</strong> all day. On a typical summer day a northerly picks up by late morning, so the morning tour is the one that's flat."
+        : "Today the wind on the bay is lightest at <strong>" + hr(H0 + lo) + "</strong> (" + v[lo] + " km/h) and strongest around <strong>" + hr(H0 + hi) + "</strong> (" + v[hi] + " km/h). The morning tour is back on the beach before it builds.";
+      $("wind-src").textContent = "Today's forecast for Queenstown Bay, from Open-Meteo.";
+    })
+    .catch(function () { draw(TYPICAL, null); });
 })();
 </script>
 </body>

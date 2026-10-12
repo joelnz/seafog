@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Salt Hand Ceramics, Nelson (concept site by Seafog)</title>
+<meta name="description" content="A concept online store for a fictional Nelson ceramics studio, designed by Seafog. Not a real business.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<style>
+@font-face{font-family:"Bricolage Grotesque";src:url(fonts/bricolage.woff2) format("woff2");font-weight:300 800;font-display:swap}
+/* A gallery catalogue: the pot on the left, the list on the right. */
+:root{
+  --plaster:#ebe8e1;
+  --slip:#f5f3ee;
+  --clay:#d8d3c8;
+  --ink:#1d1d1b;
+  --muted:#77736a;
+  --glaze:#2542d6;
+  --line:rgba(29,29,27,.15);
+  --type:"Bricolage Grotesque",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--plaster);color:var(--ink);font:400 15px/1.55 var(--type);font-optical-sizing:auto}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--glaze);outline-offset:3px}
+
+.concept{margin:0;padding:7px 16px;background:var(--ink);color:#d7d3c9;font-size:12.5px;text-align:center}
+.concept a{color:#fff}
+
+/* the split */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:calc(100vh - 32px)}
+.stage{position:sticky;top:0;height:100vh;background:var(--clay);overflow:hidden}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
+.stage img.on{opacity:1}
+.stage .cap{position:absolute;left:28px;right:28px;bottom:24px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35);font-size:14px}
+.stage .cap b{font-weight:500;font-size:22px;letter-spacing:-.02em}
+.stage .no{position:absolute;left:28px;top:24px;color:#fff;font-size:13px;letter-spacing:.04em;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+
+.side{padding:0 clamp(24px,4vw,64px) 60px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0;position:sticky;top:0;z-index:5;background:linear-gradient(var(--plaster) 70%,rgba(235,232,225,0))}
+.logo{text-decoration:none;font-weight:700;font-size:20px;letter-spacing:-.03em;line-height:1}
+.logo span{font-weight:300;color:var(--muted)}
+.bag-btn{display:inline-flex;align-items:center;gap:8px;border:0;background:none;padding:6px 0;cursor:pointer;font-size:15px}
+.bag-btn b{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:var(--ink);color:var(--plaster);font-size:12px;font-weight:600;transition:background .2s}
+.bag-btn.bump b{background:var(--glaze)}
+
+.intro{padding:clamp(20px,5vh,56px) 0 clamp(30px,5vh,48px);max-width:30em}
+.intro h1{margin:0;font-weight:500;font-size:clamp(30px,3vw,44px);line-height:1.08;letter-spacing:-.035em}
+.intro p{margin:16px 0 0;color:#4b4943}
+.firing{display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;font-size:13px}
+.firing i{width:8px;height:8px;border-radius:50%;background:var(--glaze)}
+
+.filters{display:flex;flex-wrap:wrap;gap:4px 18px;padding:12px 0;border-top:1px solid var(--ink);font-size:14px}
+.filters button{border:0;background:none;padding:2px 0;cursor:pointer;color:var(--muted)}
+.filters button sup{font-size:10px;margin-left:2px}
+.filters button:hover{color:var(--ink)}
+.filters button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+
+.index{margin:0;padding:0;list-style:none}
+.row{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr) auto 40px;gap:6px 14px;align-items:center;padding:18px 0;border-top:1px solid var(--line);cursor:default}
+.row .n{font-size:12px;color:var(--muted);align-self:start;padding-top:9px}
+.row h3{margin:0;font-weight:500;font-size:clamp(22px,2.2vw,30px);line-height:1.1;letter-spacing:-.03em;transition:transform .25s ease}
+.row .d{display:block;margin-top:3px;font-size:13.5px;color:var(--muted)}
+.row .d em{font-style:normal;color:var(--glaze);margin-left:8px}
+.row .p{font-size:16px;font-variant-numeric:tabular-nums}
+.row .add{width:40px;height:40px;border-radius:50%;border:1px solid var(--ink);background:none;cursor:pointer;font-size:20px;line-height:1;transition:background .2s,color .2s,border-color .2s}
+.row .add:hover{background:var(--glaze);border-color:var(--glaze);color:#fff}
+.row .add:disabled{opacity:.3;cursor:default;background:none;color:var(--ink);border-color:var(--ink)}
+.row.cur h3{transform:translateX(8px)}
+.row.cur .n{color:var(--glaze)}
+.row .th{display:none}
+
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;margin-top:48px;padding-top:20px;border-top:1px solid var(--ink);font-size:14px}
+.notes h4{margin:0 0 4px;font-weight:600;font-size:14px}
+.notes p{margin:0;color:#4b4943}
+.foot{margin-top:46px;font-size:12.5px;color:var(--muted)}
+.foot a{color:var(--ink)}
+
+/* the bag */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(29,29,27,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:50;width:min(420px,100%);display:flex;flex-direction:column;background:var(--slip);transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+.drawer.on{transform:none}
+.drawer header{display:flex;align-items:baseline;justify-content:space-between;padding:22px 24px 14px}
+.drawer h2{margin:0;font-weight:500;font-size:26px;letter-spacing:-.03em}
+.close{border:0;background:none;font-size:14px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.ship{padding:0 24px 14px;font-size:13.5px;border-bottom:1px solid var(--line)}
+.ship .bar{height:3px;margin-top:9px;background:var(--clay)}
+.ship .bar i{display:block;height:100%;width:0;background:var(--glaze);transition:width .35s ease}
+.lines{flex:1;overflow:auto;margin:0;padding:0 24px;list-style:none}
+.line{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.line img{width:64px;height:80px;object-fit:cover;background:var(--clay)}
+.line b{display:block;font-weight:500;font-size:16px;line-height:1.2}
+.line span{font-size:12.5px;color:var(--muted)}
+.qty{display:inline-flex;align-items:center;gap:10px;margin-top:6px;font-size:13px}
+.qty button{border:0;background:none;padding:0 2px;cursor:pointer;font-size:16px;color:var(--muted)}
+.qty button:hover:not(:disabled){color:var(--ink)}
+.qty button:disabled{opacity:.3;cursor:default}
+.line .lp{font-variant-numeric:tabular-nums;align-self:start}
+.empty{padding:50px 0;text-align:center;color:var(--muted)}
+.totals{padding:16px 24px 24px;border-top:1px solid var(--ink)}
+.totals div{display:flex;justify-content:space-between;padding:3px 0;font-variant-numeric:tabular-nums}
+.totals .grand{margin-top:6px;font-weight:600;font-size:18px}
+.co{display:block;width:100%;margin-top:14px;padding:15px;border:0;background:var(--ink);color:var(--plaster);font-size:15px;cursor:pointer}
+.co:hover:not(:disabled){background:var(--glaze)}
+.co:disabled{opacity:.35;cursor:default}
+.note{display:none;margin:12px 0 0;font-size:13px;color:#4b4943}
+.note.on{display:block}
+
+@media(max-width:860px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .stage{display:none}
+  .row{grid-template-columns:64px minmax(0,1fr) 40px;gap:4px 14px}
+  .row .n{display:none}
+  .row .th{display:block;grid-row:1/3;width:64px;height:80px;object-fit:cover;background:var(--clay)}
+  .row .p{grid-column:2;grid-row:2;font-size:14px}
+  .row .add{grid-column:3;grid-row:1/3}
+  .row.cur h3{transform:none}
+  .notes{grid-template-columns:minmax(0,1fr)}
+  .side{padding:0 18px 40px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<p class="concept">Concept site designed by <a href="https://seafog.nz/">Seafog</a>. Salt Hand Ceramics is not a real business and nothing here can be bought.</p>
+
+<div id="page" class="split">
+  <div class="stage" aria-hidden="true">
+    <span class="no" id="stage-no">01 / 08</span>
+    <div id="stage-imgs"></div>
+    <div class="cap"><b id="stage-name"></b><span id="stage-meta"></span></div>
+  </div>
+
+  <div class="side">
+    <header class="head">
+      <a class="logo" href="#">Salt Hand <span>Ceramics</span></a>
+      <button type="button" class="bag-btn" id="open-bag" aria-haspopup="dialog">Bag <b id="count">0</b></button>
+    </header>
+
+    <main>
+      <section class="intro">
+        <h1>Pots thrown by hand on Wakatu Quay, Nelson.</h1>
+        <p>Eight pieces from this firing, glazed in cobalt, oatmeal and ash. Free shipping around New Zealand on orders over $120.</p>
+        <span class="firing"><i aria-hidden="true"></i><span id="firing">Next kiln opening soon</span></span>
+      </section>
+
+      <div class="filters" role="group" aria-label="Filter by type" id="filters"></div>
+      <ul class="index" id="index"></ul>
+
+      <section class="notes" aria-label="Shipping and care">
+        <div><h4>Shipping</h4><p>Free over $120, otherwise $9. Packed in paper and card, no plastic.</p></div>
+        <div><h4>Breakages</h4><p>Send a photo within 14 days for a replacement or a full refund.</p></div>
+        <div><h4>Sold out</h4><p>Most pieces can be made again in the next firing, three to four weeks away.</p></div>
+        <div><h4>Care</h4><p>Dishwasher safe unless the glaze is raw. The moon jar is for flowers.</p></div>
+      </section>
+
+      <p class="foot">Salt Hand Ceramics is a concept by <a href="https://seafog.nz/">Seafog</a>. Photos by Mathilde Langevin, Yana Hurska, Shigeru Sakuma, TAN Erica, Annie Spratt, John Forson and Callum Shaw on Unsplash.</p>
+    </main>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="bag-h" aria-hidden="true">
+  <header><h2 id="bag-h">Bag</h2><button type="button" class="close" id="close-bag">Close</button></header>
+  <div class="ship" id="ship"></div>
+  <ul class="lines" id="lines"></ul>
+  <div class="totals">
+    <div><span>Subtotal</span><span id="sub">$0</span></div>
+    <div><span>Shipping</span><span id="shipcost">$0</span></div>
+    <div class="grand"><span>Total</span><span id="total">$0</span></div>
+    <button type="button" class="co" id="checkout" disabled>Checkout</button>
+    <p class="note" id="note" role="status">This is a concept store, so there's nothing to buy. On a real Squarespace store this opens secure checkout with the bag already filled in.</p>
+  </div>
+</aside>
+
+<script>
+(function () {
+  "use strict";
+  var P = [
+    { id: 1, n: "Ovoid vase", d: "Oatmeal glaze, 24 cm", p: 148, c: "Vases", i: "p1", s: 4 },
+    { id: 2, n: "Pinch pot trio", d: "Raw stoneware, set of three", p: 96, c: "Vases", i: "p2", s: 6 },
+    { id: 3, n: "Tenmoku bowl", d: "Iron glaze, 14 cm", p: 64, c: "Bowls", i: "p3", s: 2, tag: "Last two" },
+    { id: 4, n: "Everyday bowl", d: "Cream, 18 cm", p: 42, c: "Bowls", i: "p4", s: 12 },
+    { id: 5, n: "Mug, oat", d: "Stoneware, 300 ml", p: 38, c: "Mugs", i: "p5", s: 9 },
+    { id: 6, n: "Mug, ash", d: "Stoneware, 300 ml", p: 38, c: "Mugs", i: "p6", s: 1, tag: "Last one" },
+    { id: 7, n: "Plate and two bowls", d: "Cream and brown, boxed", p: 118, c: "Tableware", i: "p7", s: 5 },
+    { id: 8, n: "Moon jar", d: "Textured white, 38 cm", p: 320, c: "Vases", i: "p8", s: 1, tag: "One only" }
+  ];
+  var FREE = 120, SHIP = 9, bag = {}, filter = "All";
+  var $ = function (id) { return document.getElementById(id); };
+  var money = function (n) { return "$" + n.toLocaleString("en-NZ"); };
+  var find = function (id) { return P.filter(function (x) { return x.id === id; })[0]; };
+  var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+
+  /* next kiln opening: every second Friday */
+  (function () {
+    var d = new Date(), anchor = new Date(2026, 0, 9);
+    d.setHours(0, 0, 0, 0);
+    while (d.getDay() !== 5 || Math.round((d - anchor) / 864e5) % 14 !== 0) d.setDate(d.getDate() + 1);
+    $("firing").textContent = "Next kiln opening " + d.toLocaleDateString("en-NZ", { weekday: "long", day: "numeric", month: "long" });
+  })();
+
+  /* the stage: every photo stacked, the current one faded in */
+  $("stage-imgs").innerHTML = P.map(function (x) { return '<img src="img/' + x.i + '.jpg" alt="" width="900" height="1100" data-id="' + x.id + '">'; }).join("");
+  function show(id) {
+    var x = find(id), k = P.indexOf(x) + 1;
+    [].forEach.call($("stage-imgs").children, function (im) { im.classList.toggle("on", +im.dataset.id === id); });
+    $("stage-no").textContent = pad(k) + " / " + pad(P.length);
+    $("stage-name").textContent = x.n;
+    $("stage-meta").textContent = x.d + ", " + money(x.p);
+    [].forEach.call($("index").children, function (r) { r.classList.toggle("cur", +r.dataset.id === id); });
+  }
+
+  /* filters and the index */
+  var cats = ["All"].concat(P.map(function (x) { return x.c; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
+  $("filters").innerHTML = cats.map(function (c) {
+    var n = c === "All" ? P.length : P.filter(function (x) { return x.c === c; }).length;
+    return '<button type="button" aria-pressed="' + (c === filter) + '" data-c="' + c + '">' + c + "<sup>" + n + "</sup></button>";
+  }).join("");
+  $("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    filter = b.dataset.c;
+    this.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+    drawIndex();
+  });
+  function drawIndex() {
+    var items = P.filter(function (x) { return filter === "All" || x.c === filter; });
+    $("index").innerHTML = items.map(function (x) {
+      var k = P.indexOf(x) + 1, left = x.s - (bag[x.id] || 0);
+      return '<li class="row" data-id="' + x.id + '" tabindex="-1"><span class="n">' + pad(k) + '</span>' +
+        '<img class="th" src="img/' + x.i + '.jpg" alt="" width="900" height="1100" loading="lazy">' +
+        "<div><h3>" + x.n + '</h3><span class="d">' + x.d + (x.tag ? "<em>" + x.tag + "</em>" : "") + "</span></div>" +
+        '<span class="p">' + money(x.p) + "</span>" +
+        '<button type="button" class="add" data-id="' + x.id + '" aria-label="Add ' + x.n + ' to bag"' + (left <= 0 ? " disabled" : "") + ">+</button></li>";
+    }).join("");
+    if (items.length) show(items[0].id);
+  }
+  $("index").addEventListener("mouseover", function (e) { var r = e.target.closest(".row"); if (r) show(+r.dataset.id); });
+  $("index").addEventListener("focusin", function (e) { var r = e.target.closest(".row"); if (r) show(+r.dataset.id); });
+  $("index").addEventListener("click", function (e) {
+    var b = e.target.closest(".add"); if (b) { add(+b.dataset.id); return; }
+    var r = e.target.closest(".row"); if (r) show(+r.dataset.id);
+  });
+
+  /* the bag */
+  var drawer = $("drawer"), scrim = $("scrim"), last = null;
+  function add(id) {
+    var x = find(id), q = bag[id] || 0; if (q >= x.s) return;
+    bag[id] = q + 1; render();
+    var b = $("open-bag"); b.classList.add("bump"); setTimeout(function () { b.classList.remove("bump"); }, 700);
+  }
+  function openBag() { last = document.activeElement; drawer.classList.add("on"); scrim.classList.add("on"); drawer.setAttribute("aria-hidden", "false"); $("page").inert = true; $("close-bag").focus(); }
+  function closeBag() { drawer.classList.remove("on"); scrim.classList.remove("on"); drawer.setAttribute("aria-hidden", "true"); $("page").inert = false; $("note").classList.remove("on"); if (last) last.focus(); }
+  $("open-bag").addEventListener("click", openBag);
+  $("close-bag").addEventListener("click", closeBag);
+  scrim.addEventListener("click", closeBag);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && drawer.classList.contains("on")) closeBag(); });
+  $("lines").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-d]"); if (!b) return;
+    var id = +b.dataset.id, x = find(id), q = (bag[id] || 0) + +b.dataset.d;
+    if (q <= 0) delete bag[id]; else bag[id] = Math.min(q, x.s);
+    render();
+  });
+  $("checkout").addEventListener("click", function () { $("note").classList.add("on"); });
+  function render() {
+    var ids = Object.keys(bag).map(Number), n = 0, sub = 0;
+    ids.forEach(function (id) { n += bag[id]; sub += bag[id] * find(id).p; });
+    $("count").textContent = n;
+    $("lines").innerHTML = ids.length ? ids.map(function (id) {
+      var x = find(id), q = bag[id];
+      return '<li class="line"><img src="img/' + x.i + '.jpg" alt="" width="64" height="80"><div><b>' + x.n + "</b><span>" + x.d + '</span><br><span class="qty">' +
+        '<button type="button" data-id="' + id + '" data-d="-1" aria-label="One fewer ' + x.n + '">&minus;</button><span>' + q + '</span>' +
+        '<button type="button" data-id="' + id + '" data-d="1" aria-label="One more ' + x.n + '"' + (q >= x.s ? " disabled" : "") + '>+</button></span></div><span class="lp">' + money(x.p * q) + "</span></li>";
+    }).join("") : '<li class="empty">Nothing in the bag yet.</li>';
+    var ship = !n ? 0 : sub >= FREE ? 0 : SHIP;
+    $("sub").textContent = money(sub);
+    $("shipcost").textContent = !n ? "$0" : ship ? money(ship) : "Free";
+    $("total").textContent = money(sub + ship);
+    $("checkout").disabled = !n;
+    var left = FREE - sub;
+    $("ship").innerHTML = (!n ? "Free shipping over " + money(FREE) + "." : left > 0 ? money(left) + " more for free shipping." : "Free shipping on this order.") +
+      '<div class="bar"><i style="width:' + Math.min(100, Math.round(sub / FREE * 100)) + '%"></i></div>';
+    [].forEach.call(document.querySelectorAll(".row .add"), function (b) { var x = find(+b.dataset.id); b.disabled = (bag[x.id] || 0) >= x.s; });
+  }
+  drawIndex(); render();
+})();
+</script>
+</body>
+</html>

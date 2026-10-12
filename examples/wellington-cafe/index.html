@@ -22,7 +22,8 @@
   --f:"Archivo","Arial Narrow",Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{overflow-x:clip}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--f);font-stretch:100%}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
@@ -56,11 +57,16 @@ a:hover{text-decoration-color:var(--pink)}
 .hero .riso img{object-position:50% 60%}
 /* misregistration: the pink plate sits a hair off the blue */
 .name span:first-child{transform:translate(-2px,1px)}
-.sticker{position:absolute;z-index:3;right:clamp(8px,4vw,60px);top:clamp(120px,22vw,300px);width:clamp(118px,15vw,180px);aspect-ratio:1;
-  border-radius:50%;background:var(--pink);color:var(--ink);display:grid;place-content:center;text-align:center;padding:14px;
-  transform:rotate(-9deg);font-weight:800;font-stretch:75%;font-size:clamp(17px,2vw,23px);line-height:1.02}
-.sticker small{display:block;margin-top:5px;font-weight:500;font-stretch:100%;font-size:clamp(11px,1vw,13px);line-height:1.25}
-.sticker.shut{background:var(--paper);border:3px solid var(--ink)}
+.sticker{position:absolute;z-index:3;margin:0;right:clamp(8px,4vw,60px);top:clamp(120px,22vw,300px);width:clamp(132px,15vw,190px);transform:rotate(-12deg)}
+.sticker svg{display:block;width:100%;height:auto;overflow:visible}
+.sticker text{font-family:var(--f);fill:var(--ink)}
+.s-edge{fill:#fff}
+.s-fill{fill:var(--pink)}
+.s-ring{fill:none;stroke:var(--ink);stroke-width:1.5}
+.s-rim{font-size:13.5px;font-weight:700;font-stretch:100%}
+.s-big{font-size:58px;font-weight:900;font-stretch:62%;text-anchor:middle}
+.s-small{font-size:14px;font-weight:600;text-anchor:middle}
+.sticker.shut .s-fill{fill:var(--paper)}
 
 .intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:end;padding:26px 0 0}
 .intro h1{margin:0;font-weight:800;font-stretch:75%;font-size:clamp(30px,4vw,52px);line-height:1;letter-spacing:-.01em;max-width:14em}
@@ -126,10 +132,15 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
 @media(max-width:560px){
   .menu-grid{grid-template-columns:minmax(0,1fr)}
   .hero .riso{height:240px}
-  .sticker{top:150px;right:6px;width:112px;padding:10px}
+  .sticker{top:150px;right:4px;width:118px}
   .intro{padding-top:46px}
 }
 @media(prefers-reduced-motion:reduce){.arrow{transition:none}}
+/* scroll motion: everything moves with the scroll position, nothing fades */
+@media(prefers-reduced-motion:no-preference){
+  .js-move .riso img{transform:translate3d(0,var(--py,0%),0) scale(1.16);will-change:transform}
+  .js-move .name,.js-move .foot-name{will-change:transform}
+}
 </style>
 </head>
 <body>
@@ -139,7 +150,7 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
 <div class="wrap">
   <header class="bar">
     <span>Lyall Parade, Wellington</span>
-    <nav aria-label="Main"><a href="#surf">Surf</a><a href="#menu">Menu</a><a href="#visit">Visit</a></nav>
+    <nav aria-label="Main"><a href="#menu">Menu</a><a href="#surf">Surf</a><a href="#visit">Visit</a></nav>
   </header>
 
   <main>
@@ -149,28 +160,23 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
       <img src="img/sea-wide.jpg" alt="Low waves rolling into Lyall Bay at first light" width="1400" height="600">
     </figure>
     <p class="name" aria-hidden="true"><span>Kitchen</span></p>
-    <p class="sticker" id="sticker">Open from 6:30am</p>
+    <div class="sticker" id="sticker" role="img" aria-label="Open from 6:30am">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <defs><path id="rim" d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0"/></defs>
+        <circle class="s-edge" cx="100" cy="100" r="99"/>
+        <circle class="s-fill" cx="100" cy="100" r="93"/>
+        <circle class="s-ring" cx="100" cy="100" r="62"/>
+        <text class="s-rim"><textPath href="#rim" textLength="466" lengthAdjust="spacing">Flat whites * Fry-ups * Lyall Bay * Wellington *</textPath></text>
+        <text class="s-big" x="100" y="108" id="s-big">Open</text>
+        <text class="s-small" x="100" y="131" id="s-small">from 6:30am</text>
+      </svg>
+    </div>
   </div>
 
   <div class="intro">
     <h1>Coffee and breakfast at the airport end of Lyall Bay.</h1>
     <p>Flat whites, fry-ups and fish tacos across the road from the break, with the planes coming in low over the deck.</p>
   </div>
-
-  <section id="surf" aria-labelledby="surf-h">
-    <div class="surf-head">
-      <h2 id="surf-h">The water</h2>
-      <span class="live"><b aria-hidden="true"></b><span id="updated">Checking now</span></span>
-    </div>
-    <p class="verdict" id="verdict">Having a look.</p>
-    <ul class="cond" id="report" aria-live="polite">
-      <li><span class="k">Swell</span><span class="v" id="waves">&nbsp;</span><span class="s" id="period">&nbsp;</span></li>
-      <li><span class="k">Wind</span><span class="v" id="wind">&nbsp;</span><span class="s" id="dir">&nbsp;</span></li>
-      <li><span class="k">Gusts</span><span class="v" id="gusts">&nbsp;</span><span class="s">km/h</span></li>
-      <li><span class="k">Sea</span><span class="v" id="sea">&nbsp;</span><span class="s" id="air">&nbsp;</span></li>
-    </ul>
-    <p class="credit">Live from Open-Meteo, refreshed every 15 minutes.</p>
-  </section>
 
   <section id="menu" aria-labelledby="menu-h">
     <h2 id="menu-h">Menu</h2>
@@ -224,6 +230,21 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
     </figure>
   </section>
 
+  <section id="surf" aria-labelledby="surf-h">
+    <div class="surf-head">
+      <h2 id="surf-h">The water</h2>
+      <span class="live"><b aria-hidden="true"></b><span id="updated">Checking now</span></span>
+    </div>
+    <p class="verdict" id="verdict">Having a look.</p>
+    <ul class="cond" id="report" aria-live="polite">
+      <li><span class="k">Swell</span><span class="v" id="waves">&nbsp;</span><span class="s" id="period">&nbsp;</span></li>
+      <li><span class="k">Wind</span><span class="v" id="wind">&nbsp;</span><span class="s" id="dir">&nbsp;</span></li>
+      <li><span class="k">Gusts</span><span class="v" id="gusts">&nbsp;</span><span class="s">km/h</span></li>
+      <li><span class="k">Sea</span><span class="v" id="sea">&nbsp;</span><span class="s" id="air">&nbsp;</span></li>
+    </ul>
+    <p class="credit">Live from Open-Meteo, refreshed every 15 minutes.</p>
+  </section>
+
   <section id="visit" aria-labelledby="visit-h">
     <h2 id="visit-h">Visit</h2>
     <p class="sub">Airport end of Lyall Parade, across from the beach.</p>
@@ -273,12 +294,15 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
   }
   function fmt(h) { var hr = Math.floor(h), m = Math.round((h - hr) * 60); return ((hr + 11) % 12 + 1) + (m ? ":" + ("0" + m).slice(-2) : "") + (hr >= 12 ? "pm" : "am"); }
   var now = nz(), o = HOURS[now.day], open = now.h >= o[0] && now.h < o[1];
-  var s = $("sticker");
-  if (open) s.innerHTML = "Open now<small>until " + fmt(o[1]) + "</small>";
+  var s = $("sticker"), big, small;
+  if (open) { big = "Open"; small = "till " + fmt(o[1]); }
   else {
     s.classList.add("shut");
-    s.innerHTML = "Shut<small>back " + (now.h < o[0] ? "today" : "tomorrow") + " at " + fmt(now.h < o[0] ? o[0] : HOURS[(now.day + 1) % 7][0]) + "</small>";
+    big = "Shut";
+    small = "back at " + fmt(now.h < o[0] ? o[0] : HOURS[(now.day + 1) % 7][0]);
   }
+  $("s-big").textContent = big; $("s-small").textContent = small;
+  s.setAttribute("aria-label", big + ", " + small);
   var row = document.querySelector('#hours [data-day="' + now.day + '"]');
   if (row) row.classList.add("today");
 
@@ -293,6 +317,27 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
     if (onshore && speed > 20) return "Southerly slop. Watch the planes instead.";
     return "Small and fun. Worth a paddle.";
   }
+  /* the four big numbers count up from 0 once they're on screen and the data is in */
+  var nums = null, seen = false, counted = false;
+  var still = !window.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function put(n, t) { $(n.id).innerHTML = t.toFixed(n.dp) + n.unit; }
+  function count() {
+    if (counted || !nums || !seen) return;
+    counted = true;
+    if (still) { nums.forEach(function (n) { put(n, n.to); }); return; }
+    var t0 = performance.now(), dur = 1600;
+    $("report").setAttribute("aria-busy", "true");
+    (function step(t) {
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      nums.forEach(function (n) { put(n, n.to * e); });
+      if (p < 1) requestAnimationFrame(step); else $("report").removeAttribute("aria-busy");
+    })(t0);
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { seen = true; io.disconnect(); count(); } }, { threshold: 0.4 });
+    io.observe($("report"));
+  } else seen = true;
+
   var LAT = -41.33, LON = 174.80;
   Promise.all([
     fetch("https://marine-api.open-meteo.com/v1/marine?latitude=" + LAT + "&longitude=" + LON + "&current=wave_height,wave_period,sea_surface_temperature&timezone=Pacific%2FAuckland").then(function (r) { return r.json(); }),
@@ -300,12 +345,16 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
   ]).then(function (res) {
     var m = res[0].current, w = res[1].current;
     if (!m || !w) throw new Error("no data");
-    $("waves").innerHTML = m.wave_height.toFixed(1) + "<small>m</small>";
+    nums = [
+      { id: "waves", to: m.wave_height, dp: 1, unit: "<small>m</small>" },
+      { id: "wind", to: Math.round(w.wind_speed_10m), dp: 0, unit: "<small>km/h</small>" },
+      { id: "gusts", to: Math.round(w.wind_gusts_10m), dp: 0, unit: "" },
+      { id: "sea", to: Math.round(m.sea_surface_temperature), dp: 0, unit: "<small>&deg;</small>" }
+    ];
+    nums.forEach(function (n) { put(n, 0); });
+    count();
     $("period").textContent = Math.round(m.wave_period) + " seconds apart";
-    $("wind").innerHTML = Math.round(w.wind_speed_10m) + "<small>km/h</small>";
     $("dir").innerHTML = '<span class="arrow" style="transform:rotate(' + ((w.wind_direction_10m + 180) % 360) + 'deg)" aria-hidden="true">&uarr;</span> from the ' + dir(w.wind_direction_10m);
-    $("gusts").textContent = Math.round(w.wind_gusts_10m);
-    $("sea").innerHTML = Math.round(m.sea_surface_temperature) + "<small>&deg;</small>";
     $("air").textContent = "Air " + Math.round(w.temperature_2m) + "°";
     $("verdict").textContent = verdict(m.wave_height, w.wind_speed_10m, w.wind_direction_10m);
     $("updated").textContent = "Live at " + new Date(w.time).toLocaleTimeString("en-NZ", { hour: "numeric", minute: "2-digit" });
@@ -315,6 +364,38 @@ footer{margin-top:clamp(90px,12vw,150px);overflow:hidden}
     $("verdict").textContent = "No reading just now. Have a look from the deck.";
     $("updated").textContent = "Offline";
   });
+})();
+
+/* scroll motion: plates drift out of register, photos sit behind their frames,
+   the sticker turns, the footer name slides in. Off for reduced motion. */
+(function () {
+  if (!window.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.documentElement.classList.add("js-move");
+  var names = document.querySelectorAll(".hero .name"), hero = document.querySelector(".hero");
+  var sticker = document.getElementById("sticker"), foot = document.querySelector(".foot-name");
+  var pics = [].slice.call(document.querySelectorAll(".riso"));
+  var ticking = false;
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function frame() {
+    ticking = false;
+    var vh = innerHeight, vw = innerWidth;
+    var hp = clamp(scrollY / Math.max(1, hero.offsetHeight), 0, 1);
+    names[0].style.transform = "translate3d(" + (-hp * 0.06 * vw) + "px,0,0)";
+    names[1].style.transform = "translate3d(" + (hp * 0.06 * vw) + "px,0,0)";
+    sticker.style.transform = "rotate(" + (-12 + hp * 28) + "deg)";
+    pics.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var t = clamp(((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2), -1, 1);
+      el.querySelector("img").style.setProperty("--py", (t * 6).toFixed(2) + "%");
+    });
+    var ft = foot.parentNode, fr = ft.getBoundingClientRect(), q = clamp((vh - fr.top) / Math.max(1, ft.offsetHeight), 0, 1);
+    foot.style.transform = "translate3d(" + ((1 - q) * 0.25 * vw) + "px,0,0)";
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", onScroll);
+  frame();
 })();
 </script>
 </body>
