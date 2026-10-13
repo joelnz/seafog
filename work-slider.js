@@ -12,6 +12,9 @@
     ctrls.hidden = track.scrollWidth <= track.clientWidth + 2;
     btns[0].disabled = track.scrollLeft <= 2;
     btns[1].disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    /* fade the edge wherever more thumbnails are hidden */
+    track.classList.toggle("more-l", !btns[0].disabled && !ctrls.hidden);
+    track.classList.toggle("more-r", !btns[1].disabled && !ctrls.hidden);
   }
   btns.forEach(function (b) {
     b.addEventListener("click", function () {
