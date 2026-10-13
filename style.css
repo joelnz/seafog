@@ -244,12 +244,14 @@ button.btn{font-family:var(--menu)}
   background:linear-gradient(#fff,#d4d0c8);border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;box-shadow:1px 1px 0 #404040}
 .work-btn:active:not(:disabled){box-shadow:inset 1px 1px 0 #404040}
 .work-btn:disabled{color:#aaa;cursor:default}
-.work-track{display:flex;gap:12px;margin:0;padding:0 0 2px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.work-track{display:flex;gap:12px;margin:-12px -10px 0;padding:12px 10px 4px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
 .work-track::-webkit-scrollbar{display:none}
 .work-track:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
-.work-track li{flex:0 0 132px;scroll-snap-align:start}
+.work-track li{position:relative;flex:0 0 132px;scroll-snap-align:start;scroll-margin-left:10px}
+.work-track li:hover{z-index:1}
 .work-track a{display:block;text-decoration:none}
-.work-track img{display:block;width:132px;height:132px;object-fit:cover;border:1px solid #999;background:#fff}
+.work-track img{display:block;width:132px;height:132px;object-fit:cover;border:1px solid #999;background:#fff;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s cubic-bezier(.2,.8,.2,1)}
+.work-track img.tilting{transition:transform .08s linear,box-shadow .08s linear}
 .work-track a:hover img{border-color:var(--orange);outline:1px solid var(--orange)}
 .work-track b{display:block;margin-top:5px;font-size:12px;color:var(--link);text-decoration:underline}
 .work-track span{display:block;font-size:11px;color:var(--text3)}
