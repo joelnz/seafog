@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Book a physio appointment, Wellington | Brougham Physio (concept)</title>
+<meta name="description" content="Book a physio appointment online at Brougham Physio, Mt Victoria, Wellington. Opening hours, parking and directions.">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="stylesheet" href="physio.css">
+</head>
+<body>
+<p class="concept">Concept site designed by <a href="https://seafog.nz/">Seafog</a>. Brougham Physio is not a real clinic.</p>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg width="30" height="18" viewBox="0 0 30 18" aria-hidden="true"><path d="M2 16A13 13 0 0 1 28 16" fill="none" stroke="#1d2238" stroke-width="2.5"/><path d="M15 16L24 6" stroke="#e5457b" stroke-width="3" stroke-linecap="round"/><circle cx="15" cy="16" r="2.5" fill="#1d2238"/></svg>Brougham <span>Physio</span></a>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <ul class="menu" id="menu">
+      <li class="has-sub"><button type="button" class="sub-btn" aria-expanded="false" aria-controls="sub">Treatments</button>
+        <ul class="sub" id="sub"><li><a href="back-and-neck.html">Back and neck</a></li><li><a href="sports-injuries.html">Sports injuries</a></li><li><a href="headaches-and-jaw.html">Headaches and jaw</a></li></ul></li>
+      <li><a href="acc-and-costs.html">ACC and costs</a></li>
+      <li><a href="team.html">Our physios</a></li>
+      <li><a href="book.html#find">Find us</a></li>
+      <li><a class="book" href="book.html">Book online</a></li>
+    </ul>
+  </div>
+</header>
+<main>
+<div class="page-head">
+  <div class="wrap" style="grid-template-columns:minmax(0,1fr);padding-bottom:20px">
+    <div>
+      <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Book online</li></ol></nav>
+      <h1>Book online</h1>
+      <p class="lead">Pick a time that suits. We'll text you a reminder the day before.</p>
+    </div>
+  </div>
+</div>
+<section style="padding-top:0" aria-label="Booking">
+  <div class="wrap book-grid">
+    <form class="panel" id="book-form" novalidate>
+      <h2>Your appointment</h2>
+      <div class="q"><label class="fld" style="margin-top:0"><span>What's it for?</span>
+        <select name="what" style="width:100%;padding:12px;border:1.5px solid var(--line);background:#fff">
+          <option value="back">Back or neck</option><option value="sport">Sports injury</option><option value="head">Headaches or jaw</option><option value="other">Something else</option>
+        </select></label></div>
+      <div class="q"><fieldset style="margin:0;padding:0;border:0"><legend style="padding:0;font-size:14px;color:var(--slate)">Is it from an accident? (ACC)</legend><div class="opts">
+        <label><input type="radio" name="acc" value="yes" checked><span>Yes</span></label><label><input type="radio" name="acc" value="no"><span>No</span></label></div></fieldset></div>
+      <div class="q"><label class="fld" style="margin-top:0"><span>Physio</span>
+        <select name="who" style="width:100%;padding:12px;border:1.5px solid var(--line);background:#fff">
+          <option value="any">First available</option><option value="mere">Mere Tapsell</option><option value="sam">Sam Whitlock</option><option value="ana">Ana Ferreira</option><option value="tom">Tom Hollis</option>
+        </select></label></div>
+      <div class="q"><span style="font-size:14px;color:var(--slate)">Free times this week</span><div class="days" id="days"></div></div>
+      <label class="fld"><span>Name</span><input autocomplete="name"></label>
+      <label class="fld"><span>Mobile</span><input type="tel" autocomplete="tel"></label>
+      <div class="summary"><div><span>Appointment</span><b id="s-what"></b></div><div><span>When</span><b id="s-when"></b></div><div><span>Physio</span><b id="s-who"></b></div><div><span>First visit</span><b id="s-cost"></b></div></div>
+      <button type="submit" class="btn" id="confirm" style="margin-top:18px;width:100%" disabled>Book this time</button>
+      <p class="done" id="done" role="status" hidden>This is a concept site, so nothing was booked. On a real clinic's site this goes straight into their booking system, such as Cliniko or Nookal, and sends a text confirmation.</p>
+    </form>
+    <aside class="side-note">
+      <img src="img/barre.jpg" alt="A physio guiding a patient through a leg exercise at a barre" width="1400" height="1000" loading="lazy">
+      <h2 style="font-size:22px">Your first visit</h2>
+      <p>Allow 45 minutes. Wear clothes you can move in, and bring the date and details of the injury if it's for ACC.</p>
+      <p><a href="acc-and-costs.html">ACC and costs</a></p>
+    </aside>
+  </div>
+</section>
+<section class="find" id="find" aria-labelledby="find-h" style="padding-top:0">
+  <div class="wrap">
+    <div>
+      <h2 class="h2" id="find-h">Find us</h2>
+      <address>Ground floor, Brougham Street, Mt Victoria, Wellington</address>
+      <p class="muted" style="margin-top:8px">Ten minutes' walk from Courtenay Place. The number 2 bus stops at the corner, and there's two-hour parking on the street. The clinic is step-free from the footpath.</p>
+      <p style="margin-top:22px"><a class="btn line" href="https://www.google.com/maps/search/?api=1&amp;query=Brougham+Street+Mt+Victoria+Wellington" rel="noopener">Open in Google Maps</a></p>
+    </div>
+    <div><ul class="hours">
+  <li data-days="1 2 3 4 5"><span>Monday to Friday</span><b>7am to 7pm</b></li>
+  <li data-days="6"><span>Saturday</span><b>8am to 12pm</b></li>
+  <li data-days="0"><span>Sunday</span><b>Closed</b></li>
+</ul><p class="muted" style="margin-top:14px;font-size:15px">Phone 04 000 0000 if you'd rather talk to someone.</p></div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div><a class="logo" href="index.html"><svg width="30" height="18" viewBox="0 0 30 18" aria-hidden="true"><path d="M2 16A13 13 0 0 1 28 16" fill="none" stroke="#1d2238" stroke-width="2.5"/><path d="M15 16L24 6" stroke="#e5457b" stroke-width="3" stroke-linecap="round"/><circle cx="15" cy="16" r="2.5" fill="#1d2238"/></svg>Brougham <span>Physio</span></a>
+      <p class="muted" style="margin-top:12px;font-size:15px">Brougham Street, Mt Victoria, Wellington<br>Weekdays 7am to 7pm, Saturday 8am to 12pm</p></div>
+    <div><h4>Treatments</h4><ul><li><a href="back-and-neck.html">Back and neck</a></li><li><a href="sports-injuries.html">Sports injuries</a></li><li><a href="headaches-and-jaw.html">Headaches and jaw</a></li></ul></div>
+    <div><h4>Visiting</h4><ul><li><a href="acc-and-costs.html">ACC and costs</a></li><li><a href="team.html">Our physios</a></li><li><a href="book.html#find">Find us</a></li></ul></div>
+    <div><h4>Book</h4><ul><li><a href="book.html">Book online</a></li><li><a href="book.html?for=back">Back or neck visit</a></li><li><a href="book.html?for=sport">Sports injury visit</a></li></ul></div>
+    <p class="small">Brougham Physio is a concept site by <a href="https://seafog.nz/">Seafog</a>, showing how a small business site with several pages fits together. Photos by Edward Muntinga, yury kirillov, Anna Blake, Sincerely Media, Performance Medicine, Derick McKinney, Michael Guertin, PodMatch and Omar Lopez on Unsplash.</p>
+  </div>
+</footer>
+<script src="physio.js"></script>
+</body>
+</html>
