@@ -254,8 +254,8 @@ button.btn{font-family:var(--menu)}
 .work-track:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .work-track li{position:relative;flex:0 0 132px;scroll-snap-align:start;scroll-margin-left:10px}
 .work-track li:hover{z-index:1}
-.work-track a{display:block;text-decoration:none}
-.work-track img{display:block;width:132px;height:132px;object-fit:cover;border:1px solid #999;background:#fff;will-change:transform}
+.work-track a{display:block;text-decoration:none;-webkit-user-drag:none}
+.work-track img{-webkit-user-drag:none;user-select:none;display:block;width:132px;height:132px;object-fit:cover;border:1px solid #999;background:#fff;will-change:transform}
 .work-track a:hover img{border-color:var(--orange);outline:1px solid var(--orange)}
 .work-track b{display:block;margin-top:5px;font-size:12px;color:var(--link);text-decoration:underline}
 .work-track span{display:block;font-size:11px;color:var(--text3)}

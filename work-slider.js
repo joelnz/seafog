@@ -22,6 +22,8 @@
       setTimeout(sync, 600);
     });
   });
+  /* no dragging the thumbnails or links out to the desktop */
+  track.addEventListener("dragstart", function (e) { e.preventDefault(); });
   track.addEventListener("scroll", sync, { passive: true });
   track.addEventListener("scrollend", sync);
   window.addEventListener("resize", sync);
