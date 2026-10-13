@@ -126,6 +126,13 @@ section > .in[style*="grid"]{margin-top:12px}
 .row .n{font-weight:bold;color:var(--blue-d)}
 .row .amt{font-weight:bold;color:var(--orange-d);white-space:nowrap}
 .row p{grid-column:1/-1;grid-row:2;margin:2px 0 0;font-size:13px;color:var(--text2)}
+/* pricing rows with a small example thumbnail */
+.row.ex-row{grid-template-columns:64px minmax(0,1fr) auto}
+.row.ex-row .ex{grid-column:1;grid-row:1/3;align-self:start;text-decoration:none;text-align:center}
+.row.ex-row p{grid-column:2/-1}
+.ex img{display:block;width:56px;height:56px;object-fit:cover;border:1px solid #999;background:#fff}
+.ex span{display:block;width:58px;margin-top:2px;font-size:10px;color:var(--link);text-decoration:underline}
+.ex:hover img{border-color:var(--orange);outline:1px solid var(--orange)}
 
 ul.ticks{margin:10px 0 14px;padding:0;list-style:none}
 ul.ticks li{position:relative;padding-left:22px;color:var(--text2)}

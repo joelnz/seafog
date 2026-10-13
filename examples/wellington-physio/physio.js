@@ -31,45 +31,13 @@
     if (row) row.classList.add("today");
   }
 
-  /* the goniometer: the moving arm sweeps from the first-visit angle to week eight */
-  var g = $("gonio");
-  if (g) {
-    var NS = "http://www.w3.org/2000/svg", CX = 200, CY = 200, R = 170, FROM = 70, TO = 160;
-    function pt(deg, r) { var a = (180 - deg) * Math.PI / 180; return [CX + r * Math.cos(a), CY - r * Math.sin(a)]; }
-    function el(name, attrs) { var e = document.createElementNS(NS, name); for (var k in attrs) e.setAttribute(k, attrs[k]); g.appendChild(e); return e; }
-    el("path", { class: "rim", d: "M" + (CX - R) + " " + CY + "A" + R + " " + R + " 0 0 1 " + (CX + R) + " " + CY + "Z" });
-    for (var d = 0; d <= 180; d += 5) {
-      var big = d % 30 === 0, mid = d % 10 === 0, a = pt(d, R), b = pt(d, R - (big ? 18 : mid ? 11 : 6));
-      el("line", { class: "tick" + (big ? " big" : ""), x1: a[0], y1: a[1], x2: b[0], y2: b[1] });
-      if (big && d % 180) { var t = pt(d, R - 34); el("text", { class: "num", x: t[0], y: t[1] + 5, "text-anchor": "middle" }).textContent = d + "°"; }
-    }
-    var arc = el("path", { class: "arc" });
-    var gh = pt(FROM, R - 6);
-    el("line", { class: "ghost", x1: CX, y1: CY, x2: gh[0], y2: gh[1] });
-    var gl = pt(FROM, R + 18);
-    el("text", { class: "ghost-l", x: gl[0] - 6, y: gl[1], "text-anchor": "end" }).textContent = "First visit";
-    el("line", { class: "arm", x1: CX, y1: CY, x2: CX - R + 6, y2: CY });
-    var arm = el("line", { class: "arm move", x1: CX, y1: CY });
-    el("circle", { class: "pin", cx: CX, cy: CY, r: 9 });
-    var read = el("text", { class: "read", x: CX, y: CY + 66, "text-anchor": "middle" });
-    function set(deg) {
-      var e = pt(deg, R - 6), s = pt(0, R - 46), m = pt(deg, R - 46);
-      arm.setAttribute("x2", e[0]); arm.setAttribute("y2", e[1]);
-      arc.setAttribute("d", "M" + CX + " " + CY + "L" + s[0] + " " + s[1] + "A" + (R - 46) + " " + (R - 46) + " 0 0 1 " + m[0] + " " + m[1] + "Z");
-      read.textContent = Math.round(deg) + "°";
-    }
-    if (still) set(TO);
-    else {
-      set(FROM);
-      setTimeout(function () {
-        var t0 = performance.now(), dur = 2200;
-        (function step(t) {
-          var p = Math.min(1, (t - t0) / dur), ease = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-          set(FROM + (TO - FROM) * ease);
-          if (p < 1) requestAnimationFrame(step);
-        })(t0);
-      }, 500);
-    }
+  /* next free appointment on the home page: the next working morning */
+  var nf = $("next-free");
+  if (nf) {
+    var d = new Date(); d.setDate(d.getDate() + 1);
+    var label = "Tomorrow";
+    if (d.getDay() === 0) { d.setDate(d.getDate() + 1); label = "Monday"; }
+    nf.textContent = label + ", " + (d.getDay() === 6 ? "8:30am" : "7:15am");
   }
 
   /* ACC check: two questions, one plain answer */
