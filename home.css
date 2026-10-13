@@ -90,3 +90,5 @@
 .wet-reflect{margin-top:1px;aspect-ratio:640/230;overflow:hidden;pointer-events:none}
 .wet-reflect img{display:block;transform:scaleY(-1);opacity:.6;
   -webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 60%);mask-image:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 60%)}
+/* the reflection wobbles a little, like water */
+@media(prefers-reduced-motion:no-preference){.wet-reflect img{filter:url(#ripple)}}
