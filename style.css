@@ -250,8 +250,8 @@ button.btn{font-family:var(--menu)}
 .work-track li{position:relative;flex:0 0 132px;scroll-snap-align:start;scroll-margin-left:10px}
 .work-track li:hover{z-index:1}
 .work-track a{display:block;text-decoration:none}
-.work-track img{display:block;width:132px;height:132px;object-fit:cover;border:1px solid #999;background:#fff;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s cubic-bezier(.2,.8,.2,1)}
-.work-track img.tilting{transition:transform .08s linear,box-shadow .08s linear}
+.work-track img{display:block;width:132px;height:132px;object-fit:cover;border:1px solid #999;background:#fff;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.work-track img.tilting{transition:transform .08s linear}
 .work-track a:hover img{border-color:var(--orange);outline:1px solid var(--orange)}
 .work-track b{display:block;margin-top:5px;font-size:12px;color:var(--link);text-decoration:underline}
 .work-track span{display:block;font-size:11px;color:var(--text3)}
