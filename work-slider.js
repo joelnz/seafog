@@ -24,26 +24,45 @@
   window.addEventListener("resize", sync);
   sync();
 
-  /* hover tilt: the thumbnail turns left or right like a flat card,
-     following the mouse across it */
+  /* hover tilt: each thumbnail is a springy flap that turns left or right.
+     Hovering leans it toward the mouse; a fast sweep across the row kicks
+     each one by the mouse speed, and neighbours pull on each other, so the
+     row ripples and wobbles back to flat. */
   if (!window.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(hover: hover)").matches) return;
-  var MAX = 50;
-  function tilt(img, px) {
-    img.style.transform = "perspective(320px) rotateY(" + (px * MAX).toFixed(1) + "deg)";
+  var imgs = [].slice.call(track.querySelectorAll("img"));
+  var ang = imgs.map(function () { return 0; }), vel = ang.slice(), aim = ang.slice();
+  var LEAN = 22, KICK = 0.9, SPRING = 0.05, PULL = 0.035, DAMP = 0.9, LIMIT = 70;
+  var running = false, lastX = null, lastT = 0;
+  function frame() {
+    var moving = false;
+    for (var i = 0; i < imgs.length; i++) {
+      var l = i ? ang[i - 1] : ang[i], r = i < imgs.length - 1 ? ang[i + 1] : ang[i];
+      vel[i] += (aim[i] - ang[i]) * SPRING + (l + r - 2 * ang[i]) * PULL;
+      vel[i] *= DAMP;
+      ang[i] = Math.max(-LIMIT, Math.min(LIMIT, ang[i] + vel[i]));
+      if (Math.abs(vel[i]) > 0.02 || Math.abs(ang[i] - aim[i]) > 0.05) moving = true;
+      imgs[i].style.transform = "perspective(320px) rotateY(" + ang[i].toFixed(2) + "deg)";
+    }
+    running = moving;
+    if (moving) requestAnimationFrame(frame);
   }
+  function go() { if (!running) { running = true; requestAnimationFrame(frame); } }
   track.addEventListener("pointermove", function (e) {
     if (e.pointerType !== "mouse") return;
-    var a = e.target.closest("a"), img = a && a.querySelector("img");
-    if (!img) return;
+    var now = performance.now(), dx = lastX === null || now - lastT > 80 ? 0 : e.clientX - lastX;
+    lastX = e.clientX; lastT = now;
+    var a = e.target.closest("a"), i = a ? imgs.indexOf(a.querySelector("img")) : -1;
+    if (i < 0) return;
     var r = a.getBoundingClientRect();
-    img.classList.add("tilting");
-    tilt(img, (e.clientX - r.left) / r.width - 0.5);
+    aim[i] = ((e.clientX - r.left) / r.width - 0.5) * LEAN * 2;
+    vel[i] += Math.max(-12, Math.min(12, dx * KICK));
+    go();
   });
   track.addEventListener("pointerout", function (e) {
     var a = e.target.closest("a");
     if (!a || a.contains(e.relatedTarget)) return;
-    var img = a.querySelector("img");
-    img.classList.remove("tilting");
-    img.style.transform = "";
+    var i = imgs.indexOf(a.querySelector("img"));
+    if (i >= 0) { aim[i] = 0; go(); }
   });
+  track.addEventListener("pointerleave", function () { lastX = null; });
 })();
