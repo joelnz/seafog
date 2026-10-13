@@ -114,3 +114,25 @@
     if (order.length) place(order);
   });
 })();
+
+/* the reflection ripples harder while the mouse moves across it,
+   then settles back to its usual gentle wobble */
+(function () {
+  "use strict";
+  var water = document.querySelector(".wet-reflect"), map = document.getElementById("ripple-map");
+  if (!water || !map || !window.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var REST = 16, MAXED = 60, level = REST, stir = 0, lastX = null, lastY = null, running = false;
+  function frame() {
+    level += (REST + stir - level) * 0.2;
+    stir *= 0.97;
+    map.setAttribute("scale", level.toFixed(1));
+    running = stir > 0.2 || Math.abs(level - REST) > 0.2;
+    if (running) requestAnimationFrame(frame); else map.setAttribute("scale", REST);
+  }
+  water.addEventListener("pointermove", function (e) {
+    if (lastX !== null) stir = Math.min(MAXED - REST, stir + Math.hypot(e.clientX - lastX, e.clientY - lastY) * 1.6);
+    lastX = e.clientX; lastY = e.clientY;
+    if (!running) { running = true; requestAnimationFrame(frame); }
+  });
+  water.addEventListener("pointerleave", function () { lastX = lastY = null; });
+})();
