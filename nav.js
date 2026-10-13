@@ -114,3 +114,8 @@
     })
     .catch(function () {});
 })();
+
+/* no dragging images out of the page, anywhere on the site */
+document.addEventListener("dragstart", function (e) {
+  if (e.target.closest && e.target.closest("img, a")) e.preventDefault();
+});
