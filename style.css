@@ -246,9 +246,11 @@ button.btn{font-family:var(--menu)}
 .work-btn:disabled{color:#aaa;cursor:default}
 .work-track{display:flex;gap:12px;margin:-12px -10px 0;padding:12px 10px 4px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
 .work-track::-webkit-scrollbar{display:none}
-.work-track{--fl:0px;--fr:0px;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 var(--fl),#000 calc(100% - var(--fr)),transparent 100%)}
-.work-track.more-l{--fl:56px}
-.work-track.more-r{--fr:80px}
+.work-track{--sl:0px;--fl:0px;--sr:0px;--fr:0px;
+  -webkit-mask-image:linear-gradient(to right,transparent var(--sl),#000 calc(var(--sl) + var(--fl)),#000 calc(100% - var(--sr) - var(--fr)),transparent calc(100% - var(--sr)));
+  mask-image:linear-gradient(to right,transparent var(--sl),#000 calc(var(--sl) + var(--fl)),#000 calc(100% - var(--sr) - var(--fr)),transparent calc(100% - var(--sr)))}
+.work-track.more-l{--sl:10px;--fl:50px}
+.work-track.more-r{--sr:10px;--fr:70px}
 .work-track:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .work-track li{position:relative;flex:0 0 132px;scroll-snap-align:start;scroll-margin-left:10px}
 .work-track li:hover{z-index:1}
