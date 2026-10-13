@@ -31,7 +31,7 @@
   if (!window.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(hover: hover)").matches) return;
   var imgs = [].slice.call(track.querySelectorAll("img"));
   var ang = imgs.map(function () { return 0; }), vel = ang.slice(), aim = ang.slice();
-  var LEAN = 22, KICK = 0.9, SPRING = 0.05, PULL = 0.035, DAMP = 0.9, LIMIT = 70;
+  var LEAN = 14, KICK = 0.3, SPRING = 0.05, PULL = 0.02, DAMP = 0.86, LIMIT = 22;
   var running = false, lastX = null, lastT = 0;
   function frame() {
     var moving = false;
@@ -55,7 +55,7 @@
     if (i < 0) return;
     var r = a.getBoundingClientRect();
     aim[i] = ((e.clientX - r.left) / r.width - 0.5) * LEAN * 2;
-    vel[i] += Math.max(-12, Math.min(12, dx * KICK));
+    vel[i] += Math.max(-4, Math.min(4, dx * KICK));
     go();
   });
   track.addEventListener("pointerout", function (e) {
