@@ -27,9 +27,9 @@
   /* hover tilt: the thumbnail turns left or right like a flat card,
      following the mouse across it */
   if (!window.matchMedia || matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(hover: hover)").matches) return;
-  var MAX = 24;
+  var MAX = 50;
   function tilt(img, px) {
-    img.style.transform = "perspective(500px) rotateY(" + (px * MAX).toFixed(1) + "deg)";
+    img.style.transform = "perspective(320px) rotateY(" + (px * MAX).toFixed(1) + "deg)";
   }
   track.addEventListener("pointermove", function (e) {
     if (e.pointerType !== "mouse") return;
