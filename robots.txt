@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 # Keep the sidebar photo of me out of Google Images and other search results
 Disallow: /img/me.jpg
+# The example sites are concepts. Their pages carry noindex; this keeps their photos out of image search too
+Disallow: /examples/*/img/
 
 Sitemap: https://seafog.nz/sitemap.xml
