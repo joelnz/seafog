@@ -272,3 +272,14 @@ button.btn{font-family:var(--menu)}
 /* images and links can't be dragged off the page */
 img,a{-webkit-user-drag:none}
 img{user-select:none}
+
+/* corner ribbon (SEO page): the free site check */
+.ribbon{position:fixed;top:0;right:0;width:150px;height:150px;overflow:hidden;z-index:50;pointer-events:none}
+.ribbon a{position:absolute;top:34px;right:-46px;width:210px;padding:7px 0;transform:rotate(45deg);
+  pointer-events:auto;text-align:center;font:bold 13px/1.2 var(--menu);letter-spacing:.02em;color:#fff;text-decoration:none;
+  background:linear-gradient(var(--orange),var(--orange-d));border-top:1px solid #ffb35c;border-bottom:1px solid #a34f00;
+  box-shadow:0 2px 6px rgba(0,0,0,.35);text-shadow:0 -1px 0 rgba(0,0,0,.25)}
+.ribbon a:hover{background:linear-gradient(#ff9d3d,var(--orange));color:#fff}
+.ribbon a span{display:block;font-size:11px;font-weight:normal}
+@media (max-width:600px){.ribbon{width:112px;height:112px}.ribbon a{top:24px;right:-52px;width:190px;padding:5px 0;font-size:11px}.ribbon a span{font-size:10px}}
+@media print{.ribbon{display:none}}
