@@ -123,6 +123,7 @@
             <option>A rebuild of an existing site</option>
             <option>SEO: I'm not being found</option>
             <option>Ongoing support &amp; security</option>
+            <option value="A quick look at my current site">A quick look at my current site (free)</option>
             <option>Something else</option>
           </select></div>
         <div class="f"><label for="city">Where are you?</label>
@@ -133,6 +134,13 @@
           </select></div>
         <div class="f"><label for="msg">Anything else worth knowing?</label>
           <textarea id="msg" name="message"></textarea></div>
+        <script>
+        /* ?need=check (from the SEO pages) preselects the free site check */
+        if (location.search.indexOf('need=check') > -1) {
+          document.getElementById('need').value = 'A quick look at my current site';
+          document.getElementById('msg').placeholder = 'Your website address, and anything you\'re worried about';
+        }
+        </script>
         <div class="f"><button class="btn" type="submit">Send enquiry</button></div>
         <p class="body" style="font-size:14px;margin-top:16px">What you type here is emailed
           straight to me through Web3Forms, which processes it and keeps nothing. It is not
