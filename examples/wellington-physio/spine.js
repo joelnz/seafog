@@ -1,7 +1,7 @@
 /* Brougham Physio (concept): the home page skeleton. A real anatomical model
    (BodyParts3D) in navy haze; the camera starts on the ribs and drifts round to
    the lower back, and a pulse of tape pink runs down the spine, lighting each disc
-   as it passes. Leans toward the mouse; scrolling turns it a full circle. A single
+   as it passes. Leans toward the mouse; scrolling turns it part way round. A single
    still frame for reduced motion; the hero works without it if loading fails. */
 import * as THREE from "./vendor/three.module.min.js";
 import { GLTFLoader, MeshoptDecoder } from "./vendor/gltf.min.js";
@@ -15,6 +15,7 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true,
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
+renderer.localClippingEnabled = true;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(NAVY, 0.019);
@@ -130,7 +131,7 @@ function frame(now) {
     mx += (tx - mx) * 0.04; my += (ty - my) * 0.04;
     const fit = Math.sqrt(Math.max(1, 0.9 / camera.aspect));
     const scroll = clamp01(window.scrollY / hero.clientHeight);
-    /* scrolling through the hero turns the skeleton a full circle, eased so it glides */
+    /* scrolling through the hero turns the skeleton about a quarter, eased so it glides */
     spinScroll += (clamp01(window.scrollY / (hero.clientHeight * 0.75)) - spinScroll) * 0.08;
 
     /* the drift: from the ribs, front on, round to the lower back over about eight seconds */
@@ -139,7 +140,7 @@ function frame(now) {
     rig.target.lerpVectors(ribs, close, d);
     rig.target.y -= scroll * 0.6;
     rig.dist = lerp(17, 15, d) * fit * (1 - scroll * 0.2) * (1 + Math.sin(t * 0.3) * 0.015 * d);
-    rig.az = lerp(0.45, Math.PI + 0.7, d) + sway + spinScroll * Math.PI * 2 + mx * 0.3;
+    rig.az = lerp(0.45, Math.PI + 0.7, d) + sway + spinScroll * Math.PI * 0.55 + mx * 0.3;
     rig.el = lerp(0.1, 0.16, d) + my * 0.08;
 
     camera.position.set(
@@ -214,11 +215,15 @@ loader.load("model/skeleton.glb", (gltf) => {
     else o.material = bone;
     box.expandByObject(o);
   });
+  /* no skull or jaw: the merged bones are clipped at the fourth neck vertebra
+     (the vertebrae are separate meshes, so the whole neck stays) */
+  const neck = vertebrae[3].center.y;
+  bone.clippingPlanes = [new THREE.Plane(new THREE.Vector3(0, -1, 0), neck)];
   scene.add(gltf.scene);
 
   /* framing: the rib cage (T4 to T10), then the lumbar spine (L1 to L5) */
   ribs = new THREE.Vector3();
-  for (let i = 10; i < 17; i++) ribs.add(vertebrae[i].center);
+  for (let i = 12; i < 19; i++) ribs.add(vertebrae[i].center);
   ribs.divideScalar(7).add(tmp.set(0, 0, 0.6));
   close = new THREE.Vector3();
   for (let i = 19; i < 24; i++) close.add(vertebrae[i].center);
