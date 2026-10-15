@@ -15,7 +15,6 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true,
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
-renderer.localClippingEnabled = true;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(NAVY, 0.019);
@@ -139,9 +138,9 @@ function frame(now) {
     const sway = still ? 0 : Math.sin(t * 0.16) * 0.28 * d;
     rig.target.lerpVectors(ribs, close, d);
     rig.target.y -= scroll * 0.6;
-    rig.dist = lerp(17, 15, d) * fit * (1 - scroll * 0.2) * (1 + Math.sin(t * 0.3) * 0.015 * d);
+    rig.dist = lerp(11, 12, d) * fit * (1 - scroll * 0.2) * (1 + Math.sin(t * 0.3) * 0.015 * d);
     rig.az = lerp(0.45, Math.PI + 0.7, d) + sway + spinScroll * Math.PI * 0.55 + mx * 0.3;
-    rig.el = lerp(0.1, 0.16, d) + my * 0.08;
+    rig.el = lerp(0.1, 0.16, d) + my * 0.05;
 
     camera.position.set(
       rig.target.x + Math.sin(rig.az) * Math.cos(rig.el) * rig.dist,
@@ -215,15 +214,12 @@ loader.load("model/skeleton.glb", (gltf) => {
     else o.material = bone;
     box.expandByObject(o);
   });
-  /* no skull or jaw: the merged bones are clipped at the fourth neck vertebra
-     (the vertebrae are separate meshes, so the whole neck stays) */
-  const neck = vertebrae[3].center.y;
-  bone.clippingPlanes = [new THREE.Plane(new THREE.Vector3(0, -1, 0), neck)];
   scene.add(gltf.scene);
 
-  /* framing: the rib cage (T4 to T10), then the lumbar spine (L1 to L5) */
+  /* framing: the lower ribs (T8 to L2), then the lumbar spine (L1 to L5), close enough
+     that the head stays out of shot */
   ribs = new THREE.Vector3();
-  for (let i = 12; i < 19; i++) ribs.add(vertebrae[i].center);
+  for (let i = 14; i < 21; i++) ribs.add(vertebrae[i].center);
   ribs.divideScalar(7).add(tmp.set(0, 0, 0.6));
   close = new THREE.Vector3();
   for (let i = 19; i < 24; i++) close.add(vertebrae[i].center);
