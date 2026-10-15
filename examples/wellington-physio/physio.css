@@ -61,7 +61,8 @@ section{padding:clamp(52px,7vw,90px) 0}
 
 /* home hero: navy, with the 3D spine turning behind the words */
 .hero3d{position:relative;overflow:hidden;min-height:min(860px,calc(100svh - 104px));display:flex;align-items:center;
-  background:radial-gradient(ellipse 60% 70% at 72% 50%,#323a64 0%,#232947 45%,#1a1f35 100%);color:#fff}
+  background:radial-gradient(ellipse 34% 48% at 70% 52%,rgba(229,69,123,.2) 0%,rgba(229,69,123,.07) 45%,rgba(229,69,123,0) 75%),
+    radial-gradient(ellipse 60% 70% at 72% 50%,#353c6c 0%,#252b4a 45%,#1a1f35 100%);color:#fff}
 .hero3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 2s ease}
 .hero3d.has-3d canvas{opacity:1}
 .hero3d .credit{position:absolute;right:12px;bottom:8px;z-index:1;margin:0;font-size:11px;color:#7d84a3}
@@ -79,7 +80,9 @@ section{padding:clamp(52px,7vw,90px) 0}
 .next-line b{font-size:20px;letter-spacing:-.01em}
 .next-line:hover b{color:var(--tape)}
 @media(max-width:900px){
-  .hero3d{align-items:flex-end;min-height:calc(100svh - 104px)}
+  .hero3d{align-items:flex-end;min-height:calc(100svh - 104px);
+    background:radial-gradient(ellipse 70% 40% at 50% 30%,rgba(229,69,123,.2) 0%,rgba(229,69,123,0) 75%),
+      radial-gradient(ellipse 90% 60% at 50% 30%,#353c6c 0%,#252b4a 50%,#1a1f35 100%)}
   .hero3d.has-3d canvas{opacity:.6}
   /* keep the words readable over the bones */
   .hero3d::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(26,31,53,.94) 0%,rgba(26,31,53,.75) 42%,rgba(26,31,53,0) 72%);pointer-events:none}

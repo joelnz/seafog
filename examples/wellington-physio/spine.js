@@ -1,7 +1,7 @@
 /* Brougham Physio (concept): the home page skeleton. A real anatomical model
-   (BodyParts3D) stands in navy haze; the camera drifts in from the whole body to
+   (BodyParts3D) in navy haze; the camera starts on the ribs and drifts round to
    the lower back, and a pulse of tape pink runs down the spine, lighting each disc
-   as it passes. Leans toward the mouse, closes in a little as you scroll. A single
+   as it passes. Leans toward the mouse; scrolling turns it a full circle. A single
    still frame for reduced motion; the hero works without it if loading fails. */
 import * as THREE from "./vendor/three.module.min.js";
 import { GLTFLoader, MeshoptDecoder } from "./vendor/gltf.min.js";
@@ -54,7 +54,7 @@ function withRim(mat, color, strength) {
 const bone = withRim(new THREE.MeshStandardMaterial({ color: 0xe9e2d3, roughness: 0.62 }), 0x8f9bff, 0.55);
 const cartilage = withRim(new THREE.MeshStandardMaterial({ color: 0xcfc2d6, roughness: 0.5 }), 0x8f9bff, 0.4);
 
-/* soft round textures for the halo and the dust */
+/* a soft round texture for the dust */
 function glowTexture(stops) {
   const c = document.createElement("canvas");
   c.width = c.height = 128;
@@ -67,16 +67,6 @@ function glowTexture(stops) {
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
 }
-function halo(stops, scale, opacity) {
-  const s = new THREE.Sprite(new THREE.SpriteMaterial({
-    map: glowTexture(stops), transparent: true, opacity, depthWrite: false, fog: false, blending: THREE.AdditiveBlending
-  }));
-  s.scale.setScalar(scale);
-  scene.add(s);
-  return s;
-}
-const haloPink = halo([[0, "rgba(229,69,123,0.75)"], [0.3, "rgba(229,69,123,0.3)"], [0.6, "rgba(229,69,123,0.08)"], [0.85, "rgba(229,69,123,0.015)"], [1, "rgba(229,69,123,0)"]], 16, 0.4);
-const haloBlue = halo([[0, "rgba(125,140,255,0.55)"], [0.4, "rgba(125,140,255,0.14)"], [0.75, "rgba(125,140,255,0.03)"], [1, "rgba(125,140,255,0)"]], 34, 0.3);
 
 /* dust drifting up through the light */
 const DUST = 900;
@@ -97,7 +87,8 @@ scene.add(dust);
 
 /* camera rig: from the whole body, front three-quarter, round to the lower back */
 const rig = { target: new THREE.Vector3(), dist: 1, az: 0, el: 0 };
-let wide = new THREE.Vector3(), close = new THREE.Vector3();
+let ribs = new THREE.Vector3(), close = new THREE.Vector3();
+let spinScroll = 0;
 const vertebrae = [], discs = [];
 
 function size() {
@@ -128,7 +119,7 @@ const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const lerp = THREE.MathUtils.lerp;
 const pink = new THREE.Color(TAPE), dark = new THREE.Color(0x000000);
-const camDir = new THREE.Vector3(), tmp = new THREE.Vector3();
+const tmp = new THREE.Vector3();
 let start = 0;
 
 function frame(now) {
@@ -139,15 +130,17 @@ function frame(now) {
     mx += (tx - mx) * 0.04; my += (ty - my) * 0.04;
     const fit = Math.sqrt(Math.max(1, 0.9 / camera.aspect));
     const scroll = clamp01(window.scrollY / hero.clientHeight);
+    /* scrolling through the hero turns the skeleton a full circle, eased so it glides */
+    spinScroll += (clamp01(window.scrollY / (hero.clientHeight * 0.75)) - spinScroll) * 0.08;
 
-    /* the drift in: about eight seconds, then a slow sway around the lower back */
+    /* the drift: from the ribs, front on, round to the lower back over about eight seconds */
     const d = ease(clamp01((t - 0.6) / 8));
     const sway = still ? 0 : Math.sin(t * 0.16) * 0.28 * d;
-    rig.target.lerpVectors(wide, close, d);
+    rig.target.lerpVectors(ribs, close, d);
     rig.target.y -= scroll * 0.6;
-    rig.dist = lerp(40, 15, d) * fit * (1 - scroll * 0.2) * (1 + Math.sin(t * 0.3) * 0.015 * d);
-    rig.az = lerp(0.55, Math.PI + 0.7, d) + sway + mx * 0.3;
-    rig.el = lerp(0.04, 0.16, d) + my * 0.08;
+    rig.dist = lerp(17, 15, d) * fit * (1 - scroll * 0.2) * (1 + Math.sin(t * 0.3) * 0.015 * d);
+    rig.az = lerp(0.45, Math.PI + 0.7, d) + sway + spinScroll * Math.PI * 2 + mx * 0.3;
+    rig.el = lerp(0.1, 0.16, d) + my * 0.08;
 
     camera.position.set(
       rig.target.x + Math.sin(rig.az) * Math.cos(rig.el) * rig.dist,
@@ -162,12 +155,6 @@ function frame(now) {
       const [sd, up, back] = l.rig;
       l.position.copy(rig.target).addScaledVector(right, sd * 10).addScaledVector(camera.up, up * 10).addScaledVector(fwd, back * 10);
     });
-
-    /* the haloes sit just behind whatever the camera is looking at */
-    camDir.subVectors(rig.target, camera.position).normalize();
-    haloPink.position.copy(rig.target).addScaledVector(camDir, 5);
-    haloBlue.position.copy(rig.target).addScaledVector(camDir, 9).y += 1.5;
-    haloPink.scale.setScalar(lerp(26, 13, d));
 
     /* the pulse: every few seconds, neck to tailbone */
     const period = 4.2, n = vertebrae.length;
@@ -229,8 +216,10 @@ loader.load("model/skeleton.glb", (gltf) => {
   });
   scene.add(gltf.scene);
 
-  /* framing: the whole body, then the lumbar spine (L1 to L5) */
-  wide = box.getCenter(new THREE.Vector3());
+  /* framing: the rib cage (T4 to T10), then the lumbar spine (L1 to L5) */
+  ribs = new THREE.Vector3();
+  for (let i = 10; i < 17; i++) ribs.add(vertebrae[i].center);
+  ribs.divideScalar(7).add(tmp.set(0, 0, 0.6));
   close = new THREE.Vector3();
   for (let i = 19; i < 24; i++) close.add(vertebrae[i].center);
   close.divideScalar(5).add(tmp.set(0, 0.6, 0));
