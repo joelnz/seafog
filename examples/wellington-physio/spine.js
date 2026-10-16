@@ -1,10 +1,13 @@
 /* Brougham Physio (concept): the home page skeleton. A real anatomical model
-   (BodyParts3D) in navy haze; the camera starts on the ribs and drifts round to
-   the lower back, and a pulse of tape pink runs down the spine, lighting each disc
-   as it passes. Leans toward the mouse; scrolling turns it part way round. A single
+   (BodyParts3D) in navy haze, framed on the ribs and held still; a pulse of tape
+   pink runs down the spine, lighting each disc
+   as it passes. Depth of field keeps the nearest bones sharp and lets the far side
+   soften. Leans toward the mouse; scrolling turns it part way round. A single
    still frame for reduced motion; the hero works without it if loading fails. */
 import * as THREE from "./vendor/three.module.min.js";
 import { GLTFLoader, MeshoptDecoder } from "./vendor/gltf.min.js";
+/* three's post-processing, bundled; the bokeh shader is patched to keep alpha so the CSS backdrop shows */
+import { EffectComposer, RenderPass, BokehPass, OutputPass } from "./vendor/post.min.js";
 
 const hero = document.querySelector(".hero3d");
 const canvas = document.getElementById("spine");
@@ -19,6 +22,14 @@ renderer.toneMappingExposure = 1.05;
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(NAVY, 0.019);
 const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 200);
+
+/* the composer draws off screen, which loses the browser's edge smoothing; a multisampled
+   target puts it back so edges don't crawl as the camera moves */
+const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 }));
+composer.addPass(new RenderPass(scene, camera));
+const bokeh = new BokehPass(scene, camera, { focus: 11, aperture: 0.0035, maxblur: 0.006 });
+composer.addPass(bokeh);
+composer.addPass(new OutputPass());
 
 scene.add(new THREE.HemisphereLight(0x9aa6ff, 0x141829, 0.55));
 /* the lights travel with the camera, so the look holds from every angle:
@@ -87,13 +98,16 @@ scene.add(dust);
 
 /* camera rig: from the whole body, front three-quarter, round to the lower back */
 const rig = { target: new THREE.Vector3(), dist: 1, az: 0, el: 0 };
-let ribs = new THREE.Vector3(), close = new THREE.Vector3();
+let ribs = new THREE.Vector3();
 let spinScroll = 0;
 const vertebrae = [], discs = [];
 
 function size() {
   const w = hero.clientWidth, h = hero.clientHeight;
   renderer.setSize(w, h, false);
+  /* the blur hides fine detail, so the post-processed frame can run a little under full Retina */
+  composer.setPixelRatio(Math.min(1.25, window.devicePixelRatio || 1));
+  composer.setSize(w, h);
   camera.aspect = w / h;
   /* on wide screens the skeleton stands to the right of the words */
   if (w > 900) camera.setViewOffset(w, h, -w * 0.25, 0, w, h);
@@ -115,9 +129,7 @@ hero.addEventListener("pointerleave", () => { tx = ty = 0; });
 let visible = true;
 new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(hero);
 
-const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
-const lerp = THREE.MathUtils.lerp;
 const pink = new THREE.Color(TAPE), dark = new THREE.Color(0x000000);
 const tmp = new THREE.Vector3();
 let start = 0;
@@ -133,14 +145,12 @@ function frame(now) {
     /* scrolling through the hero turns the skeleton about a quarter, eased so it glides */
     spinScroll += (clamp01(window.scrollY / (hero.clientHeight * 0.75)) - spinScroll) * 0.08;
 
-    /* the drift: from the ribs, front on, round to the lower back over about eight seconds */
-    const d = ease(clamp01((t - 0.6) / 8));
-    const sway = still ? 0 : Math.sin(t * 0.16) * 0.28 * d;
-    rig.target.lerpVectors(ribs, close, d);
+    /* it holds still on the ribs: only the cursor leans it, and scrolling turns it */
+    rig.target.copy(ribs);
     rig.target.y -= scroll * 0.6;
-    rig.dist = lerp(11, 12, d) * fit * (1 - scroll * 0.2) * (1 + Math.sin(t * 0.3) * 0.015 * d);
-    rig.az = lerp(0.45, Math.PI + 0.7, d) + sway + spinScroll * Math.PI * 0.55 + mx * 0.3;
-    rig.el = lerp(0.1, 0.16, d) + my * 0.05;
+    rig.dist = 11 * fit * (1 - scroll * 0.15);
+    rig.az = 0.45 + spinScroll * Math.PI * 0.55 + mx * 0.18;
+    rig.el = 0.1 + my * 0.04;
 
     camera.position.set(
       rig.target.x + Math.sin(rig.az) * Math.cos(rig.el) * rig.dist,
@@ -172,7 +182,7 @@ function frame(now) {
     });
     if (lw > 0.05) {
       pulseLight.position.set(lx / lw, ly / lw, lz / lw - 0.7);
-      pulseLight.intensity = Math.min(1, lw) * 9 * (0.35 + 0.65 * d);
+      pulseLight.intensity = Math.min(1, lw) * 9;
     } else pulseLight.intensity = 0;
 
     /* dust rises slowly and wraps */
@@ -186,7 +196,9 @@ function frame(now) {
       dustGeo.attributes.position.needsUpdate = true;
     }
 
-    renderer.render(scene, camera);
+    /* focus sits just in front of the spine, on the bones nearest the camera */
+    bokeh.uniforms.focus.value = rig.dist - 0.8;
+    composer.render();
   }
   if (!still) requestAnimationFrame(frame);
 }
@@ -216,14 +228,10 @@ loader.load("model/skeleton.glb", (gltf) => {
   });
   scene.add(gltf.scene);
 
-  /* framing: the lower ribs (T8 to L2), then the lumbar spine (L1 to L5), close enough
-     that the head stays out of shot */
+  /* framing: the lower ribs (T8 to L2), close enough that the head stays out of shot */
   ribs = new THREE.Vector3();
   for (let i = 14; i < 21; i++) ribs.add(vertebrae[i].center);
   ribs.divideScalar(7).add(tmp.set(0, 0, 0.6));
-  close = new THREE.Vector3();
-  for (let i = 19; i < 24; i++) close.add(vertebrae[i].center);
-  close.divideScalar(5).add(tmp.set(0, 0.6, 0));
 
   hero.classList.add("has-3d");
   requestAnimationFrame(frame);
