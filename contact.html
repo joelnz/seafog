@@ -18,7 +18,7 @@
 <meta property="og:description" content="A fixed price and a start date, not a discovery call.">
 <meta property="og:url" content="https://seafog.nz/contact.html">
 <meta property="og:image" content="https://seafog.nz/img/banner-contact-1400.jpg">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -43,6 +43,7 @@
   <span id="today"></span>
   <span>Fixed prices, published up front | Wellington, New Zealand</span>
 </div>
+<p class="alert"><b>Security alert</b> A critical PHP flaw affects WordPress and other PHP websites. <a href="php-vulnerability.html">Check if your site is affected &raquo;</a></p>
 
 <div class="cols">
 
@@ -120,6 +121,7 @@
           <input id="email" name="email" type="email" autocomplete="email" required></div>
         <div class="f"><label for="need">What are you after?</label>
           <select id="need" name="need">
+            <option value="Urgent: PHP / WordPress security patch">Urgent: PHP or WordPress security patch</option>
             <option>A new Squarespace website</option>
             <option>A rebuild of an existing site</option>
             <option>SEO: I'm not being found</option>
@@ -137,6 +139,10 @@
           <textarea id="msg" name="message"></textarea></div>
         <script>
         /* ?need=check (from the SEO pages) preselects the free site check */
+        if (location.search.indexOf('need=php') > -1) {
+          document.getElementById('need').value = 'Urgent: PHP / WordPress security patch';
+          document.getElementById('msg').placeholder = 'Your website address, and who hosts it if you know';
+        }
         if (location.search.indexOf('need=check') > -1) {
           document.getElementById('need').value = 'A quick look at my current site';
           document.getElementById('msg').placeholder = 'Your website address, and anything you\'re worried about';

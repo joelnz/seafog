@@ -283,3 +283,8 @@ img{user-select:none}
 .ribbon a span{display:block;font-size:11px;font-weight:normal}
 @media (max-width:600px){.ribbon{width:112px;height:112px}.ribbon a{top:24px;right:-52px;width:190px;padding:5px 0;font-size:11px}.ribbon a span{font-size:10px}}
 @media print{.ribbon{display:none}}
+
+/* sitewide security alert under the date bar */
+.alert{margin:0;padding:7px 20px;background:#fff4c2;border-bottom:1px solid #e3c84a;color:#3d3200;font-size:14px;line-height:1.45}
+.alert b{display:inline-block;margin-right:8px;padding:1px 6px;background:#c62828;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.alert a{color:#7a3d00;font-weight:bold}
