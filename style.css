@@ -288,3 +288,12 @@ img{user-select:none}
 .alert{margin:0;padding:7px 20px;background:#fff4c2;border-bottom:1px solid #e3c84a;color:#3d3200;font-size:14px;line-height:1.45}
 .alert b{display:inline-block;margin-right:8px;padding:1px 6px;background:#c62828;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
 .alert a{color:#7a3d00;font-weight:bold}
+
+/* "In the news" source cards (text only, no third-party images) */
+.news{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.news a{display:flex;flex-direction:column;gap:6px;height:100%;box-sizing:border-box;padding:12px 14px;background:#fff;border:1px solid var(--line);border-top:3px solid #336699;text-decoration:none;color:inherit}
+.news a:hover{border-top-color:var(--orange)}
+.news a:hover b{text-decoration:underline}
+.news .src{font-size:12px;font-weight:bold;letter-spacing:.04em;text-transform:uppercase;color:#336699}
+.news b{font-size:15px;line-height:1.35;color:#1a1a1a}
+.news .meta{margin-top:auto;font-size:12px;color:#666}
