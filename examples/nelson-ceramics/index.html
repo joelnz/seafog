@@ -124,7 +124,20 @@ button{font:inherit;color:inherit}
   .notes{grid-template-columns:minmax(0,1fr)}
   .side{padding:0 18px 40px}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* add-to-bag feedback: the button ticks, a notice appears, the row says what's in the bag */
+.row .add.added{background:var(--glaze);border-color:var(--glaze);color:#fff}
+.row .inbag{display:inline-block;margin-top:5px;padding:2px 8px;border-radius:999px;background:var(--glaze);color:#fff;font-size:12px}
+.row .inbag:empty{display:none}
+.bag-btn.bump b{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.45)}100%{transform:scale(1)}}
+.toast{position:fixed;top:16px;right:16px;z-index:40;display:flex;align-items:center;gap:12px;width:min(340px,calc(100% - 32px));padding:12px;background:var(--slip);border:1px solid var(--line);box-shadow:0 12px 30px -12px rgba(29,29,27,.35);transform:translateY(-140%);opacity:0;transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.toast.on{transform:none;opacity:1}
+.toast img{width:44px;height:56px;object-fit:cover;background:var(--clay);flex:none}
+.toast div{min-width:0;flex:1;font-size:13.5px;line-height:1.35}
+.toast b{display:block;color:var(--glaze)}
+.toast button{flex:none;border:0;padding:9px 12px;background:var(--ink);color:var(--plaster);font:inherit;font-size:13px;cursor:pointer}
+.toast button:hover{background:var(--glaze)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.bag-btn.bump b{animation:none}}
 </style>
 </head>
 <body>
@@ -166,6 +179,7 @@ button{font:inherit;color:inherit}
   </div>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"><img id="toast-img" src="" alt="" width="44" height="56"><div><b>Added to bag</b><span id="toast-name"></span></div><button type="button" id="toast-view">View bag</button></div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="bag-h" aria-hidden="true">
   <header><h2 id="bag-h">Bag</h2><button type="button" class="close" id="close-bag">Close</button></header>
@@ -236,7 +250,8 @@ button{font:inherit;color:inherit}
       var k = P.indexOf(x) + 1, left = x.s - (bag[x.id] || 0);
       return '<li class="row" data-id="' + x.id + '" tabindex="-1"><span class="n">' + pad(k) + '</span>' +
         '<img class="th" src="img/' + x.i + '.jpg" alt="" width="900" height="1100" loading="lazy">' +
-        "<div><h3>" + x.n + '</h3><span class="d">' + x.d + (x.tag ? "<em>" + x.tag + "</em>" : "") + "</span></div>" +
+        "<div><h3>" + x.n + '</h3><span class="d">' + x.d + (x.tag ? "<em>" + x.tag + "</em>" : "") + "</span>" +
+        '<span class="inbag" data-id="' + x.id + '">' + (bag[x.id] ? bag[x.id] + " in bag" : "") + "</span></div>" +
         '<span class="p">' + money(x.p) + "</span>" +
         '<button type="button" class="add" data-id="' + x.id + '" aria-label="Add ' + x.n + ' to bag"' + (left <= 0 ? " disabled" : "") + ">+</button></li>";
     }).join("");
@@ -254,8 +269,19 @@ button{font:inherit;color:inherit}
   function add(id) {
     var x = find(id), q = bag[id] || 0; if (q >= x.s) return;
     bag[id] = q + 1; render();
-    var b = $("open-bag"); b.classList.add("bump"); setTimeout(function () { b.classList.remove("bump"); }, 700);
+    var b = $("open-bag"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); setTimeout(function () { b.classList.remove("bump"); }, 700);
+    /* the + turns into a tick for a moment */
+    [].forEach.call(document.querySelectorAll('.row .add[data-id="' + id + '"]'), function (btn) {
+      btn.classList.add("added"); btn.textContent = "\u2713";
+      clearTimeout(btn._t); btn._t = setTimeout(function () { btn.classList.remove("added"); btn.textContent = "+"; }, 1200);
+    });
+    /* and a notice says what went in, with a way straight to the bag */
+    $("toast-img").src = "img/" + x.i + ".jpg";
+    $("toast-name").textContent = x.n + (bag[id] > 1 ? " (" + bag[id] + " in bag)" : "");
+    var t = $("toast"); t.classList.add("on");
+    clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove("on"); }, 3500);
   }
+  $("toast-view").addEventListener("click", function () { $("toast").classList.remove("on"); openBag(); });
   function openBag() { last = document.activeElement; drawer.classList.add("on"); scrim.classList.add("on"); drawer.setAttribute("aria-hidden", "false"); $("page").inert = true; $("close-bag").focus(); }
   function closeBag() { drawer.classList.remove("on"); scrim.classList.remove("on"); drawer.setAttribute("aria-hidden", "true"); $("page").inert = false; $("note").classList.remove("on"); if (last) last.focus(); }
   $("open-bag").addEventListener("click", openBag);
@@ -288,6 +314,7 @@ button{font:inherit;color:inherit}
     $("ship").innerHTML = (!n ? "Free shipping over " + money(FREE) + "." : left > 0 ? money(left) + " more for free shipping." : "Free shipping on this order.") +
       '<div class="bar"><i style="width:' + Math.min(100, Math.round(sub / FREE * 100)) + '%"></i></div>';
     [].forEach.call(document.querySelectorAll(".row .add"), function (b) { var x = find(+b.dataset.id); b.disabled = (bag[x.id] || 0) >= x.s; });
+    [].forEach.call(document.querySelectorAll(".row .inbag"), function (el) { var q = bag[+el.dataset.id]; el.textContent = q ? q + " in bag" : ""; });
   }
   drawIndex(); render();
 })();
